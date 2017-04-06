@@ -1,0 +1,12 @@
+{
+    "db":{
+        "username":"root",
+        "password":"password",
+        "port":"3306",
+        "host":"db"
+    },
+    "redis":{
+        "host":"",
+        "port":""
+    }
+}
