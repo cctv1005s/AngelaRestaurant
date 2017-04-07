@@ -1,0 +1,41 @@
+
+  db:
+    image: mariadb:10.1
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "AngelaRestanrant"
+    volumes:
+      - ./db:/var/lib/mysql
+    expose:
+      - "3306"
+    ports:
+      - "6700:3306"
+    hostname: "db"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8087:80"
+    environment:
+      PMA_HOST: "db"
+    links:
+      - "db"
+  
+  redis:
+    image: redis
+    expose:
+      - "6379"
+    volumes:
+      - ./redis:/data
+
+  # restaurant:
+  #   image: node
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - "./src:/home"
+  #   restart: "always"
+  #   links: 
+  #     - "db"
+  #     - "redis"
+  #   command: "node /home/bin/www"

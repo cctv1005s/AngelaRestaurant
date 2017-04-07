@@ -1,7 +1,36 @@
 var user_model = require('../proxy/user');
+var uuidV1 = require('uuid/v1');
 
-exports.get = function*(next){
-    this.session.num = this.session.num||0;
-    this.session.num ++;
-    this.body = this.session.num;
+//登陆
+exports.signin = function*(next){
+    var {Account,Password} = this.request.body;
+    var user = yield user_model.findByAccount(Account);
+    var user = user[0];
+    var _Password = user.Password;
+    if(Password === _Password)
+        this.body = {success:true};
+    else
+        this.body = {success:false};
+}
+
+exports.signout = function*(next){
+    this.session = null;
+    this.body = {success:true};
+}
+
+exports.signup = function*(next){
+    var {Account,Password} = this.request.body;
+    var user = yield user_model.findByAccount(Account);
+    
+    if(user.length != 0){
+        return this.body = {success:false};
+    }
+
+    var info = yield user_model.add({
+        ID:uuidV1(),
+        Account:Account,
+        Password:Password,
+        AccessToken:uuidV1()
+    });
+    this.body = {success:true,data:info};
 }
