@@ -8,9 +8,9 @@ exports.signin = function*(next){
     var user = user[0];
     var _Password = user.Password;
     if(Password === _Password)
-        this.body = {success:true};
-    else
-        this.body = {success:false};
+      return  this.body = {success:true};
+    
+    this.body = {success:false};
 }
 
 exports.signout = function*(next){
@@ -22,9 +22,8 @@ exports.signup = function*(next){
     var {Account,Password} = this.request.body;
     var user = yield user_model.findByAccount(Account);
     
-    if(user.length != 0){
+    if(user.length != 0)
         return this.body = {success:false};
-    }
 
     var info = yield user_model.add({
         ID:uuidV1(),

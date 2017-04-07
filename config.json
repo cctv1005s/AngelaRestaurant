@@ -2,8 +2,9 @@
     "db":{
         "username":"root",
         "password":"password",
-        "port":"3306",
-        "host":"db"
+        "port":"6700",
+        "host":"localhost",
+        "database":"angela"
     },
     "redis":{
         "host":"",

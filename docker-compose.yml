@@ -3,7 +3,7 @@
     image: mariadb:10.1
     environment:
       MYSQL_ROOT_PASSWORD: "password"
-      MYSQL_DATABASE: "AngelaRestanrant"
+      MYSQL_DATABASE: "angela"
     volumes:
       - ./db:/var/lib/mysql
     expose:
