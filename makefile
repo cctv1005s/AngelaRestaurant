@@ -1,8 +1,8 @@
 build:
-	sudo docker-compose up -d && pm2 /src/bin/www
+	sudo docker-compose up -d && npm install && npm install supervisor -g
 
 dev:
-	sudo docker-compose up -d && supervisor /src/bin/www
+	supervisor ./bin/www
 
 stop:
 	sudo docker-compose stop 
