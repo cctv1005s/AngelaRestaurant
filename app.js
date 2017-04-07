@@ -23,7 +23,7 @@ app.keys = ['restaurant'];
 app.use(session({
   store:{
     host:'localhost',
-    port:6379,
+    port:6380,
     ttl:3600
   }
 }));
