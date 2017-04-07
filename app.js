@@ -10,7 +10,7 @@ require('./models');
 var web_router = require('./web_router.js');
 var api_router = require('./api_router.js');
 
-// error handler
+// error handler-
 onerror(app);
 
 // global middlewares
