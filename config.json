@@ -7,7 +7,9 @@
         "database":"angela"
     },
     "redis":{
-        "host":"",
-        "port":""
-    }
+        "host":"localhost",
+        "port":"6380",
+        "ttl":"3600"
+    },
+    "title":"安其拉餐厅"
 }
