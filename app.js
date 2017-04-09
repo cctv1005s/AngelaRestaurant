@@ -1,9 +1,10 @@
 var app = require('koa')()
   , logger = require('koa-logger')
   , json = require('koa-json')
-  , views = require('koa-views')
+  , Pug = require('koa-pug')
   , onerror = require('koa-onerror')
-  , session = require('koa-session-redis');
+  , session = require('koa-session-redis')
+  , Loader = require('loader');
 
 require('./models');
 
@@ -14,10 +15,14 @@ var api_router = require('./api_router.js');
 onerror(app);
 
 // global middlewares
-app.use(views('views', {
-  root: __dirname + '/views',
-  default: 'ejs'
-}));
+var pug = new Pug({
+  viewPath:"./views",
+  debug:true,
+  helperPath:[
+    {Loader:Loader}
+  ],
+  app:app
+});
 
 app.keys = ['restaurant'];
 app.use(session({
