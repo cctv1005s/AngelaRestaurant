@@ -1,0 +1,18 @@
+extends ../layout
+block content
+    -var header = {title:"安其拉餐厅-预定",left:"<i class='am-icon-arrow-left'></i>"}
+    include ../model/nav
+    style body{background:#2a2941;}
+    .input-box
+        .input
+            .input-title 用餐人数
+            input(type="text")
+        .input
+            .input-title 用餐时间
+            input(type="text")
+        .input
+            .input-title 联系人数
+            input(type="text")
+    
+    .check
+    

@@ -10,4 +10,6 @@ router.get('/signin',site.index);//登陆界面
 
 router.get('/user',user.index);//用户首页
 
+router.get('/reserve',user.reserve);//预定
+
 exports = module.exports =router;
