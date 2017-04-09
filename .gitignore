@@ -34,3 +34,5 @@ bower_components/
 
 # DataBase
 /db/*
+
+/redis/*
