@@ -1,5 +1,5 @@
 exports.index = function * (next){
-    this.render('index',{title:"title"});
+    this.render('index',{sitename:"登陆"});
 }
 
 

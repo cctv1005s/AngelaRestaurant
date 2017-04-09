@@ -4,7 +4,8 @@ var app = require('koa')()
   , Pug = require('koa-pug')
   , onerror = require('koa-onerror')
   , session = require('koa-session-redis')
-  , Loader = require('loader');
+  , Loader = require('loader')
+  , config = require('./config.json');
 
 require('./models');
 
@@ -24,12 +25,16 @@ var pug = new Pug({
   app:app
 });
 
+pug.locals = Object.assign(pug.locals, {
+  title: config.title,
+});
+
 app.keys = ['restaurant'];
 app.use(session({
   store:{
-    host:'localhost',
-    port:6380,
-    ttl:3600
+    host:config.redis.host,
+    port:config.redis.port,
+    ttl:config.redis.ttl
   }
 }));
 
