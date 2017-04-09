@@ -1,8 +1,8 @@
 exports.index = function * (next){
-    this.render('index',{title:"你好呀"});
+    this.render('index',{title:"title"});
 }
 
 
 exports.signout = exports.signup = exports.signin = function *(next){
-    this.body = "asdasd";
+    this.render('index',{title:"你好呀"});
 }
