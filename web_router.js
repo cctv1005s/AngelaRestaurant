@@ -1,12 +1,15 @@
 var router = require('koa-router')();
 var site = require('./routes/site');
+var user = require('./routes/user');
 
 /**
  * 静态界面地址
  */
-router.get('/',site.index);
-router.get('/signin',site.signin);
-router.get('/signup',site.signup);
-router.get('/signout',site.signout);
+router.get('/',site.index);//首页
+router.get('/signin',site.index);//登陆界面
+
+router.get('/user',user.index);//用户首页
+
+router.get('/reserve',user.reserve);//预定
 
 exports = module.exports =router;

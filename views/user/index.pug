@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+    -var header = {title:"客户界面",left:"<i class='am-icon-bars left-menu'></i>"}
+    include ../model/nav
+    style .select{
+        |    height: 150px;
+        |    width: 150px;
+        |    border-radius: 100%;
+        |    background: orange;
+        |    color: white;
+        |    margin: 0 auto;
+        |    text-align: center;
+        |    line-height: 150px;
+        |    font-size: 30px;
+        |    display:block;
+        |}
+    style .select-wrapper{margin:20px 0;text-align:center}
+    .select-wrapper
+        a(href="/reserve").select 预定
+        .select-info 预定餐位
+    .select-wrapper
+        a(href="/order" style="background:green").select 点单
+        .select-info 现场点单
+
+block script
+    script
