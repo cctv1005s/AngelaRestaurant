@@ -1,0 +1,81 @@
+body{
+    background: #2a2941;
+    width: 100%;
+}
+
+.left{float: left;}
+.right{float: right;}
+
+.logo{
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.logo > img{
+    max-width: 300px;
+    width: 100%;
+}
+
+.input-box{
+    margin-top: 30px;
+}
+
+.input-item{
+    padding: 10px 20px;
+    position: relative;
+}
+
+.input-item > span{
+    width: 30px;
+    height: 30px;
+    display: block;
+    background-size: cover !important;
+    float: left;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-item > input{
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 0 30px;
+    height: 40px;
+}
+.input-item > input:focus{
+    border-bottom: 1px solid rgb(191,190,198);
+}
+
+.check #check-btn{
+    background: rgb(255,237,91);    
+    width: 70%;
+    height: 40px;
+    border: none;
+    margin: 0 auto;
+    display: block;
+    margin-top: 30px;
+
+}
+
+
+.check-info{
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+.check-info .left a{
+    color: rgb(191,190,198);
+}
+
+.check-info .right a{
+    color: rgb(255,237,91);    
+}

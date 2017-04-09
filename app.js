@@ -5,7 +5,8 @@ var app = require('koa')()
   , onerror = require('koa-onerror')
   , session = require('koa-session-redis')
   , Loader = require('loader')
-  , config = require('./config.json');
+  , config = require('./config.json')
+  , load = require('pug-load');
 
 require('./models');
 
@@ -19,6 +20,7 @@ onerror(app);
 var pug = new Pug({
   viewPath:"./views",
   debug:true,
+  noCache:true,
   helperPath:[
     {Loader:Loader}
   ],
@@ -27,6 +29,7 @@ var pug = new Pug({
 
 pug.locals = Object.assign(pug.locals, {
   title: config.title,
+  sitename:""
 });
 
 app.keys = ['restaurant'];
