@@ -12,4 +12,6 @@ router.get('/user',user.index);//用户首页
 
 router.get('/reserve',user.reserve);//预定
 
+router.get('/tokenid',user.tokenid);//显示用户的tokenid
+
 exports = module.exports =router;
