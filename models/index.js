@@ -1,24 +1,21 @@
 var wrapper = require('co-mysql')
     ,mysql = require('mysql')
     ,fs = require('fs')
-    ,path = require('path');
+    ,path = require('path')
+    ,config = require('../config.json');
+
+var config = config.db;
+
 var options = {
-    'host':'localhost',
-    'port':'6700',
-    'user':'root',
-    'password':'password',
-    'database':'angela'
+    'host':config.host,
+    'port':config.port,
+    'user':config.user,
+    'password':config.password,
+    'database':config.database
 };
 
 
 var pool = mysql.createPool(options);
 var p = wrapper(pool);
-
-var buffer = fs.readFileSync(path.join(__dirname,'./user.sql'));
-var sql = buffer.toString();
-
-p.query(sql).catch(function(e){
-    
-});
 
 exports = module.exports = p;

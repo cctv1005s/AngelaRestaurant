@@ -1,5 +1,6 @@
 var router = require('koa-router')();
 var user = require('./api/user');
+
 router.prefix('/api/v1');
 
 router.use(function*(next){
@@ -14,4 +15,8 @@ router.post('/signin',user.signin);//登陆
 router.post('/signout',user.signout);//登出
 router.post('/signup',user.signup);//注册
 
+/**
+ * user部分
+ */
+router.get('/user/:id',user.get);
 module.exports = router;

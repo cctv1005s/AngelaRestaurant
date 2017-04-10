@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "chai": "^3.5.0",
     "co": "^4.6.0",
     "co-mysql": "^1.0.0",
     "debug": "^2.6.3",
