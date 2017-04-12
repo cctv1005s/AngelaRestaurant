@@ -19,3 +19,17 @@ exports.findByAccount = function*(Account){
     `;
     return yield mysql.query(query);
 }
+
+/**
+ * 根据用户的ID查找用户
+ * 
+ * @param {string} id -用户的id
+ * @return {array} -用户的信息
+ */
+exports.findByID = function*(id){
+    var query =`
+        SELECT * FROM user WHERE 
+        ID = '${id}'
+    `;
+    return yield mysql.query(query);
+}

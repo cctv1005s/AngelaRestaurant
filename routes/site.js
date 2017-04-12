@@ -1,8 +1,8 @@
 exports.index = function * (next){
-    yield this.render('index',{title:'hello'});
+    this.render('index',{sitename:"登陆"});
 }
 
 
 exports.signout = exports.signup = exports.signin = function *(next){
-    yield this.render('index',{title:'hello'});
+    this.render('index',{title:"你好呀"});
 }
