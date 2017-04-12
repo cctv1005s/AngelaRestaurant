@@ -34,7 +34,10 @@
     bottom: 0;
 }
 
-.menu-item{overflow: hidden;}
+.menu-item{
+    overflow: hidden;
+    position: relative;
+}
 .item-img{
     float: left;
     width: 30%;
@@ -137,4 +140,39 @@
     text-align: center;
     line-height: 15px;
     font-weight: bold;
+}
+
+.item-op{
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+}
+
+.item-op > div{
+    float: left;
+    margin-left: 10px;
+}
+
+.op-inc{
+    height: 20px;
+    width: 20px;
+    background: yellow;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+.item-count{
+    color: red;  
+}
+
+.op-dec{
+    height: 20px;
+    width: 20px;
+    background:#eee;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 15px;
 }

@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import Dish from './Dish.js';
+import Ordered from './Ordered.js';
 
 //模拟数据BEGIN
 var _classname = '热销,凉菜,热菜,排骨,汤,炸鸡,烤鸭,牛蛙';
@@ -25,6 +26,7 @@ for(var i = 0;i < 100;i++){
     var t = Object.assign({},_onedish);
     t.ClassID = parseInt(Math.random() * ClassName.length);
     t.Name = t.Name + t.ClassID;
+    t.ID = i;
     _Dish.push(t);
 }
 //模拟数据END
@@ -36,8 +38,17 @@ export default class Menu extends Component{
         this.state = {
             Dish:_Dish,
             ClassName:ClassName,
-            Active:0
+            Active:0,
+            OrderDish:new Ordered()
         };
+    }
+
+    onInc(DishID){
+        this.state.OrderDish.sub(DishID);
+    }
+
+    onDec(DishID){
+        this.state.OrderDish.add(DishID);
     }
 
     render(){
@@ -45,7 +56,6 @@ export default class Menu extends Component{
         var Active = self.state.Active;
         var ActiveClass = this.state.ClassName[Active];
         var ActiveClassID = ActiveClass.ID;
-        console.log(ActiveClassID);
         return (
             <div className="menu">
                 <div className="menu-left">
@@ -75,7 +85,11 @@ export default class Menu extends Component{
                                 if(ele.ClassID != ActiveClassID)
                                     return ;
                                 return (
-                                    <Dish Dish={ele}/>
+                                    <Dish 
+                                     Dish={ele}
+                                     Inc={self.onInc.bind(self)}
+                                     Dec={self.onDec.bind(self)} 
+                                    />
                                 );
                             })
                         }

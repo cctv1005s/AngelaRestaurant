@@ -17,7 +17,9 @@ export default class Dish extends Component{
                     <div className="item-price">￥{Sales}</div>
                 </div>
                 <div className="item-op">
-                    
+                    <div className="op-dec op">-</div>
+                    <div className="item-count">1</div>
+                    <div className="op-inc op">+</div>
                 </div>
                 <div className="item-hr"></div>
             </div>
