@@ -1,30 +1,43 @@
 var app = require('koa')()
   , logger = require('koa-logger')
   , json = require('koa-json')
-  , views = require('koa-views')
+  , Pug = require('koa-pug')
   , onerror = require('koa-onerror')
-  , session = require('koa-session-redis');
+  , session = require('koa-session-redis')
+  , Loader = require('loader')
+  , config = require('./config.json')
+  , load = require('pug-load');
 
 require('./models');
 
 var web_router = require('./web_router.js');
 var api_router = require('./api_router.js');
 
-// error handler
+// error handler-
 onerror(app);
 
 // global middlewares
-app.use(views('views', {
-  root: __dirname + '/views',
-  default: 'ejs'
-}));
+var pug = new Pug({
+  viewPath:"./views",
+  debug:true,
+  noCache:true,
+  helperPath:[
+    {Loader:Loader}
+  ],
+  app:app
+});
+
+pug.locals = Object.assign(pug.locals, {
+  title: config.title,
+  sitename:""
+});
 
 app.keys = ['restaurant'];
 app.use(session({
   store:{
-    host:'localhost',
-    port:6380,
-    ttl:3600
+    host:config.redis.host,
+    port:config.redis.port,
+    ttl:config.redis.ttl
   }
 }));
 

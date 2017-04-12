@@ -1,0 +1,21 @@
+extends ../layout
+block content
+    - var header = {title:"现场点单",left:"<i class='am-icon-arrow-left'></i>"}
+    include ../model/nav
+    .tokenid-wrapper
+        .tokenid-title TOEKNID
+        .tokenid WJSXSDASD
+        .tokenid-info 请将这个ID告诉服务员以确认
+    
+block script
+    script
+        | $('.header-left').click(function(e){
+        |       history.go(-1);
+        |   })
+
+block css
+    style
+        |.tokenid-wrapper{margin-top:20px;padding:0 20px;width:100%;}
+        |.tokenid-title{}
+        |.tokenid{width: 90%;margin: 0 auto;text-align: center;font-size: 30px;border-bottom: 1px solid black;}
+        |.tokenid-info{width:100%;text-align:center;margin-top:30px;}

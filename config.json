@@ -1,13 +1,15 @@
 {
     "db":{
-        "username":"root",
+        "user":"root",
         "password":"password",
         "port":"6700",
-        "host":"localhost",
+        "host":"www.jyonline.cc",
         "database":"angela"
     },
     "redis":{
-        "host":"",
-        "port":""
-    }
+        "host":"localhost",
+        "port":"6380",
+        "ttl":"3600"
+    },
+    "title":"安其拉餐厅"
 }
