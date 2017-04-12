@@ -3,7 +3,7 @@
         "username":"root",
         "password":"password",
         "port":"6700",
-        "host":"localhost",
+        "host":"www.jyonline.cc",
         "database":"angela"
     },
     "redis":{
