@@ -1,0 +1,23 @@
+extends layout.pug
+
+block css
+  link(href="/css/index.css" rel="stylesheet" type="text/css")
+block content
+  .logo
+    img(src="/img/logo.png")
+  
+  .input-box
+    .input-item
+      span(style="background:url(/img/icon/sign-account.png)")
+      input#account(type="text" name="account" maxlength="13"  autofocus="autofocus")
+    .input-item
+      span(style="background:url(/img/icon/sign-password.png)" maxlength="10")
+      input#password(type="password" name="password")
+
+  .check
+    button#check-btn 登陆
+    .check-info
+      span.left 
+        a(href="/foget") 忘记密码？
+      span.right 
+        a(href="/signup") 注册
