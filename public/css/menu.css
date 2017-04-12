@@ -1,0 +1,140 @@
+.menu-left{
+    float: left;
+    width: 25%;
+    text-align: center;
+    background: #eee;
+}
+
+.menu-left > .active{
+    background: white;
+    border-left: 5px solid yellow;
+}
+
+.menu-type{
+    height: 50px;
+    line-height: 50px;
+}
+
+.menu-right{
+    float: right;
+    width: 75%;
+}
+
+.menu-title{
+    background: #eee;
+    height: 20px;
+    font-size: 12px;
+}
+
+.menu-list{
+    overflow: auto;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+}
+
+.menu-item{overflow: hidden;}
+.item-img{
+    float: left;
+    width: 30%;
+}
+
+.item-img > img{
+    width: 100%;
+}
+
+.item-info{
+    float: right;
+    width: 70%;
+    padding-left: 10px;
+}
+
+.item-description{
+    font-size: 12px;
+    line-height: 12px;
+}
+.item-description > p{
+    margin: 0;
+}
+
+.item-price{
+    font-size: 12px;
+    color: red;
+}
+
+.item-hr{
+    border-bottom: 1px solid #ddd;
+    width: 90%;
+    float: left;
+}
+
+.footer{    
+    height: 50px;
+    width: 100%;
+}
+
+.footer-all-price{
+    float: left;
+    width: 70%;
+    height: 100%;
+    line-height: 50px;
+    border-top: 1px solid grey;
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
+
+.footer-comfirm{
+    float: right;
+    width: 30%;
+    text-align: center;
+    line-height: 50px;
+    background: yellow;
+}
+
+.footer-comfirm > button{
+    height: 60px;
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+
+.footer-cart{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: yellow;
+    left: 20px;
+    position: absolute;
+    top: -50%;
+}
+
+.shopping-cart{
+    background: url(/img/icon/shopcart.png) no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.badge{
+    background: rgb(245,67,67);
+    display: block;
+    font-size: 15px;
+    min-width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    position: absolute;
+    right: 0;
+    color: white;
+    text-align: center;
+    line-height: 15px;
+    font-weight: bold;
+}
