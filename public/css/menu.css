@@ -13,8 +13,21 @@
 .menu-type{
     height: 50px;
     line-height: 50px;
+    position: relative;
 }
 
+.menu-type-count{
+    height: 20px;
+    min-width: 20px;
+    color: white;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    background: rgb(245,67,67);
+    line-height: 20px;
+    border-radius: 100%;
+    font-size: 13px;
+}
 .menu-right{
     float: right;
     width: 75%;
@@ -145,7 +158,7 @@
 .item-op{
     position: absolute;
     right: 10px;
-    bottom: 0;
+    bottom: 5px;
 }
 
 .item-op > div{
@@ -165,6 +178,8 @@
 
 .item-count{
     color: red;  
+    height: 20px;
+    line-height: 20px;
 }
 
 .op-dec{
@@ -175,4 +190,40 @@
     text-align: center;
     line-height: 20px;
     font-size: 15px;
+}
+
+.dish-show-box{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.dish-box{
+    width: 70%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 20;
+}
+
+.dish-img > img{
+    width: 100%;
+}
+
+.dish-info{
+    padding: 20px;
+}
+
+.dish-title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }

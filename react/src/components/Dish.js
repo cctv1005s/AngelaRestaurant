@@ -1,11 +1,25 @@
 import React,{Component} from 'react';
 
 export default class Dish extends Component{
+    onInc(){
+        this.props.Ordered.add(this.props.Dish);
+        this.setState({});
+        this.props.onChange(this.props.Ordered);
+    }
+
+    onDec(){
+        this.props.Ordered.sub(this.props.Dish);
+        this.setState({});
+        this.props.onChange(this.props.Ordered);
+    }
+
     render(){
-        var {Img,Name,Description,Sales,Price} = this.props.Dish;
+        var {ID,Img,Name,Description,Sales,Price} = this.props.Dish;
+        var Ordered = this.props.Ordered;
+        var count = Ordered.find(ID).Count;
         return (
             <div className="menu-item">
-                <div className="item-img">
+                <div className="item-img" >
                     <img src={Img}/>
                 </div>
                 <div className="item-info">
@@ -14,12 +28,16 @@ export default class Dish extends Component{
                         <p>{Description}</p>
                         <p>月售：{Sales}</p>
                     </div>
-                    <div className="item-price">￥{Sales}</div>
+                    <div className="item-price">￥{Price}</div>
                 </div>
                 <div className="item-op">
-                    <div className="op-dec op">-</div>
-                    <div className="item-count">1</div>
-                    <div className="op-inc op">+</div>
+                    {
+                        count > 0 ?(<div className="op-dec op" onClick={this.onDec.bind(this)}>-</div>):(<i></i>)
+                    }
+                    {
+                        count > 0 ? (<div className="item-count">{count}</div>) : (<i></i>)
+                    }
+                    <div className="op-inc op" onClick={this.onInc.bind(this)}>+</div>
                 </div>
                 <div className="item-hr"></div>
             </div>
