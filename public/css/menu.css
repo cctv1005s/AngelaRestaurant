@@ -204,14 +204,12 @@
 
 .dish-box{
     width: 70%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    margin: 30% auto;
     background: white;
     border-radius: 10px;
     overflow: hidden;
     z-index: 20;
+    animation: bounceIn 1s;
 }
 
 .dish-img > img{
@@ -225,5 +223,9 @@
 .dish-title{
     font-size: 20px;
     font-weight: bold;
+    text-align: center;
+}
+
+.dish-decription{
     text-align: center;
 }

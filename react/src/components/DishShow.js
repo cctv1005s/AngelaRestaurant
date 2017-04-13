@@ -13,7 +13,7 @@ export default function({Dish,Active,onClick}){
                 <div className="dish-info">
                     <div className="dish-title">{Dish.Name}</div>
                     <div className="dish-decription">
-                        {Dish.Decription}
+                        {Dish.Description}
                     </div>
                 </div>
             </div>

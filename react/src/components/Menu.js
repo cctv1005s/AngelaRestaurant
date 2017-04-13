@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import Dish from './Dish.js';
 import Ordered from './Ordered.js';
 import MenuType from './MenuType.js';
+import DishShow from './DishShow.js';
 
 //模拟数据BEGIN
 var _classname = '热销,凉菜,热菜,排骨,汤,炸鸡,烤鸭,牛蛙';
@@ -40,7 +41,9 @@ export default class Menu extends Component{
             Dish:_Dish,//菜单名
             ClassName:ClassName,//类别名
             Active:0,//
-            Ordered:o//所有Dish持有一份订单表
+            Ordered:o,//所有Dish持有一份订单表
+            ActiveDish:{},
+            ActiveDishFlag:false
         };
     }
 
@@ -80,13 +83,26 @@ export default class Menu extends Component{
                                      Dish={ele}
                                      Ordered = {self.state.Ordered}
                                      onChange={function(a){self.props.onChange(a);self.setState({});}}
+                                     onShow={()=>{
+                                         self.setState({
+                                            ActiveDishFlag:true,
+                                            ActiveDish:ele 
+                                         });
+                                     }}
                                     />
                                 );
                             })
                         }
                     </div>
                 </div>
-
+                
+                <DishShow 
+                    Dish={this.state.ActiveDish}
+                    Active={this.state.ActiveDishFlag}
+                    onClick={()=>{this.setState({
+                        ActiveDishFlag:false
+                    })}}
+                />
             </div>
         );
     }

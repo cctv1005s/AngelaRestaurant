@@ -19,7 +19,7 @@ export default class Dish extends Component{
         var count = Ordered.find(ID).Count;
         return (
             <div className="menu-item">
-                <div className="item-img" >
+                <div className="item-img" onClick={this.props.onShow}>
                     <img src={Img}/>
                 </div>
                 <div className="item-info">
