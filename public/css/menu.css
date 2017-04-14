@@ -1,3 +1,6 @@
+.left{float: left;}
+.right{float: right;}
+
 .menu-left{
     float: left;
     width: 25%;
@@ -228,4 +231,54 @@
 
 .dish-decription{
     text-align: center;
+}
+
+.footer-show{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.footer-pane{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    min-height: 100px;
+    -webkit-animation: bounceInUp 1s;
+}
+
+.footer-info{
+    background: #eee;
+    font-size: 12px;
+    height: 20px;
+    padding: 0 10px;
+}
+.footer-item{
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+}
+
+
+.footer-op > div{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    border-radius: 100%;
+    line-height: 20px;
+}
+
+.footer-dec{
+    background: #eee;
+}
+
+.footer-count{
+    color: red;
+}
+
+.footer-inc{
+    background: yellow;
 }

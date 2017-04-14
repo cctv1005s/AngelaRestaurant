@@ -1,6 +1,17 @@
 import React,{Component} from 'react';
+import DishShow from './DishShow.js';
 
+/**
+ * 该组件用于显示菜单中的一道菜
+ */
 export default class Dish extends Component{
+    constructor(p){
+        super(p);
+        this.state = {
+            Active:false
+        };
+    }
+
     onInc(){
         this.props.Ordered.add(this.props.Dish);
         this.setState({});
@@ -19,7 +30,7 @@ export default class Dish extends Component{
         var count = Ordered.find(ID).Count;
         return (
             <div className="menu-item">
-                <div className="item-img" onClick={this.props.onShow}>
+                <div className="item-img" onClick={()=>{this.setState({Active:true})}}>
                     <img src={Img}/>
                 </div>
                 <div className="item-info">
@@ -40,6 +51,14 @@ export default class Dish extends Component{
                     <div className="op-inc op" onClick={this.onInc.bind(this)}>+</div>
                 </div>
                 <div className="item-hr"></div>
+
+                <DishShow 
+                    Dish={this.props.Dish}
+                    Active={this.state.Active}
+                    onClick={()=>{this.setState({
+                        Active:false
+                    })}}
+                />
             </div>
         );
     }
