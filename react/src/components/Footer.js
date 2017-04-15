@@ -5,7 +5,7 @@ export default class Footer extends Component{
     constructor(p){
         super(p);
         this.state = {
-            Active:true
+            Active:false
         };
     }
     render(){

@@ -1,5 +1,6 @@
 .left{float: left;}
 .right{float: right;}
+.hidden{display: none;}
 
 .menu-left{
     float: left;
@@ -247,7 +248,7 @@
     width: 100%;
     background: white;
     min-height: 100px;
-    -webkit-animation: bounceInUp 1s;
+    -webkit-animation: bounceInUp 0.5s;
 }
 
 .footer-info{
@@ -281,4 +282,19 @@
 
 .footer-inc{
     background: yellow;
+}
+
+#tips{
+    position: absolute;
+    right: 20px;
+    background: white;
+    width: 80px;
+    text-align: center;
+    height: 80px;
+    box-shadow: 5px 5px 10px grey;
+    top:50px;
+}
+.tips-item{
+    line-height: 40px;
+    height: 40px;
 }

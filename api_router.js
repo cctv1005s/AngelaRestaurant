@@ -19,4 +19,6 @@ router.post('/signup',user.signup);//注册
  * user部分
  */
 router.get('/user/:id',user.get);
+
+
 module.exports = router;
