@@ -3,6 +3,8 @@ var site = require('./routes/site');
 var user = require('./routes/user');
 var order = require('./routes/order');
 
+var chef = require('./routes/chef');
+
 /**
  * 静态界面地址
  */
@@ -16,5 +18,7 @@ router.get('/reserve',user.reserve);//预定
 router.get('/tokenid',user.tokenid);//显示用户的tokenid
 
 router.get('/order/menu',order.menu);//给用户的订单点单
+
+router.get('/chef',chef.index);
 
 exports = module.exports =router;
