@@ -1,0 +1,16 @@
+.manager-end > div{
+    float: left;
+}
+
+.manager-end-left{
+    width: 20%;
+        
+}
+
+.manager-end-center{
+    width: 30%;
+}
+
+.manager-end-right{
+    width: 50%;
+}

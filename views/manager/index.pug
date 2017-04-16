@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    - var header = {left:"<i class='am-icon-bars'></i>",title:"经理端"}
+    include ../model/nav
+    #app
+
+block script
+    script(src="/js/manager.js")
+
+block css
+    link(href="/css/manager.css" rel="stylesheet" type="text/css")
