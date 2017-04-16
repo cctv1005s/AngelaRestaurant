@@ -1,3 +1,3 @@
 exports.index = function*(next){
-    this.render('manager/index',{sitename:"厨师端"});
+    this.render('manager/index',{sitename:"经理端"});
 }
