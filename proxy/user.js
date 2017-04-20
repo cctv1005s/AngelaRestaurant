@@ -19,3 +19,11 @@ exports.findByAccount = function*(Account){
     `;
     return yield mysql.query(query);
 }
+
+exports.getInfoByUserID = function*(userID){
+    var query = `
+    SELECT * FRom user
+    WHERE Account = '${userID}'
+    `;
+    return yield mysql.query(query);
+}

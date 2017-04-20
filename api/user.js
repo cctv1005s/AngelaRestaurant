@@ -33,3 +33,15 @@ exports.signup = function*(next){
     });
     this.body = {success:true,data:info};
 }
+
+exports.getUserInfo = function*(next){
+    var userID = this.request.body;
+    var userInfo = yield user_model.getInfoByUserID(userID);
+
+    if(userInfo.length == 0)
+        return this.body = {success:false};
+    
+    this.body = {success:true,data:userInfo};
+
+
+}

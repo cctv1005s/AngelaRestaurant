@@ -3,7 +3,7 @@ var wrapper = require('co-mysql')
     ,fs = require('fs')
     ,path = require('path');
 var options = {
-    'host':'localhost',
+    'host':'www.jyonline.cc',
     'port':'6700',
     'user':'root',
     'password':'password',
@@ -13,12 +13,5 @@ var options = {
 
 var pool = mysql.createPool(options);
 var p = wrapper(pool);
-
-var buffer = fs.readFileSync(path.join(__dirname,'./user.sql'));
-var sql = buffer.toString();
-
-p.query(sql).catch(function(e){
-    
-});
 
 exports = module.exports = p;
