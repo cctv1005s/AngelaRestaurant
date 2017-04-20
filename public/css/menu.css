@@ -1,0 +1,300 @@
+.left{float: left;}
+.right{float: right;}
+.hidden{display: none;}
+
+.menu-left{
+    float: left;
+    width: 25%;
+    text-align: center;
+    background: #eee;
+}
+
+.menu-left > .active{
+    background: white;
+    border-left: 5px solid yellow;
+}
+
+.menu-type{
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+}
+
+.menu-type-count{
+    height: 20px;
+    min-width: 20px;
+    color: white;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    background: rgb(245,67,67);
+    line-height: 20px;
+    border-radius: 100%;
+    font-size: 13px;
+}
+.menu-right{
+    float: right;
+    width: 75%;
+}
+
+.menu-title{
+    background: #eee;
+    height: 20px;
+    font-size: 12px;
+}
+
+.menu-list{
+    overflow: auto;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+}
+
+.menu-item{
+    overflow: hidden;
+    position: relative;
+}
+.item-img{
+    float: left;
+    width: 30%;
+}
+
+.item-img > img{
+    width: 100%;
+}
+
+.item-info{
+    float: right;
+    width: 70%;
+    padding-left: 10px;
+}
+
+.item-description{
+    font-size: 12px;
+    line-height: 12px;
+}
+.item-description > p{
+    margin: 0;
+}
+
+.item-price{
+    font-size: 12px;
+    color: red;
+}
+
+.item-hr{
+    border-bottom: 1px solid #ddd;
+    width: 90%;
+    float: left;
+}
+
+.footer{    
+    height: 50px;
+    width: 100%;
+}
+
+.footer-all-price{
+    float: left;
+    width: 70%;
+    height: 100%;
+    line-height: 50px;
+    border-top: 1px solid grey;
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
+
+.footer-comfirm{
+    float: right;
+    width: 30%;
+    text-align: center;
+    line-height: 50px;
+    background: yellow;
+}
+
+.footer-comfirm > button{
+    height: 60px;
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+
+.footer-cart{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background: yellow;
+    left: 20px;
+    position: absolute;
+    top: -50%;
+}
+
+.shopping-cart{
+    background: url(/img/icon/shopcart.png) no-repeat;
+    background-size: cover;
+    height: 20px;
+    width: 20px;
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.badge{
+    background: rgb(245,67,67);
+    display: block;
+    font-size: 15px;
+    min-width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    position: absolute;
+    right: 0;
+    color: white;
+    text-align: center;
+    line-height: 15px;
+    font-weight: bold;
+}
+
+.item-op{
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+}
+
+.item-op > div{
+    float: left;
+    margin-left: 10px;
+}
+
+.op-inc{
+    height: 20px;
+    width: 20px;
+    background: yellow;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+.item-count{
+    color: red;  
+    height: 20px;
+    line-height: 20px;
+}
+
+.op-dec{
+    height: 20px;
+    width: 20px;
+    background:#eee;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+.dish-show-box{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.dish-box{
+    width: 70%;
+    margin: 30% auto;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 20;
+    animation: bounceIn 1s;
+}
+
+.dish-img > img{
+    width: 100%;
+}
+
+.dish-info{
+    padding: 20px;
+}
+
+.dish-title{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.dish-decription{
+    text-align: center;
+}
+
+.footer-show{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.footer-pane{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    min-height: 100px;
+    -webkit-animation: bounceInUp 0.5s;
+}
+
+.footer-info{
+    background: #eee;
+    font-size: 12px;
+    height: 20px;
+    padding: 0 10px;
+}
+.footer-item{
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+}
+
+
+.footer-op > div{
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    border-radius: 100%;
+    line-height: 20px;
+}
+
+.footer-dec{
+    background: #eee;
+}
+
+.footer-count{
+    color: red;
+}
+
+.footer-inc{
+    background: yellow;
+}
+
+#tips{
+    position: absolute;
+    right: 20px;
+    background: white;
+    width: 80px;
+    text-align: center;
+    height: 80px;
+    box-shadow: 5px 5px 10px grey;
+    top:50px;
+}
+.tips-item{
+    line-height: 40px;
+    height: 40px;
+}

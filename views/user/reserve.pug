@@ -1,18 +1,26 @@
 extends ../layout
+
+block css
+    link(href="/css/reserve.css" rel="stylesheet" type="text/css")
+
 block content
     -var header = {title:"安其拉餐厅-预定",left:"<i class='am-icon-arrow-left'></i>"}
     include ../model/nav
-    style body{background:#2a2941;}
     .input-box
         .input
             .input-title 用餐人数
-            input(type="text")
+            input(type="number")
         .input
             .input-title 用餐时间
             input(type="text")
         .input
-            .input-title 联系人数
-            input(type="text")
-    
+            .input-title 联系方式
+            input(type="number")
     .check
-    
+        button.check-btn 确定
+
+block script
+    script
+        |$('.header-left').click(function(e){
+        |    history.go(-1);
+        |});

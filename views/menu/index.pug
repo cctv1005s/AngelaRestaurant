@@ -1,0 +1,19 @@
+extends ../layout
+block content
+    - var header = {left:"<i class='am-icon-arrow-left'></i>",title:"安其拉餐厅-点单",right:"<i class='am-icon-bars'></i>"};
+    include ../model/nav
+    #app
+    #tips.hidden
+        .tips-item#call
+            i.am-icon-bell
+            span 催单
+        .tips-item#ordered
+            i.am-icon-book
+            span 已点
+
+block script
+    script(src="/js/menu.js")
+
+block css
+    link(href="/css/animate.css" rel="stylesheet" type="text/css")
+    link(href="/css/menu.css" rel="stylesheet" type="text/css")

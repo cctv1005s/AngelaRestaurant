@@ -34,6 +34,7 @@ exports.signup = function*(next){
     this.body = {success:true,data:info};
 }
 
+<<<<<<< HEAD
 exports.getUserInfo = function*(next){
     var userID = this.request.body;
     var userInfo = yield user_model.getInfoByUserID(userID);
@@ -44,4 +45,16 @@ exports.getUserInfo = function*(next){
     this.body = {success:true,data:userInfo};
 
 
+=======
+/**
+ * 根据用户的id来获取用户的信息，除了密码
+ */
+exports.get = function*(next){
+    var id = this.params.id;
+    var result = yield user_model.findByID(id);
+    var error = false;
+    if(error)
+        return this.body = {success:false,data:result};
+    this.body = {success:true,data:result};
+>>>>>>> 255d615f70288eca9743685cbdf4693374280f99
 }
