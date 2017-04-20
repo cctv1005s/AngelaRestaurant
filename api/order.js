@@ -1,3 +1,4 @@
+
 var order_model = require('../proxy/order');
 var uuidV1 = require('uuid/v1');
 
@@ -34,3 +35,4 @@ exports.reserve = function*(next){
     this.body = {success:true,data:reserveOrder};
 
 }
+
