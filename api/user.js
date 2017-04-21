@@ -58,3 +58,15 @@ exports.get = function*(next){
     this.body = {success:true,data:result};
 
 }
+
+/**
+ * 用户获取自己的基本信息，id由session获取
+ */
+exports.getOwnInfo = function*(next){
+    var id = '1';
+    var result = yield user_model.findByID(id);
+    if(result.length == 0)
+        return this.body = {success:false,data:result};
+    
+    this.body = {success:true,data:result};
+}

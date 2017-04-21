@@ -19,11 +19,14 @@ router.post('/signup',user.signup);//注册
 
 
 router.post('/order/reserve',order.reserve);//预定
+router.post('/order/:id/add',order.addDish);//增加要做的菜
 
 /**
  * user部分
  */
 router.get('/user/:id',user.get);
+
+router.get('/user',user.getOwnInfo);
 
 
 module.exports = router;

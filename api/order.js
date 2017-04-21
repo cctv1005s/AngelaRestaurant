@@ -3,8 +3,12 @@ var order_model = require('../proxy/order');
 var uuidV1 = require('uuid/v1');
 
 
+/**
+ * 用户填写订单信息，提交预订单
+ */
 exports.reserve = function*(next){
-    var {PeopleNum,Phone,OrderTime} = this.request.body;
+    var {PeopleNum,Phone,OrderTime}
+     = this.request.body;
 
     if(PeopleNum<1||PeopleNum>20)
       return this.body = {success:false,data:'预订人数范围为1-20人'};
@@ -35,4 +39,25 @@ exports.reserve = function*(next){
     this.body = {success:true,data:reserveOrder};
 
 }
+
+
+
+exports.addDish = function*(next){
+    var orderID = this.params.id;
+    var {cookingIDList} = this.request.body;
+    var waiterID = '3';
+
+    var auth = yield order_model.findWaiterByID(waiterID);
+ 
+    if(auth[0].Auth != 2)
+        this.body = {success:false,data:'权限不足'};
+
+    var chefIDlist = new Array();
+
+    console.log(cookingIDList);
+    for(var i=0;i<cookingIDList.length;i++){
+        console.log(cookingIDList[i]);
+    }
+}
+
 

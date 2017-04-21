@@ -2,7 +2,7 @@ var mysql = require('../models/index');
 /**
  * 添加用户
  * 
- * @param {objetc} user 新用户
+ * @param {object} user 新用户
  */
 exports.add = function*(user){
     var query = `
@@ -11,6 +11,8 @@ exports.add = function*(user){
     `;
     return yield mysql.query(query);
 }
+
+
 
 exports.findByAccount = function*(Account){
     var query = `
@@ -37,7 +39,7 @@ exports.getInfoByUserID = function*(userID){
  */
 exports.findByID = function*(id){
     var query =`
-        SELECT * FROM user WHERE 
+        SELECT * FROM Customer WHERE 
         ID = '${id}'
     `;
     return yield mysql.query(query);
