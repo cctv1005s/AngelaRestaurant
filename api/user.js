@@ -13,15 +13,17 @@ exports.signin = function*(next){
     this.body = {success:false};
 }
 
+//登出
 exports.signout = function*(next){
     this.session = null;
     this.body = {success:true};
 }
 
+//注册
 exports.signup = function*(next){
     var {Account,Password} = this.request.body;
     var user = yield user_model.findByAccount(Account);
-    
+
     if(user.length != 0)
         return this.body = {success:false};
 
@@ -35,16 +37,16 @@ exports.signup = function*(next){
 }
 
 
-exports.getUserInfo = function*(next){
-    var userID = this.request.body;
-    var userInfo = yield user_model.getInfoByUserID(userID);
+// exports.getUserInfo = function*(next){
+//     var userID = this.request.body;
+//     var userInfo = yield user_model.getInfoByUserID(userID);
 
-    if(userInfo.length == 0)
-        return this.body = {success:false};
+//     if(userInfo.length == 0)
+//         return this.body = {success:false};
     
-    this.body = {success:true,data:userInfo};
+//     this.body = {success:true,data:userInfo};
 
-}
+// }
 
 /**
  * 根据用户的id来获取用户的信息，除了密码
