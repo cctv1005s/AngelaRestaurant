@@ -3,51 +3,64 @@ import Dish from './Dish.js';
 import Ordered from './Ordered.js';
 import MenuType from './MenuType.js';
 
-//模拟数据BEGIN
-var _classname = '热销,凉菜,热菜,排骨,汤,炸鸡,烤鸭,牛蛙';
-var _onedish = {
-    Img:"/img/dish.png",
-    Name:"红烧牛肉面",
-    Description:"非常好吃的红烧牛肉面",
-    Sales:"180",
-    Price:"18"
-};
-
-var _Dish = [];
-var _classname = _classname.split(',');
-var ClassName = [];
-_classname.map(function(ele,i){
-    ClassName.push({
-        ID:i,
-        Name:ele
-    });
-});
-
-for(var i = 0;i < 100;i++){
-    var t = Object.assign({},_onedish);
-    t.ClassID = parseInt(Math.random() * ClassName.length);
-    t.Name = t.Name + t.ClassID;
-    t.ID = i;
-    _Dish.push(t);
-}
-//模拟数据END
-
 export default class Menu extends Component{
     constructor(p){
         super(p);
         var o = new Ordered();
         this.state = {
-            Dish:_Dish,//菜单名
-            ClassName:ClassName,//类别名
+            Dish:[],//菜单名
+            ClassName:[],//类别名
             Active:0,//
             Ordered:o//所有Dish持有一份订单表
         };
     }
 
+    componentDidMount(){
+        var self = this;
+        //获取所有的菜的类别
+        //获取所有的菜
+        $.get('/api/v1/menu/type')
+        .then(function(body){
+            if(!body.success)
+                throw new Error("获取菜品失败，请联系管理员");
+            var classnames = body.data;
+            for(var i in classnames)
+                classnames[i].Name = classnames[i].ClassName;
+            self.setState({ClassName:classnames});
+            return classnames;
+        })
+        .then(this.getDishs.bind(this))
+        .catch(function(e){
+            alert(e);
+        });
+    }
+
+    getDishs(classnames){
+        var self = this;
+        console.log(this);
+        classnames.map(function(ele,i){
+            $.get(`/api/v1/menu/type/${ele.ID}`)
+            .then(function(body){
+                if(!body.success)
+                    throw new Error(`获取第${ele.ID}菜品出现问题`);
+                var data = body.data;
+                for(var i in data)
+                    data[i].Img = (data[i].Imgs[0]||{}).ImgUrl;                
+
+                var Dish = self.state.Dish;
+                Dish = Dish.concat(data);
+                self.setState({Dish:Dish});
+            })
+            .catch(function(e){
+                alert(e);
+            });
+        });
+    }
+
     render(){
         var self = this;
         var Active = self.state.Active;
-        var ActiveClass = this.state.ClassName[Active];
+        var ActiveClass = this.state.ClassName[Active]||{};
         var ActiveClassID = ActiveClass.ID;
         return (
             <div className="menu">

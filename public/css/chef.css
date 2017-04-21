@@ -1,0 +1,70 @@
+body{background: #eee;overflow: hidden;}
+.app{overflow: hidden;}
+
+.chef-end > div{float: left;}
+.chef-end-wrapper{overflow: auto;}
+
+.chef-end-left{width: 50%;border-right: 1px dashed grey;}
+.chef-end-right{width:calc(50% - 1px); }
+
+.chef-end-title{
+    background: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 10px grey;
+}
+
+.chefdish{
+    background: white;
+    margin-bottom: 20px;
+    height: 150px;
+}
+
+.chefdish-img{
+    float: left;
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.chefdish-img > img{
+    width: 100%;
+    height: 150px;
+}
+
+.chefdish-info{
+    float: left;
+}
+
+.chefdish-op{
+    float: right;
+}
+
+.chefdish-title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.chefdish-op{
+    height: 150px;
+    padding: 20px;
+    position: relative;
+    float: right;
+}
+
+
+
+.chefdish-op > button:first-child{
+    width: 100%;
+    border: none;
+    background: red;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.chefdish-op > button:last-child{
+    width: 100%;
+    border: none;
+    background: green;
+    color: white;
+}
+
