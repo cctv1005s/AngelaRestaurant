@@ -20,7 +20,7 @@ exports.findByAccount = function*(Account){
     return yield mysql.query(query);
 }
 
-<<<<<<< HEAD
+
 exports.getInfoByUserID = function*(userID){
     var query = `
     SELECT * FRom user
@@ -28,7 +28,7 @@ exports.getInfoByUserID = function*(userID){
     `;
     return yield mysql.query(query);
 }
-=======
+
 /**
  * 根据用户的ID查找用户
  * 
@@ -42,4 +42,4 @@ exports.findByID = function*(id){
     `;
     return yield mysql.query(query);
 }
->>>>>>> 255d615f70288eca9743685cbdf4693374280f99
+
