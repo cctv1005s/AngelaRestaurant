@@ -1,4 +1,4 @@
-var mysql = require('../models/index');
+var mysql = require('../models/index')
 /**
  * 添加用户
  * 

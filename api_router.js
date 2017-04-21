@@ -1,5 +1,6 @@
 var router = require('koa-router')();
 var user = require('./api/user');
+var menu = require('./api/menu');
 
 var order = require('./api/order')
 
@@ -24,6 +25,13 @@ router.post('/order/reserve',order.reserve);//预定
  * user部分
  */
 router.get('/user/:id',user.get);
+
+
+/**
+ * 菜单部分
+ */
+router.get('/menu/type/:id',menu.oneType);
+router.get('/menu/type',menu.type);
 
 
 module.exports = router;

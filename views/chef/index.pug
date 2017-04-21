@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    - var header = {left:"<i class='am-icon-bars'></i>",title:"厨师端"}
+    include ../model/nav
+    #app
+
+block script
+    script(src="/js/chef.js")
+
+block css
+    link(href="/css/chef.css" rel="stylesheet" type="text/css")
