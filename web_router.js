@@ -25,4 +25,6 @@ router.get('/chef',chef.index);//厨师端界面
 
 router.get('/manager',manager.index);//经理端界面
 
+
+
 exports = module.exports =router;
