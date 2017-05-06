@@ -11,12 +11,8 @@ exports.setReserve = function*(preOrder){
      VALUES  ('${preOrder.OrderID}', '${preOrder.UserId}', '${preOrder.OrderTime}', 
      '${preOrder.Phone}',  ${preOrder.Type}, '${preOrder.Status}', '${preOrder.PeopleNum}')
     `;
-    console.log(query);
     return yield mysql.query(query);
 }
-
-
-
 /**
  * 通过用户id获取预订单信息
  * 

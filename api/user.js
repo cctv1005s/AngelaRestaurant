@@ -12,7 +12,7 @@ exports.signin = function* () {
     this.session.user = user;
     return this.body = { success: true, data: user };
   }
-
+};
 
 //  登出
 exports.signout = function () {
@@ -41,25 +41,22 @@ exports.signup = function* () {
 /**
  * 根据用户的id来获取用户的信息，除了密码
  */
-exports.get = function*(next){
-    var id = this.params.id;
-    var result = yield user_model.findByID(id);
-    var error = false;
-    if(error)
-        return this.body = {success:false,data:result};
-    this.body = {success:true,data:result};
-
-}
+exports.get = function* (next) {
+  var id = this.params.id;
+  var result = yield user_model.findByID(id);
+  var error = false;
+  if (error)
+      {return this.body = {success:false,data:result};}
+  this.body = { success: true, data: result };
+};
 
 /**
  * 用户获取自己的基本信息，id由session获取
  */
-exports.getOwnInfo = function*(next){
-    var id = '1';
-    var result = yield user_model.findByID(id);
-    if(result.length == 0)
-        return this.body = {success:false,data:result};
-    
-    this.body = {success:true,data:result};
-}
-
+exports.getOwnInfo = function* (next) {
+  var id = this.session.user.ID;
+  var result = yield user_model.findByID(id);
+  if (result.length == 0)
+      {return this.body = {success:false,data:result};}
+  this.body = { success: true, data: result };
+};
