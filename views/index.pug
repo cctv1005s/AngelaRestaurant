@@ -27,22 +27,25 @@ block script
     $(function(){
       var $account = $("#account");
       var $password = $("#password");
-      var $button = $("check-btn");
+      var $button = $("#check-btn");
       //点击登录
       $button.click(function(e){
         $.ajax({
+          url:'/api/v1/signin',
           type:'post',
-          
+          //- contentType: "application/json; charset=utf-8",
+          data:{
+            Account:$account.val(),
+            Password:$password.val(),
+          }
         })
         .then(function(res){
-          
+          if(!res.success)
+            return alert('登陆失败，账号或密码错误');
+          window.location.href = "/user";
         })
+        .catch(function(e){
+          alert('系统错误，请刷新界面或者联系管理员');
+        });
       });
     });
-
-
-
-
-
-
-

@@ -6,7 +6,11 @@ var order = require('./routes/order');
 var chef = require('./routes/chef');
 var manager = require('./routes/manager');
 
-
+router.use(function* (next) {
+  console.log("i love it");
+  console.log(this.request.body);
+  yield next;
+});
 /**
  * 静态界面地址
  */
