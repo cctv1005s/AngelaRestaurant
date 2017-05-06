@@ -10,7 +10,7 @@ exports.signin = function* () {
   const userPassword = user.Password;
   if (md5(Password) === userPassword) {
     this.session.user = user;
-    return this.body = { success: true };
+    return this.body = { success: true, data: user };
   }
 
   this.body = { success: false };
