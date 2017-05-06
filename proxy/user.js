@@ -29,10 +29,10 @@ exports.findByAccount = function* (Account) {
  * @param {string} id -用户的id
  * @return {array} -用户的信息
  */
-exports.findByID = function* (id) {
-  var query = `
-        SELECT * FROM user WHERE 
+exports.findByID = function*(id){
+    var query =`
+        SELECT * FROM Customer WHERE 
         ID = '${id}'
     `;
-  return yield mysql.query(query);
-};
+    return yield mysql.query(query);
+}
