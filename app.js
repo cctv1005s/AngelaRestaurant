@@ -1,60 +1,62 @@
-var app = require('koa')()
-  , logger = require('koa-logger')
-  , json = require('koa-json')
-  , Pug = require('koa-pug')
-  , onerror = require('koa-onerror')
-  , session = require('koa-session-redis')
-  , Loader = require('loader')
-  , config = require('./config.json')
-  , load = require('pug-load');
+const app = require('koa')();
+const logger = require('koa-logger');
+const json = require('koa-json');
+const Pug = require('koa-pug');
+const onerror = require('koa-onerror');
+const session = require('koa-session-redis');
+const Loader = require('loader');
+const config = require('./config.json');
 
 require('./models');
 
-var web_router = require('./web_router.js');
-var api_router = require('./api_router.js');
+const webRouter = require('./web_router.js');
+const apiRouter = require('./api_router.js');
 
 // error handler-
 onerror(app);
 
 // global middlewares
-var pug = new Pug({
-  viewPath:"./views",
-  debug:true,
-  noCache:true,
-  helperPath:[
-    {Loader:Loader}
+const pug = new Pug({
+  viewPath: './views',
+  debug: true,
+  noCache: true,
+  helperPath: [
+    { Loader },
   ],
-  app:app
+  app,
 });
 
 pug.locals = Object.assign(pug.locals, {
   title: config.title,
-  sitename:""
+  sitename: '',
 });
 
 app.keys = ['restaurant'];
 app.use(session({
-  store:{
-    host:config.redis.host,
-    port:config.redis.port,
-    ttl:config.redis.ttl
-  }
+  store: {
+    host: config.redis.host,
+    port: config.redis.port,
+    ttl: config.redis.ttl,
+  },
 }));
 
 app.use(require('koa-bodyparser')());
+
 app.use(json());
 app.use(logger());
 
-app.use(function *(next){
-  var start = new Date;
+app.use(function* (next) {
+  const start = new Date();
   yield next;
-  var ms = new Date - start;
+  const ms = new Date() - start;
   console.log('%s %s - %s', this.method, this.url, ms);
 });
 
-app.use(require('koa-static')(__dirname + '/public'));
+app.use(require('koa-static')(`${__dirname}/public`));
 // routes definition
-app.use(web_router.routes(), web_router.allowedMethods());
-app.use(api_router.routes(), api_router.allowedMethods());
+app.use(webRouter.routes(), webRouter.allowedMethods());
+app.use(apiRouter.routes(), apiRouter.allowedMethods());
 
 module.exports = app;
+
+app.listen(config.port);
