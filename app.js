@@ -32,6 +32,7 @@ pug.locals = Object.assign(pug.locals, {
 });
 
 app.keys = ['restaurant'];
+
 app.use(session({
   store: {
     host: config.redis.host,
@@ -60,3 +61,4 @@ app.use(apiRouter.routes(), apiRouter.allowedMethods());
 module.exports = app;
 
 app.listen(config.port);
+console.log(`app listen on ${config.port}`);

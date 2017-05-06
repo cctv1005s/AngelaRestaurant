@@ -11,8 +11,8 @@ block content
       span(style="background:url(/img/icon/sign-account.png)")
       input#account(type="text" name="account" maxlength="13"  autofocus="autofocus")
     .input-item
-      span(style="background:url(/img/icon/sign-password.png)" maxlength="10")
-      input#password(type="password" name="password")
+      span(style="background:url(/img/icon/sign-password.png)" )
+      input#password(type="password" name="password" maxlength="10")
 
   .check
     button#check-btn 登陆
@@ -24,4 +24,25 @@ block content
 
 block script
   script.
-    
+    $(function(){
+      var $account = $("#account");
+      var $password = $("#password");
+      var $button = $("check-btn");
+      //点击登录
+      $button.click(function(e){
+        $.ajax({
+          type:'post',
+          
+        })
+        .then(function(res){
+          
+        })
+      });
+    });
+
+
+
+
+
+
+

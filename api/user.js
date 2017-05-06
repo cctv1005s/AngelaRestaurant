@@ -8,10 +8,11 @@ exports.signin = function* () {
   let user = yield userModel.findByAccount(Account);
   user = user[0];
   const userPassword = user.Password;
-  if (Password === userPassword) {
+  if (md5(Password) === userPassword) {
     this.session.user = user;
     return this.body = { success: true };
   }
+
   this.body = { success: false };
 };
 
