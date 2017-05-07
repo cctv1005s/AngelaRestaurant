@@ -1,8 +1,9 @@
+
 var router = require('koa-router')();
 var user = require('./api/user');
 var menu = require('./api/menu');
 var table = require('./api/table');
-
+var order = require('./api/order')
 router.prefix('/api/v1');
 
 router.use(function* (next) {
@@ -17,15 +18,43 @@ router.post('/signin', user.signin);//登陆
 router.post('/signout', user.signout);//登出
 router.post('/signup', user.signup);//注册
 
+
+
+
+router.prefix('/api/v1');
+
+router.post('/signin', user.signin);// 登陆
+router.post('/signout', user.signout);// 登出
+router.post('/signup', user.signup);// 注册
+
+
+/**
+ * order部分
+ */
+router.post('/order/reserve',order.reserve);//预定
+router.post('/order/:id/add',order.addDish);//增加要做的菜
+router.post('/order/:id/sub',order.subDish);//删除某道未做的菜
+router.post('/order/:id/cancel',order.cancelOrder);//删除某道未做的菜
+router.post('/order/:id/pay',order.payforOrder);//删除某道未做的菜
+
+
+
+
 /**
  * user部分
  */
 router.get('/user/:id', user.get);
+<<<<<<< HEAD
+=======
+
+router.get('/user',user.getOwnInfo);
+>>>>>>> 0debdc40c7a42a9a82f7bde72eb074fc7c4782b3
 
 
 /**
  * 菜单部分
  */
+<<<<<<< HEAD
 router.post('/menu/type/add', menu.addType);
 router.post('/menu/type/delete', menu.deleteType);
 router.post('/menu/type/update', menu.updateType);
@@ -36,6 +65,10 @@ router.post('/menu/dish/delete', menu.deleteDish);
 router.post('/menu/dish/update', menu.updateDish);
 router.post('/menu/dish/stop', menu.stopDish);
 router.get('/menu/dish/:id', menu.oneDish);
+=======
+router.get('/menu/type/:id', menu.oneType);
+router.get('/menu/type', menu.type);
+>>>>>>> 0debdc40c7a42a9a82f7bde72eb074fc7c4782b3
 
 /**
  * table部分
