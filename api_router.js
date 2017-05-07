@@ -1,24 +1,46 @@
 const router = require('koa-router')();
 const user = require('./api/user');
 const menu = require('./api/menu');
-
+var order_model = require('../proxy/order');
 var order = require('./api/order')
 
 router.prefix('/api/v1');
 
-router.post('/signin', user.signin);// 登陆
-router.post('/signout', user.signout);// 登出
-router.post('/signup', user.signup);// 注册
+router.post('/signin', user.signin); // 登陆
+router.post('/signout', user.signout); // 登出
+router.post('/signup', user.signup); // 注册
 
+
+/**
+ * 权限部分
+ */
+
+var judgeAuth = function (auth) {
+
+    return function* (next) {
+
+        var userID = this.session;
+
+        var authList = yield order_model.getAuthByID(userID);
+        var indexAuth = authList.indexOf(auth);
+
+        if(indexAuth==-1){
+            return this.body = {success:false,data:'权限不足'};
+        }
+
+        yield next;
+    }
+
+}
 
 /**
  * order部分
  */
-router.post('/order/reserve',order.reserve);//预定
-router.post('/order/:id/add',order.addDish);//增加要做的菜
-router.post('/order/:id/sub',order.subDish);//删除某道未做的菜
-router.post('/order/:id/cancel',order.cancelOrder);//删除某道未做的菜
-router.post('/order/:id/pay',order.payforOrder);//删除某道未做的菜
+router.post('/order/reserve', order.reserve); //预定
+router.post('/order/:id/add', order.addDish); //增加要做的菜
+router.post('/order/:id/sub', order.subDish); //删除某道未做的菜
+router.post('/order/:id/cancel', order.cancelOrder); //删除某道未做的菜
+router.post('/order/:id/pay', order.payforOrder); //删除某道未做的菜
 
 
 
@@ -27,7 +49,7 @@ router.post('/order/:id/pay',order.payforOrder);//删除某道未做的菜
  */
 router.get('/user/:id', user.get);
 
-router.get('/user',user.getOwnInfo);
+router.get('/user', user.getOwnInfo);
 
 
 /**
