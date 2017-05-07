@@ -4,23 +4,29 @@ block css
     link(href="/css/reserve.css" rel="stylesheet" type="text/css")
 
 block content
-    -var header = {title:"安其拉餐厅-预定",left:"<i class='am-icon-arrow-left'></i>"}
+    -var header = {title:"安其拉餐厅-预定",left:leftArrow}
     include ../model/nav
     .input-box
         .input
             .input-title 用餐人数
-            input(type="number")
+            input#PeopleNum(type="number" maxlength=3)
         .input
             .input-title 用餐时间
-            input(type="text")
+            input#OrderTime(type="text")
         .input
             .input-title 联系方式
-            input(type="number")
+            input#Phone(type="number" maxlength=11)
     .check
         button.check-btn 确定
 
 block script
-    script
-        |$('.header-left').click(function(e){
-        |    history.go(-1);
-        |});
+    script.
+      $(function(){
+        $('.header-left').click(function(e){
+            history.go(-1);
+        });
+
+        var $PeopleNum = $('#PeopleNum');
+        var $OrderTime = $('#OrderTime');
+        var $Phone = $('#Phone');
+      })
