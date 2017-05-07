@@ -9,7 +9,6 @@ const token = require('./middleware/token.js');// token转换函数
 
 //  权限控制函数
 const authRequired = authControl.authRequired;
-
 router.prefix('/api/v1');
 router.use(token.token2session);//  将传入的Token值查找到用户之后转换为session
 
@@ -27,13 +26,13 @@ router.post('/order/:id/sub', order.subDish);// 删除某道未做的菜
 router.post('/order/:id/cancel', order.cancelOrder);// 删除某道未做的菜
 router.post('/order/:id/pay', order.payforOrder);// 删除某道未做的菜
 
-
 /**
  * user部分
  */
 router.get('/user/:id', user.get);//  获取用户的基本信息
 router.get('/user/canOrder', user.canOrder);// 判断自己是否可以开始点餐了
 router.get('/user', user.getOwnInfo);//   获取自己的基本信息
+
 
 /**
  * 菜单部分
