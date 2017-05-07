@@ -5,12 +5,8 @@ var order = require('./routes/order');
 
 var chef = require('./routes/chef');
 var manager = require('./routes/manager');
+var table = require('./routes/table');
 
-router.use(function* (next) {
-  console.log("i love it");
-  console.log(this.request.body);
-  yield next;
-});
 /**
  * 静态界面地址
  */
@@ -29,8 +25,8 @@ router.get('/chef', chef.index);// 厨师端界面
 
 router.get('/manager', manager.index);// 经理端界面
 
-router.get('/session', function () {
-  this.body = { session: this.session.user };
-});
+router.get('/employee/login', site.employeeLogin);//  员工登陆界面
+
+router.get('/table', table.index);//  餐桌显示界面
 
 exports = module.exports = router;
