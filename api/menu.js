@@ -43,9 +43,7 @@ exports.oneDish = function* (next) {
  */
 exports.addType = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { ClassName, ClassDescription } = this.request.body;
         var info = yield menu_model.addType({
             ID: uuidV1(),
@@ -54,8 +52,8 @@ exports.addType = function* (next) {
         });
         this.bofy = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -63,15 +61,13 @@ exports.addType = function* (next) {
  */
 exports.deleteType = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteType(ID);
         this.bofy = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -79,9 +75,7 @@ exports.deleteType = function* (next) {
  */
 exports.updateType = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { ID, ClassName, ClassDescription } = this.request.body;
         var info = yield menu_model.updateType({
             ID: ID,
@@ -90,8 +84,8 @@ exports.updateType = function* (next) {
         });
         this.bofy = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -99,9 +93,7 @@ exports.updateType = function* (next) {
  */
 exports.addDish = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { Description, ClassID, Price, Name } = this.request.body;
         var info = yield menu_model.addDish({
             ID: uuidV1(),
@@ -113,8 +105,8 @@ exports.addDish = function* (next) {
         });
         this.bofy = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -122,16 +114,14 @@ exports.addDish = function* (next) {
  */
 exports.deleteDish = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteDish(ID);
         console.log(info);
         this.bofy = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -139,9 +129,7 @@ exports.deleteDish = function* (next) {
  */
 exports.updateDish = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { ID, Description, ClassID, Price, Name } = this.request.body;
         var info = yield menu_model.updateDish({
             ID: ID,
@@ -153,8 +141,8 @@ exports.updateDish = function* (next) {
         });
         this.bofy = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -162,14 +150,12 @@ exports.updateDish = function* (next) {
  */
 exports.stopDish = function* (next) {
     var userID = '6';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '7') {
+    try {
         var { ID } = this.request.body;
         var info = yield menu_model.stopDish(ID);
         this.body = { success: true, data: info };
     }
-    else {
-        this.body = { success: false };
+    catch (e) {
+        this.body = { success: false, data: e };
     }
-}
+} 

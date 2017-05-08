@@ -13,39 +13,35 @@ exports.bind = function* (next) {
     var ordertime = new Date();
     var ordertime = ordertime.getTime();
     var waiterID = '3';
-    var auth = yield table_model.getAuth(waiterID);
-    var auth = auth[0].Auth;
-    if (auth == '3') {
-        var order = yield table_model.isOrder(customerID);
-        order = order[0];
-        if (order == null) {
-            var info = yield table_model.newOrder({
-                ID: uuidV1(),
-                TableID: tableID,
-                UserID: customerID,
-                OrderTime: ordertime,
-                Phone: phone,
-                Type: 1,
-                Status: 'PROGRESS',
-                WaiterID: waiterID,
-                PeopleNum: PeopleNum
-            });
-            this.body = { success: true, data: info };
-        }
-        else {
-            order = order.ID;
-            var info = yield table_model.updateOrder({
-                ID: order,
-                TableID: tableID,
-                OrderTime: ordertime,
-                Phone: phone,
-                Type: 1,
-                Status: 'PROGRESS',
-                WaiterID: waiterID,
-                PeopleNum: PeopleNum
-            });
-            this.body = { success: true, data: info };
-        }
+    var order = yield table_model.isOrder(customerID);
+    order = order[0];
+    if (order == null) {
+        var info = yield table_model.newOrder({
+            ID: uuidV1(),
+            TableID: tableID,
+            UserID: customerID,
+            OrderTime: ordertime,
+            Phone: phone,
+            Type: 1,
+            Status: 'PROGRESS',
+            WaiterID: waiterID,
+            PeopleNum: PeopleNum
+        });
+        this.body = { success: true, data: info };
+    }
+    else {
+        order = order.ID;
+        var info = yield table_model.updateOrder({
+            ID: order,
+            TableID: tableID,
+            OrderTime: ordertime,
+            Phone: phone,
+            Type: 1,
+            Status: 'PROGRESS',
+            WaiterID: waiterID,
+            PeopleNum: PeopleNum
+        });
+        this.body = { success: true, data: info };
     }
     this.body = { success: false };
 }
@@ -54,14 +50,11 @@ exports.bind = function* (next) {
  */
 exports.table = function* (next) {
     var userID = '5';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '5') {
+    try {
         var status = yield table_model.table();
-        this.body = { success: true, data:status };
-    }
-    else{
-        this.body = { success: false };
+        this.body = { success: true, data: status };
+    } catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
@@ -69,38 +62,33 @@ exports.table = function* (next) {
  */
 exports.oneTable = function* (next) {
     var userID = '5';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '5') {
+    try {
         var id = this.params.id;
         var info = yield table_model.oneTable(id);
         var status = info[0].Status;
         if (status == 'Red') {
             var info = yield table_model.busBoy(id);
-            this.body = { success: true, data: info }
+            this.body = { success: true, data: info };
         }
         else {
             this.body = { success: true, data: info };
         }
-    }
-    else {
-        this.body = { success: false }
+    } catch (e) {
+        this.body = { success: false, data: e };
     }
 }
 /**
  * 将某一张桌的状态标记为清理完毕
  */
-exports.cleanup = function*(next){
+exports.cleanup = function* (next) {
     var userID = '4';
-    var auth = yield table_model.getAuth(userID);
-    var auth = auth[0].Auth;
-    if (auth == '6') {
-        var {TableID} = this.request.body;
+    try {
+        var { TableID } = this.request.body;
         var info = yield table_model.cleanup(TableID);
         var info = yield table_model.cleanup2(TableID);
         this.body = { success: true };
-    } 
-    else{
-        this.body = { success: false };
+    }
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 }
