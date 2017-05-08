@@ -29,8 +29,6 @@ const pug = new Pug({
 pug.locals = Object.assign(pug.locals, {
   title: config.title,
   sitename: '',
-  bars: "<i class='am-icon-bars'></i>",
-  leftArrow: "<i class='am-icon-arrow-left'></i>",
 });
 
 app.keys = ['restaurant'];

@@ -8,8 +8,6 @@
         "consistent-return":"off",
         "no-return-assign":"off",
         "no-var":"off",
-        "img-has-alt":"off",
-        "curly":"off",
-        "prefer-const":"off"
+        "img-has-alt":"off"
     }
 }

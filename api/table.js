@@ -1,4 +1,3 @@
-
 var table_model = require('../proxy/table');
 var uuidV1 = require('uuid/v1');
 /**
@@ -93,4 +92,3 @@ exports.cleanup = function* (next) {
         this.body = { success: false, data: e };
     }
 }
-

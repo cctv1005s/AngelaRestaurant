@@ -8,7 +8,7 @@
     },
     "redis":{
         "host":"localhost",
-        "port":"6379",
+        "port":"6380",
         "ttl":"3600"
     },
     "title":"安其拉餐厅",
