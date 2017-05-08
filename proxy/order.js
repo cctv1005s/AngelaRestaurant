@@ -11,12 +11,8 @@ exports.setReserve = function*(preOrder){
      VALUES  ('${preOrder.OrderID}', '${preOrder.UserId}', '${preOrder.OrderTime}', 
      '${preOrder.Phone}',  ${preOrder.Type}, '${preOrder.Status}', '${preOrder.PeopleNum}')
     `;
-    console.log(query);
     return yield mysql.query(query);
 }
-
-
-
 /**
  * 通过用户id获取预订单信息
  * 
@@ -37,13 +33,13 @@ exports.findReserveByUseID = function*(userID){
 
 /**
  * 通过员工ID查找员工权限
- * @param {String} waiterID -员工的id
- * @return {array} -员工对应的权限
+ * @param {String} userID -人员的id
+ * @return {array} -人员对应的权限
  */
-exports.getAuthByID = function*(waiterID){
+exports.getAuthByID = function*(userID){
     var query = `
     SELECT Auth FRom Auth
-    WHERE EmployeeID = '${waiterID}'
+    WHERE UserID = '${userID}'
     `;
 
     return yield mysql.query(query);
