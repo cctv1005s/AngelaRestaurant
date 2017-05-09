@@ -38,15 +38,26 @@ var Status = {
 };
 
 export default class Table extends Component {
+  constructor(p) {
+    super(p);
+    this.state = {
+      tabVisible: false,
+    };
+  }
   render() {
     var ele = this.props.ele;
     var style = getStyle(ele.Status || 'GREEN');
     return (
       <div style={style.warpper}>
-        <div style={style.table}>
+        <div style={style.table} onClick={() => { this.setState({ tabVisible: true }) ;}}>
           {Status[ele.Status]}
         </div>
         <div style={style.text}> {ele.ID}号桌 </div>
+
+        <GreenTab
+          visible={this.state.tabVisible}
+          onEnd={(e) => {this.setState({ tabVisible: false }) ;}}
+        />
       </div>
     );
   }

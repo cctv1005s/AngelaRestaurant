@@ -4,7 +4,7 @@ import Table from './Table.js';
 //* *********************************************** */
 // 模拟数据部分
 var tables = [];
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 1; i++) {
   var colors = ['YELLOW', 'GREEN', 'RED'];
   tables.push({
     ID: i,

@@ -47,7 +47,7 @@ exports.employeeSignin = function* () {
   if (r.length === 0)
     return this.body = { success: false, data: '账号不存在' };
   let password = r[0].Password;
-  if (password === Password){
+  if (password === md5(Password)){
     this.session.user = r[0];
     return this.body = { success: true };
   }
