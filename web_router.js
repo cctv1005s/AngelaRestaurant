@@ -7,6 +7,9 @@ var chef = require('./routes/chef');
 var manager = require('./routes/manager');
 var table = require('./routes/table');
 
+var authControl = require('./middleware/authControl');//  权限控制
+var authRequired = authControl.authRequired;
+
 /**
  * 静态界面地址
  */
