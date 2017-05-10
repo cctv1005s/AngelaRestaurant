@@ -48,6 +48,7 @@ exports.bind = function* (next) {
             this.body = { success: true, data: info };
         }
     }
+    
     this.body = { success: false };
 }
 /**

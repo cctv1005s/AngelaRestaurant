@@ -17,7 +17,7 @@ exports.getID = function*(accessToken){
  */
 exports.getAuth = function*(id){
     var query = `
-    SELECT Auth FROM Auth WHERE EmployeeID = '${id}'
+    SELECT Auth FROM Auth WHERE UserID = '${id}'
     `;
     return yield mysql.query(query);
 }

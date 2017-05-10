@@ -1,5 +1,6 @@
 var order_model = require('../proxy/order');
 var uuidV1 = require('uuid/v1');
+var shortid = require('shortid');
 var user_model = require('../proxy/user');
 var timeFormat = require('../tools/time.js');
 
@@ -33,7 +34,7 @@ exports.reserve = function* (next) {
       {return this.body = {success:false,data:'该用户已有订单了'};}
 
   var reserveOrder = yield order_model.setReserve({
-      OrderID: uuidV1(),
+      OrderID: shortid.generate(),
       UserId,
       OrderTime:timeFormat.format(new Date(OrderTime)),
       Phone,
