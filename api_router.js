@@ -10,10 +10,11 @@ const token = require('./middleware/token.js');// token转换函数
 //  权限控制函数
 const authRequired = authControl.authRequired;
 router.prefix('/api/v1');
+router.use(token.token2session);
 
-router.post('/signin', user.signin);//登陆
-router.post('/signout', user.signout);//登出
-router.post('/signup', user.signup);//注册
+router.post('/signin', sign.signin);//登陆
+router.post('/signout', sign.signout);//登出
+router.post('/signup', sign.signup);//注册
 /**
  * order部分
  */
@@ -48,7 +49,7 @@ router.get('/menu/dish/:id',authRequired(5), menu.oneDish);
  */
 router.post('/table/:id/bind', authRequired(3) ,table.bind);
 router.get('/table',authRequired(6), table.table);
-router.get('/table/:id',authRequired(3) ,table.oneTable);
+router.get('/table/:id',authRequired(6) ,table.oneTable);
 router.post('/table/cleanup',authRequired(6), table.cleanup);
 
 module.exports = router;
