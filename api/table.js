@@ -1,10 +1,108 @@
-var userModel = require('../proxy/user.js');
 
-exports.bind = function* () {
-  var id = this.session.user.ID;//服务员的id
-  var {AccessToken} = this.request.body;
-  //获取被绑定的用户的ID
-  var res = yield userModel.findByToken(AccessToken);
-  if(res.length === 0)
-    return this.body = {success:false,data:"找不到用户"}
-};
+var table_model = require('../proxy/table');
+var uuidV1 = require('uuid/v1');
+/**
+ * 餐桌绑定
+ */
+exports.bind = function* (next) {
+    var tableID = this.params.id;
+    var { AccessToken, PeopleNum } = this.request.body;
+    var PeopleNum = parseInt(PeopleNum);
+    var customer = yield table_model.getID(AccessToken);
+    var customerID = customer[0].ID;
+    var phone = customer[0].phone;
+    var ordertime = new Date();
+    var ordertime = ordertime.getTime();
+    var waiterID = '3';
+    var auth = yield table_model.getAuth(waiterID);
+    var auth = auth[0].Auth;
+    if (auth == '3') {
+        var order = yield table_model.isOrder(customerID);
+        order = order[0];
+        if (order == null) {
+            var info = yield table_model.newOrder({
+                ID: uuidV1(),
+                TableID: tableID,
+                UserID: customerID,
+                OrderTime: ordertime,
+                Phone: phone,
+                Type: 1,
+                Status: 'PROGRESS',
+                WaiterID: waiterID,
+                PeopleNum: PeopleNum
+            });
+            this.body = { success: true, data: info };
+        }
+        else {
+            order = order.ID;
+            var info = yield table_model.updateOrder({
+                ID: order,
+                TableID: tableID,
+                OrderTime: ordertime,
+                Phone: phone,
+                Type: 1,
+                Status: 'PROGRESS',
+                WaiterID: waiterID,
+                PeopleNum: PeopleNum
+            });
+            this.body = { success: true, data: info };
+        }
+    }
+    this.body = { success: false };
+}
+/**
+ * 查看桌子的状态
+ */
+exports.table = function* (next) {
+    var userID = '5';
+    var auth = yield table_model.getAuth(userID);
+    var auth = auth[0].Auth;
+    if (auth == '5') {
+        var status = yield table_model.table();
+        this.body = { success: true, data:status };
+    }
+    else{
+        this.body = { success: false };
+    }
+}
+/**
+ * 查看一个桌子的具体状态
+ */
+exports.oneTable = function* (next) {
+    var userID = '5';
+    var auth = yield table_model.getAuth(userID);
+    var auth = auth[0].Auth;
+    if (auth == '5') {
+        var id = this.params.id;
+        var info = yield table_model.oneTable(id);
+        var status = info[0].Status;
+        if (status == 'Red') {
+            var info = yield table_model.busBoy(id);
+            this.body = { success: true, data: info }
+        }
+        else {
+            this.body = { success: true, data: info };
+        }
+    }
+    else {
+        this.body = { success: false }
+    }
+}
+/**
+ * 将某一张桌的状态标记为清理完毕
+ */
+exports.cleanup = function*(next){
+    var userID = '4';
+    var auth = yield table_model.getAuth(userID);
+    var auth = auth[0].Auth;
+    if (auth == '6') {
+        var {TableID} = this.request.body;
+        var info = yield table_model.cleanup(TableID);
+        var info = yield table_model.cleanup2(TableID);
+        this.body = { success: true };
+    } 
+    else{
+        this.body = { success: false };
+    }
+}
+
