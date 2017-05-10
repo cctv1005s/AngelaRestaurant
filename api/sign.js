@@ -12,6 +12,7 @@ exports.signin = function* () {
   const userPassword = user.Password;
   if (md5(Password) === userPassword) {
     this.session.user = user;
+    this.session.role = "customer";
     return this.body = { success: true, data: user };
   }
 };
@@ -49,6 +50,7 @@ exports.employeeSignin = function* () {
   let password = r[0].Password;
   if (password === md5(Password)){
     this.session.user = r[0];
+    this.session.role = "employee";
     return this.body = { success: true };
   }
   return this.body = { success: false, data: '密码不正确' };

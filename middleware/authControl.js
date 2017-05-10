@@ -28,3 +28,16 @@ exports.authRequired = function (auth) {
     return this.body = { success: false, data: '权限不足' };
   };
 };
+
+/**
+ * 角色需求
+ */
+exports.roleRequired = function(role){
+  return function*(next){
+    if(!this.session.user)
+      return this.body = {success:false,data:'未登录'};
+    if(this.session.role == role)
+      return yield next;
+    return this.body = {success:false,data:'权限不足'};
+  }
+}

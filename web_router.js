@@ -9,6 +9,7 @@ var table = require('./routes/table');
 
 var authControl = require('./middleware/authControl');//  权限控制
 var authRequired = authControl.authRequired;
+var roleRequired = authControl.roleRequired;
 
 /**
  * 静态界面地址
@@ -30,6 +31,6 @@ router.get('/manager', manager.index);// 经理端界面
 
 router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
-router.get('/table', table.index);//  餐桌显示界面
+router.get('/table', roleRequired('employee'), table.index);//  餐桌显示界面
 
 exports = module.exports = router;

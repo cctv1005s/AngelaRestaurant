@@ -11,14 +11,16 @@ exports.token2session = function* (next) {
   var r = yield userModel.findByToken(Token);
   if (r.length === 1) {
     this.session.user = r[0];
+    this.session.role = "customer";
     yield next;
   }
 
   //  在服务员中查找
   r = yield employeeModel.findByToken(Token);
-  console.log(r);
-  if (r.length === 1)
+  if (r.length === 1){
     this.session.user = r[0];
+    this.session.role = "employee";
+  }
   
   yield next;
 };

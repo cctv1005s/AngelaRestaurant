@@ -59,11 +59,8 @@ exports.findChefIDByDishID = function*(DishID){
     SELECT ChefID FRom ChefCanDish
     WHERE DishID = '${DishID}'
     `;
-
     return yield mysql.query(query);
 }
-
-
 
 
 /**
@@ -81,10 +78,6 @@ exports.getInfoByEmployeeID = function*(EmployeeID){
     return yield mysql.query(query);
 }
 
-
-
-
-
 /**
  * 根据菜品id获取菜品信息
  * 
@@ -99,9 +92,6 @@ exports.getInfoByDishID = function*(DishID){
 
     return yield mysql.query(query);
 }
-
-
-
 
 /**
  * 把需要点好的的菜加入烹饪等待列表
@@ -119,9 +109,6 @@ exports.insertCookingList = function*(CookingListInfo){
     return yield mysql.query(query);
 }
 
-
-
-
 /**
  * 根据订单id和CookingID得到一条Cooking的信息
  * 
@@ -137,9 +124,6 @@ exports.getCookingInfo = function*(OrderID,CookingID){
     return yield mysql.query(query);
 }
 
-
-
-
 /**
  * 删除一条Cooking记录
  * @param {String} -CookingID
@@ -151,8 +135,6 @@ exports.deleteOneDishByCookingID = function*(CookingID){
 
     return yield mysql.query(query);
 }
-
-
 
 /**
  * 通过订单id获取菜品id
@@ -177,7 +159,17 @@ exports.cancelOrder = function*(orderID){
     var query = `
     DELETE FROM \`Order\` WHERE ID = '${orderID}'
     `;
-
     return yield mysql.query(query);
 }
 
+/**
+ * 查看某一个订单里面已经点的菜
+ * 
+ * @param {String} id -订单id
+ */
+exports.orderDish = function* (id){
+    var q = `
+      SELECT * FROM View_CookingList WHERE OrderID = '${id}'
+    `;
+    return yield mysql.query(q);
+}

@@ -15,6 +15,7 @@ export default class Ordered{
             return ;
         }
         found.Count ++;
+        window.___render();
     }
 
     sub(Dish){
@@ -29,6 +30,7 @@ export default class Ordered{
             return false;
         }
         found.Count --;
+        window.___render();
     }
 
     find(DishID){
@@ -39,5 +41,10 @@ export default class Ordered{
             }
         }
         return false;
+    }
+
+    clearAll(){
+        this.order = [];
+        window.___render();
     }
 }

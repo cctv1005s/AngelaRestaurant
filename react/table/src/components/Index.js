@@ -1,10 +1,10 @@
-import React from 'react';
+import React,{Component} from 'react';
 import Table from './Table.js';
 
 //* *********************************************** */
 // 模拟数据部分
 var tables = [];
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < 10; i++) {
   var colors = ['YELLOW', 'GREEN', 'RED'];
   tables.push({
     ID: i,
@@ -13,7 +13,10 @@ for (let i = 0; i < 1; i++) {
 }
 
 //* ************************************************* */
-export default function () {
+export default class Index extends Component{
+  componentDidMount(){
+
+  }
   return (
     <div>
       {
