@@ -26,12 +26,12 @@ export default class RedTab extends Tab {
     return (
       <div>
         <div>
-          <img src="/img/broom.png"/>
+          <img src="/img/icon/broom.png"/>
           <h3>清理中</h3>
           <p>XX号员工清理中</p>
         </div>
         <div>
-          <button style={style.button}>开始</button>
+          <button style={style.button}>清理结束</button>
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GreenTab from './GreenTab.js';
+import GreenTab from './RedTab.js';
 
 var getStyle = function (color) {
   var colorTable = {
