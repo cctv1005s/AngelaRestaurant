@@ -16,6 +16,7 @@ exports.token2session = function* (next) {
 
   //  在服务员中查找
   r = yield employeeModel.findByToken(Token);
+  console.log(r);
   if (r.length === 1)
     this.session.user = r[0];
   
