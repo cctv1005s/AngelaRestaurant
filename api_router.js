@@ -16,7 +16,7 @@ router.post('/signin', sign.signin);// 登陆
 router.get('/signout', sign.signout);// 登出
 router.post('/signup', sign.signup);// 注册
 router.post('/employeeSignin', sign.employeeSignin);// 员工登陆
-/**
+
  * order部分
  */
 router.post('/order/reserve', order.reserve);// 预定
@@ -48,9 +48,9 @@ router.get('/menu/dish/:id', authRequired(5), menu.oneDish);
 /**
  * table部分
  */
-router.post('/table/:id/bind', authRequired(3), table.bind);
-router.get('/table', authRequired(6), table.table);
-router.get('/table/:id', authRequired(3), table.oneTable);
-router.post('/table/cleanup', authRequired(6), table.cleanup);
+router.post('/table/:id/bind', authRequired(3) ,table.bind);
+router.get('/table',authRequired(6), table.table);
+router.get('/table/:id',authRequired(6) ,table.oneTable);
+router.post('/table/cleanup',authRequired(6), table.cleanup);
 
 module.exports = router;
