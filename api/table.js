@@ -10,7 +10,7 @@ exports.bind = function* (next) {
     var PeopleNum = parseInt(PeopleNum);
     var customer = yield table_model.getID(AccessToken);
     var customerID = customer[0].ID;
-    var phone = customer[0].phone;
+    var phone = customer[0].Phone;
     var ordertime = new Date();
     var ordertime = ordertime.getTime();
     var waiterID = '3';
@@ -46,11 +46,11 @@ exports.bind = function* (next) {
             this.body = { success: true, data: info };
         }
         else if(order.TableID != null){
-            this.body = {success:false,data:'用户已绑定'};
+            return this.body = {success:false,data:'用户已绑定'};
         }
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -63,7 +63,7 @@ exports.table = function* (next) {
         this.body = { success: true, data: status };
     }
     catch(e) {
-        this.body = { success: false,data:e };
+        return this.body = { success: false,data:e };
     }
 }
 /**
@@ -80,11 +80,11 @@ exports.oneTable = function* (next) {
             this.body = { success: true, data: info }
         }
         else {
-            this.body = { success: false, data: info };
+            this.body = { success: true, data: info };
         }
     }
    catch (e) {
-        this.body = { success: false,data:e }
+        return this.body = { success: false,data:e }
     }
 }
 /**
@@ -96,10 +96,10 @@ exports.cleanup = function* (next) {
         var { TableID } = this.request.body;
         var info = yield table_model.cleanup(TableID);
         var info = yield table_model.cleanup2(TableID);
-        this.body = { success: true };
+        this.body = { success: true ,data:'清理完毕'};
     }
     catch(e) {
-        this.body = { success: false,data:e };
+        return this.body = { success: false,data:e };
     }
 }
 
