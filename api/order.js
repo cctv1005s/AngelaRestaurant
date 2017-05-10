@@ -49,12 +49,9 @@ exports.reserve = function* (next) {
 /**
  * 用户点菜，服务员确认订单，菜品就传入等待制作序列
  */
-exports.addDish = function* (next) {
-  var orderID = this.params.id;
-  var { DishIDList } = this.request.body;
-  var waiterID = '3';
-
-  var auth = yield order_model.getAuthByID(waiterID);
+exports.addDish = function*(next){
+    var orderID = this.params.id;
+    var {DishIDList} = this.request.body;
 
   if (auth[0].Auth != 2)
       {return this.body = {success:false,data:'权限不足'};}
@@ -102,11 +99,6 @@ exports.subDish = function* (next) {
 
   var waiterID = 1;
   var auth = yield order_model.getAuthByID(waiterID);
-
-  if (auth[0].Auth != 1)
-      {return this.body = {success:false,data:'权限不足'};}
-
-  console.log(cookingInfo);
   if (cookingInfo.length == 0)
       {return this.body = {success:false,data:"订单没有这道菜"};}
 
@@ -122,10 +114,8 @@ exports.subDish = function* (next) {
 /**
  * 取消某个还未点菜的订单
  */
-exports.cancelOrder = function* (next) {
-  var waiterID = 1;
-  var auth = yield order_model.getAuthByID(waiterID);
 
+exports.cancelOrder = function* (next) {
   if (auth[0].Auth != 1)
       {return this.body = {success:false,data:'权限不足'};}
 
@@ -145,15 +135,12 @@ exports.cancelOrder = function* (next) {
 /**
  * 支付订单
  */
-exports.payforOrder = function* (next) {
-  var waiterID = 1;
-  var auth = yield order_model.getAuthByID(waiterID);
-
-  if (auth[0].Auth != 1)
-      {return this.body = {success:false,data:'权限不足'};}
-
-  var orderID = this.params.id;
-
+exports.payforOrder = function*(next){
+    // var waiterID = 1;
+    // var auth = yield order_model.getAuthByID(waiterID);
+ 
+    // if(auth[0].Auth != 1)
+    //     return this.body = {success:false,data:'权限不足'};
   var dishIDList = yield order_model.getDishIDByOrderID(orderID);
 
   if (dishIDList.length == 0)
