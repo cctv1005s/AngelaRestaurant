@@ -95,7 +95,7 @@ exports.cleanup = function* (next) {
     try {
         var { TableID } = this.request.body;
         var info = yield table_model.cleanup(TableID);
-        var info = yield table_model.cleanup2(TableID);
+        var info = yield table_model.cleanup_(TableID);
         this.body = { success: true ,data:'清理完毕'};
     }
     catch(e) {

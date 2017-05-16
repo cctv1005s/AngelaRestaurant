@@ -107,7 +107,7 @@ exports.cleanup = function*(tableID){
  * 
  * @param {string} tableID 桌子ID
  */
-exports.cleanup2 = function*(tableID){
+exports.cleanup_ = function*(tableID){
     var sql = `
     DELETE FROM \`EmployeeInTable\` 
     WHERE TableID = '${tableID}'
