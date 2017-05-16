@@ -30,7 +30,7 @@ router.get('/order/:id/dish', order.dish);//  查看某个订单的某道菜
  * user部分
  */
 router.get('/user/:id', user.get);//  获取用户的基本信息
-router.get('/user/canOrder', user.canOrder);// 判断自己是否可以开始点餐了
+router.get('/user/canOrder', authRequired(), user.canOrder);// 判断自己是否可以开始点餐了
 router.get('/user', user.getOwnInfo);//   获取自己的基本信息
 
 /**
