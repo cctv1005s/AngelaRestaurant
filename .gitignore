@@ -36,3 +36,7 @@ bower_components/
 /db/*
 
 /redis/*
+
+Thumbs.db
+
+.vscode/*

@@ -1,0 +1,74 @@
+.hidden{display: none;}
+.left{float: left;}
+.right{float: right;}
+
+.manager-end > div{
+    float: left;
+}
+
+.manager-end-left{
+    width: 15%;
+    background: rgb(81, 81, 81);
+    height: 100%;
+    color: white;
+}
+
+.manager-end-left > .title{
+    font-size: 15px;
+    padding: 10px;
+}
+
+
+
+.manager-end-type > .item{
+    background: rgba(255,255,255,0.3);
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+    border-left: 5px solid yellow;
+    cursor: pointer;
+    position: relative;
+}
+
+.manager-end-center{
+    width: 25%;
+}
+
+.manager-end-right{
+    width: 60%;
+}
+
+.item-setting-btn{
+    float: right;
+    background: none;
+    border: none;
+    display: inline-block;
+    line-height: 40px;
+    outline: none;
+}
+
+.item-setting{
+    position: absolute;
+    right: 5px;
+    width: 50%;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px grey;
+    font-size: 13px;
+    line-height: 30px;
+    overflow: hidden;
+}
+
+.item-setting > .rename{
+    border-bottom: 1px solid grey;
+    padding: 0 10px;
+}
+
+.item-setting > .delete{
+    padding: 0 10px;
+}
+
+.item-setting > div:hover{
+    background: #eee;
+}
