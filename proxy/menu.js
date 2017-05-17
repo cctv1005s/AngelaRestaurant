@@ -32,8 +32,16 @@ exports.oneType = function* (id) {
  * @param {string} id 菜ID
  */
 exports.oneDish = function* (id) {
-    var sql = `select * from DishClass where ID = '${id}'`;
-    return yield mysql.query(sql);
+    var sql = `
+        select * from Dish where ID = '${id}'
+    `;
+    var dishs = yield mysql.query(sql);
+    var id = dishs[0].ID;
+    var sql = `select * from  DishImg where DishID = '${id}'`;
+    var imgs = yield mysql.query(sql);
+    dishs[0].Imgs = imgs;
+    
+    return dishs;
 }
 /**
  * 给菜单添加一个新的类别

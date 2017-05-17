@@ -50,7 +50,7 @@ exports.addType = function* (next) {
             ClassName: ClassName,
             ClassDescription: ClassDescription
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -64,7 +64,7 @@ exports.deleteType = function* (next) {
     try {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteType(ID);
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -82,7 +82,7 @@ exports.updateType = function* (next) {
             ClassName: ClassName,
             ClassDescription: ClassDescription
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -103,7 +103,7 @@ exports.addDish = function* (next) {
             Name: Name,
             Status: 'Available'
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -118,7 +118,7 @@ exports.deleteDish = function* (next) {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteDish(ID);
         console.log(info);
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -139,7 +139,7 @@ exports.updateDish = function* (next) {
             Name: Name,
             Status: 'Available'
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
