@@ -4,6 +4,8 @@ const menu = require('./api/menu');
 const order = require('./api/order');
 const sign = require('./api/sign');
 const table = require('./api/table');
+var chef = require('./api/chef');
+
 const authControl = require('./middleware/authControl.js');// 权限控制
 const token = require('./middleware/token.js');// token转换函数
 
@@ -25,6 +27,15 @@ router.post('/order/:id/sub', order.subDish);// 删除某道未做的菜
 router.post('/order/:id/cancel', order.cancelOrder);// 删除某道未做的菜
 router.post('/order/:id/pay', order.payforOrder);// 删除某道未做的菜
 router.get('/order/:id/dish', order.dish);//  查看某个订单的某道菜
+ 
+/*
+ * 厨师部分
+ */
+router.get('/chef/:ChefID/order',chef.GetOrder);//查看分配给我的菜品
+router.post('/chef/:ChefID/confirm/:DishID',chef.Confirm);//确认开始做某一道菜
+router.post('/chef/:ChefID/finish/:DishID',chef.Finish);//确认某一道菜完成
+router.post('/chef/:ChefID/cancel/:DishID',chef.Cancle);//取消某一道菜
+router.post('/chef/:ChefID/rest',chef.Rest);//将自己标记为休息状态
 
 /**
  * user部分
