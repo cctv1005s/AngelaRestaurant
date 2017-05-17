@@ -33,7 +33,7 @@ exports.oneDish = function* (next) {
     var id = this.params.id;
     try {
         var dish = yield menu_model.oneDish(id);
-        this.body = { success: true, data: dish };
+        this.body = { success: true, data: dish[0] };
     } catch (e) {
         this.body = { success: false, data: e };
     }
