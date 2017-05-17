@@ -306,6 +306,7 @@
     bottom: 0;
     border-top: 1px solid #a0a0a0;
     height: 50px;
+    background: white;
 }
 
 .ordered-footer > div{
@@ -339,6 +340,10 @@
     width: 100px;
 }
 
+.ordered-list{
+    overflow: auto;
+}
+
 .ordered-item > .img > img{
     height: 100%;
     width: 100%;
@@ -358,12 +363,12 @@
     color: red;
 }
 
-.orderd-cancel{
+.ordered-cancel{
     float: right;
     line-height: 100px;
 }
 
-.orderd-cancel > button{
+.ordered-cancel > button{
     border: none;
     background: red;
     color: white;
