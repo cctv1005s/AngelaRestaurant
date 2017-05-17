@@ -1,0 +1,12 @@
+extends ../layout.pug
+
+block content
+  - var header = {left:bars,title:"安其拉餐厅-餐桌状态"};
+    include ../model/nav
+  #app
+
+block script
+  script(src="/js/table.js")
+
+block css
+  link(href="/css/table.css" rel="stylesheet" type="text/css")

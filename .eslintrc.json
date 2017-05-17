@@ -1,0 +1,15 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "promise"
+    ],
+    "rules":{
+        "linebreak-style":"off",
+        "consistent-return":"off",
+        "no-return-assign":"off",
+        "no-var":"off",
+        "img-has-alt":"off",
+        "curly":"off",
+        "prefer-const":"off"
+    }
+}
