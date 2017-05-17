@@ -1,6 +1,7 @@
 
 var table_model = require('../proxy/table');
 var uuidV1 = require('uuid/v1');
+var shortid = require('shortid');
 /**
  * 餐桌绑定
  */
@@ -53,7 +54,7 @@ exports.bind = function* (next) {
         return this.body = { success: false, data: e };
     }
 }
-/**
+
  * 查看桌子的状态
  */
 exports.table = function* (next) {
@@ -85,8 +86,8 @@ exports.oneTable = function* (next) {
     }
    catch (e) {
         return this.body = { success: false,data:e }
-    }
-}
+  }
+};
 /**
  * 将某一张桌的状态标记为清理完毕
  */
@@ -102,4 +103,3 @@ exports.cleanup = function* (next) {
         return this.body = { success: false,data:e };
     }
 }
-

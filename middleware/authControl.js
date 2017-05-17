@@ -6,14 +6,13 @@ var authModel = require('../proxy/auth');
  */
 exports.authRequired = function (auth) {
   return function* (next) {
-    
     if (!this.session.user) {
       return this.body = { success: false, data: '没有登录' };
     }
     //  如果不写入权限，默认只需要登录就可以了
     if (!auth)
       return yield next;
-    try{
+    try {
       let user = this.session.user;
       let ID = user.ID;
       //  查询数据库
@@ -23,9 +22,22 @@ exports.authRequired = function (auth) {
         if (authList[i].Auth == auth)
           return yield next;
       }
-    }catch(e){
+    } catch(e) {
       console.error(e);
     }
     return this.body = { success: false, data: '权限不足' };
   };
 };
+
+/**
+ * 角色需求
+ */
+exports.roleRequired = function(role){
+  return function*(next){
+    if(!this.session.user)
+      return this.body = {success:false,data:'未登录'};
+    if(this.session.role == role)
+      return yield next;
+    return this.body = {success:false,data:'权限不足'};
+  }
+}

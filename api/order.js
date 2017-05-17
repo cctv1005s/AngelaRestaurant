@@ -1,5 +1,6 @@
 var order_model = require('../proxy/order');
 var uuidV1 = require('uuid/v1');
+var shortid = require('shortid');
 var user_model = require('../proxy/user');
 var timeFormat = require('../tools/time.js');
 
@@ -10,37 +11,32 @@ exports.reserve = function* (next) {
   var { PeopleNum, Phone, OrderTime } = this.request.body;
   var UserId = this.session.user.ID;
 
-  if (PeopleNum < 1 || PeopleNum > 20)
-      {return this.body = {success:false,data:'预订人数范围为1-20人'};}
+  if (PeopleNum < 1 || PeopleNum > 20) { return this.body = { success: false, data: '预订人数范围为1-20人' }; }
 
-  if (Phone.length != 11)
-      {return this.body = {success:false,data:'电话号码错误'};}
+  if (Phone.length != 11) { return this.body = { success: false, data: '电话号码错误' }; }
 
   var OrderDate = new Date(OrderTime);
   var NowDate = new Date();
-  var days = Math.floor(((OrderDate.getTime() - NowDate.getTime())/ (24 * 3600 * 1000)));
-  if (days < 1 || days > 7)
-      {return this.body = {success:false,data:'请预订七天以内的时间'};}
+  var days = Math.floor(((OrderDate.getTime() - NowDate.getTime()) / (24 * 3600 * 1000)));
+  if (days < 1 || days > 7) { return this.body = { success: false, data: '请预订七天以内的时间' }; }
   var userInfo = yield user_model.findByID(UserId);
 
-  if (userInfo.length == 0)
-      {return this.body = {success:false,data:'没有该用户'};}
+  if (userInfo.length == 0) { return this.body = { success: false, data: '没有该用户' }; }
 
 
   var userOrder = yield order_model.findReserveByUseID(UserId);
 
-  if (userOrder.length != 0)
-      {return this.body = {success:false,data:'该用户已有订单了'};}
+  if (userOrder.length != 0) { return this.body = { success: false, data: '该用户已有订单了' }; }
 
   var reserveOrder = yield order_model.setReserve({
-      OrderID: uuidV1(),
-      UserId,
-      OrderTime:timeFormat.format(new Date(OrderTime)),
-      Phone,
-      Type: 1,
-      Status: 'RESERVE',
-      PeopleNum,
-    });
+    OrderID: shortid.generate(),
+    UserId,
+    OrderTime: timeFormat.format(new Date(OrderTime)),
+    Phone,
+    Type: 1,
+    Status: 'RESERVE',
+    PeopleNum,
+  });
 
   this.body = { success: true, data: reserveOrder };
 };
@@ -49,42 +45,24 @@ exports.reserve = function* (next) {
 /**
  * 用户点菜，服务员确认订单，菜品就传入等待制作序列
  */
-exports.addDish = function*(next){
-    var orderID = this.params.id;
-    var {DishIDList} = this.request.body;
-
-  if (auth[0].Auth != 2)
-      {return this.body = {success:false,data:'权限不足'};}
-
+exports.addDish = function* (next) {
+  var orderID = this.params.id;
+  var { DishIDList } = this.request.body;
   var chefIDlist = new Array();
-
+  // 厨师id
+  var ChefID = 1;
+  // 将菜分发到具体的厨师
   for (var i = 0; i < DishIDList.length; i++) {
-      var chefID = yield order_model.findChefIDByDishID(DishIDList[i].DishID);
-
-      var chefInfo = yield order_model.getInfoByEmployeeID(chefID[0].ChefID);
-
-      var DishInfo = yield order_model.getInfoByDishID(DishIDList[i].DishID);
-
-
-      if (chefInfo[0].Auth != 1 || chefInfo[0].Status != 'Work') {
-          var data_ = `目前无法制作 ${DishInfo[0].Name} 这道菜`;
-          return this.body = { success: false, data: data_ };
-        }
-      chefIDlist.push(chefID[0].ChefID);
+    for (var j = 0; j < DishIDList[i].Count; j++) {
+      var CookingList = yield order_model.insertCookingList({
+          CookingID: uuidV1(),
+          OrderID: orderID,
+          ChefID: 1,
+          DishID: DishIDList[i].DishID,
+          Status: 'WAIT',
+        });
     }
-
-  for (var i = 0; i < DishIDList.length; i++) {
-      for (var j = 0; j < DishIDList[i].Count; j++) {
-          var CookingList = yield order_model.insertCookingList({
-              CookingID: uuidV1(),
-              OrderID: orderID,
-              ChefID: chefIDlist[i],
-              DishID: DishIDList[i].DishID,
-              Status: 'Wait',
-            });
-        }
-    }
-
+  }
   this.body = { success: true, data: '插入成功' };
 };
 
@@ -99,11 +77,9 @@ exports.subDish = function* (next) {
 
   var waiterID = 1;
   var auth = yield order_model.getAuthByID(waiterID);
-  if (cookingInfo.length == 0)
-      {return this.body = {success:false,data:"订单没有这道菜"};}
+  if (cookingInfo.length == 0) { return this.body = { success: false, data: '订单没有这道菜' }; }
 
-  if (cookingInfo[0].Status != 'Wait')
-      {return this.body = {success:false,data:"这道菜处于不能被取消状态"};}
+  if (cookingInfo[0].Status != 'Wait') { return this.body = { success: false, data: '这道菜处于不能被取消状态' }; }
 
   var result = yield order_model.deleteOneDishByCookingID(CookingID);
 
@@ -116,15 +92,13 @@ exports.subDish = function* (next) {
  */
 
 exports.cancelOrder = function* (next) {
-  if (auth[0].Auth != 1)
-      {return this.body = {success:false,data:'权限不足'};}
+  if (auth[0].Auth != 1) { return this.body = { success: false, data: '权限不足' }; }
 
   var orderID = this.params.id;
 
   var dishIDList = yield order_model.getDishIDByOrderID(orderID);
 
-  if (dishIDList.length != 0)
-      {return this.body = {success:false,data:'无法取消已点菜订单'};}
+  if (dishIDList.length != 0) { return this.body = { success: false, data: '无法取消已点菜订单' }; }
 
   var result = yield order_model.cancelOrder(orderID);
 
@@ -135,30 +109,34 @@ exports.cancelOrder = function* (next) {
 /**
  * 支付订单
  */
-exports.payforOrder = function*(next){
-    // var waiterID = 1;
-    // var auth = yield order_model.getAuthByID(waiterID);
- 
-    // if(auth[0].Auth != 1)
-    //     return this.body = {success:false,data:'权限不足'};
+exports.payforOrder = function* (next) {
   var dishIDList = yield order_model.getDishIDByOrderID(orderID);
-
-  if (dishIDList.length == 0)
-      {return this.body = {success:false,data:'此订单还未点餐'};}
-
-
+  if (dishIDList.length == 0) { return this.body = { success: false, data: '此订单还未点餐' }; }
   var amount = 0.0;
   for (var i = 0; i < dishIDList.length; i++) {
-      if (dishIDList[i].Status == 'Cancel') {
-          continue;
-        }
-      var dishID = dishIDList[i].DishID;
-      var dishInfo = yield order_model.getInfoByDishID(dishID);
-      console.log(dishInfo[0].Price);
-
-      amount += dishInfo[0].Price;
+    if (dishIDList[i].Status == 'Cancel') {
+      continue;
     }
+    var dishID = dishIDList[i].DishID;
+    var dishInfo = yield order_model.getInfoByDishID(dishID);
+    console.log(dishInfo[0].Price);
 
-  var data_ = '请支付：' + amount + '元';
+    amount += dishInfo[0].Price;
+  }
+
+  var data_ = `请支付：${amount }元`;
   this.body = { success: true, data: data_ };
+};
+
+/**
+ * 查看某个订单的已经点的菜品
+ */
+exports.dish = function* () {
+  var id = this.params.id;//  餐桌id
+  try {
+    let r = yield order_model.orderDish(id);
+    return this.body = { success: true, data: r };
+  } catch(e) {
+    return this.body = { success: false, data: e };
+  }
 };
