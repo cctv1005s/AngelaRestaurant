@@ -7,7 +7,7 @@ var mysql = require('../models/index');
  */
 exports.setReserve = function*(preOrder){
     var query = `
-    INSERT INTO \`Order\`(\`ID\`, \`UserID\`, \`OrderTime\`, \`Phone\`, \`Type\`, \`Status\`,  \`PeopleNum\`)
+    INSERT INTO \`CustomerOrder\`(\`ID\`, \`UserID\`, \`OrderTime\`, \`Phone\`, \`Type\`, \`Status\`,  \`PeopleNum\`)
      VALUES  ('${preOrder.OrderID}', '${preOrder.UserId}', '${preOrder.OrderTime}', 
      '${preOrder.Phone}',  ${preOrder.Type}, '${preOrder.Status}', '${preOrder.PeopleNum}')
     `;
@@ -21,7 +21,7 @@ exports.setReserve = function*(preOrder){
  */
 exports.findReserveByUseID = function*(userID){
      var query = `
-    SELECT * FRom \`Order\`
+    SELECT * FRom \`CustomerOrder\`
     WHERE UserID = '${userID}'
     `;
 
@@ -177,7 +177,7 @@ exports.getDishIDByOrderID = function*(orderID){
  */
 exports.cancelOrder = function*(orderID){
     var query = `
-    DELETE FROM \`Order\` WHERE ID = '${orderID}'
+    DELETE FROM \`CustomerOrder\` WHERE ID = '${orderID}'
     `;
     return yield mysql.query(query);
 }
