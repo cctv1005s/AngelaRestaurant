@@ -8,6 +8,8 @@ const shortid = require('shortid');
 exports.signin = function* () {
   const { Account, Password } = this.request.body;
   let user = yield userModel.findByAccount(Account);
+  if(user.length == 0)
+    return this.body = {success:false,data: '用户不存在'};
   user = user[0];
   const userPassword = user.Password;
   if (md5(Password) === userPassword) {

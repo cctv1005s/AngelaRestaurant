@@ -33,7 +33,7 @@ exports.oneDish = function* (next) {
     var id = this.params.id;
     try {
         var dish = yield menu_model.oneDish(id);
-        this.body = { success: true, data: dish };
+        this.body = { success: true, data: dish[0] };
     } catch (e) {
         return this.body = { success: false, data: e };
     }
@@ -74,7 +74,6 @@ exports.deleteType = function* (next) {
  * 修改一种菜单类别
  */
 exports.updateType = function* (next) {
-    var userID = '6';
     try {
         var { ID, ClassName, ClassDescription } = this.request.body;
         var data = yield menu_model.type();
@@ -123,7 +122,6 @@ exports.deleteDish = function* (next) {
     try {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteDish(ID);
-        console.log(info);
         this.body = { success: true, data: info };
     }
     catch (e) {
