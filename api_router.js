@@ -21,12 +21,12 @@ router.post('/employeeSignin', sign.employeeSignin);// 员工登陆
 /*
  * order部分
  */
-router.post('/order/reserve', order.reserve);// 预定
-router.post('/order/:id/add', order.addDish);// 增加要做的菜
-router.post('/order/:id/sub', order.subDish);// 删除某道未做的菜
-router.post('/order/:id/cancel', order.cancelOrder);// 删除某道未做的菜
-router.post('/order/:id/pay', order.payforOrder);// 删除某道未做的菜
-router.get('/order/:id/dish', order.dish);//  查看某个订单的某道菜
+router.post('/order/reserve', authRequired(2), order.reserve);// 预定
+router.post('/order/:id/add', authRequired(2), order.addDish);// 增加要做的菜
+router.post('/order/:id/sub', authRequired(2), order.subDish);// 删除某道未做的菜
+router.post('/order/:id/cancel', authRequired(3), order.cancelOrder);// 取消某个订单
+router.post('/order/:id/pay', authRequired(2), order.payforOrder);// 支付
+router.get('/order/:id/dish', authRequired(2), order.dish);//  查看某个订单的某道菜
 
 /*
  * 厨师部分
@@ -60,9 +60,9 @@ router.get('/menu/dish/:id', menu.oneDish);
 /**
  * table部分
  */
-router.post('/table/:id/bind', authRequired(3) , table.bind);
+router.post('/table/:id/bind', authRequired(3), table.bind);
 router.get('/table', authRequired(6), table.table);
-router.get('/table/:id', authRequired(6) , table.oneTable);
+router.get('/table/:id', authRequired(6), table.oneTable);
 router.post('/table/cleanup', authRequired(6), table.cleanup);
 
 module.exports = router;
