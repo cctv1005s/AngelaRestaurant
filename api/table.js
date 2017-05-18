@@ -30,6 +30,7 @@ exports.bind = function* (next) {
                 WaiterID: waiterID,
                 PeopleNum: PeopleNum
             });
+            var data = yield table_model.bind(tableID);
             this.body = { success: true, data: info };
         }
         else if(order.TableID == null){
@@ -44,6 +45,7 @@ exports.bind = function* (next) {
                 WaiterID: waiterID,
                 PeopleNum: PeopleNum
             });
+            var data = yield table_model.bind(tableID);
             this.body = { success: true, data: info };
         }
         else if(order.TableID != null){
@@ -54,7 +56,7 @@ exports.bind = function* (next) {
         return this.body = { success: false, data: e };
     }
 }
-
+/*
  * 查看桌子的状态
  */
 exports.table = function* (next) {

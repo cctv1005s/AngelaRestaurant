@@ -77,12 +77,18 @@ exports.updateType = function* (next) {
     var userID = '6';
     try {
         var { ID, ClassName, ClassDescription } = this.request.body;
-        var info = yield menu_model.updateType({
-            ID: ID,
-            ClassName: ClassName,
-            ClassDescription: ClassDescription
-        });
-        this.body = { success: true, data: info };
+        var data = yield menu_model.type();
+        for (var i = 0; i < data.length; i++) {
+            if (ID == data[i].ID) {
+                var info = yield menu_model.updateType({
+                    ID: ID,
+                    ClassName: ClassName,
+                    ClassDescription: ClassDescription
+                });
+                return this.body = { success: true, data: info };
+            }
+        }
+        return this.body = { success: false, data: '不存在的ID' };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -131,15 +137,21 @@ exports.updateDish = function* (next) {
     var userID = '6';
     try {
         var { ID, Description, ClassID, Price, Name } = this.request.body;
-        var info = yield menu_model.updateDish({
-            ID: ID,
-            Description: Description,
-            ClassID: ClassID,
-            Price: Price,
-            Name: Name,
-            Status: 'Available'
-        });
-        this.body = { success: true, data: info };
+        var data = yield menu_model.allDish();
+        for (var i = 0; i < data.length; i++) {
+            if (ID == data[i].ID) {
+                var info = yield menu_model.updateDish({
+                    ID: ID,
+                    Description: Description,
+                    ClassID: ClassID,
+                    Price: Price,
+                    Name: Name,
+                    Status: 'Available'
+                });
+                return this.body = { success: true, data: info };
+            }
+        }
+        return this.body = { success: false, data: '不存在的ID' };
     }
     catch (e) {
         return this.body = { success: false, data: e };

@@ -27,6 +27,15 @@ exports.oneType = function* (id) {
     return dishs;
 }
 /**
+ * 获取所有菜
+ */
+exports.allDish = function*(id){
+    var sql = `
+        select * from Dish 
+    `;
+    return yield mysql.query(sql);
+}
+/**
  * 获取一道菜的具体信息
  * 
  * @param {string} id 菜ID

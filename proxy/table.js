@@ -48,6 +48,17 @@ exports.updateOrder = function*(order){
     return yield mysql.query(query);
 }
 /**
+ * 桌子由绿色变为黄色
+ * @param tableID 桌子ID
+ */
+exports.bind = function*(tableID){
+    var sql = `
+    UPDATE \`Table\` SET Status= 'YELLOW' 
+    WHERE ID= '${tableID}'
+    `;
+    return yield mysql.query(sql);
+}
+/**
  * 查看桌子的状态
  * 
  */

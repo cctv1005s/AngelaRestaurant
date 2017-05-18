@@ -50,7 +50,7 @@ router.get('/user', user.getOwnInfo);//   获取自己的基本信息
 router.post('/menu/type/add',authRequired(7), menu.addType);
 router.post('/menu/type/delete',authRequired(7) ,menu.deleteType);
 router.post('/menu/type/update',authRequired(7), menu.updateType);
-router.get('/menu/type/:id',authRequired(5), menu.oneType);
+router.get('/menu/type/:id', menu.oneType);
 router.get('/menu/type', menu.type);
 router.post('/menu/dish/add',authRequired(7), menu.addDish);
 router.post('/menu/dish/delete', authRequired(7),menu.deleteDish);
