@@ -46,15 +46,17 @@ describe('用户model的测试', () => {
     expect(r.affectedRows).to.equal(1);
 
 
-    // r = yield modelUser.add({
-    //   ID: 1,
-    //   Account: 'aaacount',
-    //   Password: md5('Password'),
-    //   Phone: 12345678901,
-    //   NickName: '一个',
-    //   AccessToken: shortid.generate(),
-    // });
-    // console.log(r);
-    // expect(r.affectedRows).to.equal(0);
-  });  
+    // try {
+    //   r = yield modelUser.add({
+    //     ID: 1,
+    //     Account: 'aaacount',
+    //     Password: md5('Password'),
+    //     Phone: 12345678901,
+    //     NickName: '一个',
+    //     AccessToken: shortid.generate(),
+    //   });
+    // } catch (error) {
+    //   expect(error).to.be.a('Object');
+    // }
+  });
 });
