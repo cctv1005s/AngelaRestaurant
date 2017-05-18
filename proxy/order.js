@@ -162,6 +162,7 @@ exports.deleteOneDishByCookingID = function*(CookingID){
  * @return {array} -订单对应的菜品列表
  */
 exports.getDishIDByOrderID = function*(orderID){
+
     var query = `
     SELECT * FRom CookingList
     WHERE OrderID = '${orderID}' 
@@ -215,8 +216,23 @@ exports.getTableId = function*(OrderID){
  */
 exports.setTableState = function*(TableID){
     var q = `
-     UPDATE Table SET Status= 'Red' 
-     WHERE ID= '${tableID}'
+    UPDATE \`Table\` 
+    SET \`Status\`='RED' 
+    WHERE \`ID\`='${TableID}'
+    `;
+    return yield mysql.query(q);
+  
+}
+
+/**
+ * 设置订单状态为完成
+ * 
+ * @param {String} OrderID -订单id
+ */
+exports.setOrderState = function*(OrderID){
+    var q = `
+     UPDATE CustomerOrder SET Status= 'FINISH' 
+     WHERE ID= '${OrderID}'
     `;
     return yield mysql.query(q);
   
