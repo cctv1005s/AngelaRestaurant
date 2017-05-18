@@ -56,11 +56,31 @@ exports.getAuthByID = function*(userID){
  */
 exports.findChefIDByDishID = function*(DishID){
     var query = `
-    SELECT ChefID FRom ChefCanDish
+    SELECT ChefID FRom view_ChefCookingDish
     WHERE DishID = '${DishID}'
     `;
     return yield mysql.query(query);
 }
+
+
+/**
+ * 获取厨师当前需要做的菜的数量
+ * 
+ * @param {String} ChefID -厨师id
+ * @return {int} -厨师做的菜的数量
+ */
+exports.getChefCookingSum = function*(ChefID){
+    var query = `
+    SELECT * FRom CookingList
+    WHERE ChefID = '${ChefID}' 
+    AND Status = 'WAIT'
+    `;
+
+    var Cookings = yield mysql.query(query);
+    return Cookings.length;
+}
+
+
 
 
 /**
@@ -172,4 +192,32 @@ exports.orderDish = function* (id){
       SELECT * FROM View_CookingList WHERE OrderID = '${id}'
     `;
     return yield mysql.query(q);
+}
+
+
+/**
+ * 获取桌子id
+ * 
+ * @param {String} OrderID -订单id
+ */
+exports.getTableId = function*(OrderID){
+      var q = `
+      SELECT TableID FROM CustomerOrder WHERE ID = '${OrderID}'
+    `;
+    return yield mysql.query(q);
+}
+
+
+/**
+ * 设置桌子状态为脏
+ * 
+ * @param {String} TableID -桌子id
+ */
+exports.setTableState = function*(TableID){
+    var q = `
+     UPDATE Table SET Status= 'Red' 
+     WHERE ID= '${tableID}'
+    `;
+    return yield mysql.query(q);
+  
 }

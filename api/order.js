@@ -49,20 +49,36 @@ exports.addDish = function* (next) {
   var orderID = this.params.id;
   var { DishIDList } = this.request.body;
   var chefIDlist = new Array();
+  var chefIDlistCount = new Array();
   // 厨师id
   var ChefID = 1;
   // 将菜分发到具体的厨师
   for (var i = 0; i < DishIDList.length; i++) {
+
+    chefIDlist = yield order_model.findChefIDByDishID(DishIDList[i].DishID);
+
+    for (var j = 0; j < chefIDlist.length; j++) {
+      chefIDlistCount[j] = yield order_model.getChefCookingSum(chefIDlist[j]);
+    }
+
     for (var j = 0; j < DishIDList[i].Count; j++) {
+
+      var indexChef = chefIDlistCount.indexOf(Math.min.apply(Math, chefIDlistCount));
+
       var CookingList = yield order_model.insertCookingList({
           CookingID: uuidV1(),
           OrderID: orderID,
-          ChefID: 1,
+          ChefID: chefIDlist[indexChef],
           DishID: DishIDList[i].DishID,
           Status: 'WAIT',
         });
+
+        chefIDlistCount[indexChef]++;
     }
   }
+
+
+
   this.body = { success: true, data: '插入成功' };
 };
 
@@ -75,11 +91,11 @@ exports.subDish = function* (next) {
 
   var cookingInfo = yield order_model.getCookingInfo(orderID, CookingID);
 
-  var waiterID = 1;
-  var auth = yield order_model.getAuthByID(waiterID);
+  // var waiterID = 1;
+  // var auth = yield order_model.getAuthByID(waiterID);
   if (cookingInfo.length == 0) { return this.body = { success: false, data: '订单没有这道菜' }; }
 
-  if (cookingInfo[0].Status != 'Wait') { return this.body = { success: false, data: '这道菜处于不能被取消状态' }; }
+  if (cookingInfo[0].Status != 'WAIT') { return this.body = { success: false, data: '这道菜处于不能被取消状态' }; }
 
   var result = yield order_model.deleteOneDishByCookingID(CookingID);
 
@@ -110,6 +126,9 @@ exports.cancelOrder = function* (next) {
  * 支付订单
  */
 exports.payforOrder = function* (next) {
+
+  var { orderID } = this.request.body;
+
   var dishIDList = yield order_model.getDishIDByOrderID(orderID);
   if (dishIDList.length == 0) { return this.body = { success: false, data: '此订单还未点餐' }; }
   var amount = 0.0;
@@ -123,6 +142,9 @@ exports.payforOrder = function* (next) {
 
     amount += dishInfo[0].Price;
   }
+
+  var tableID = yield order_model.getTableId(orderID);
+  var result = yield order_model.setTableState(tableID);
 
   var data_ = `请支付：${amount }元`;
   this.body = { success: true, data: data_ };
