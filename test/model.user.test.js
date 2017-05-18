@@ -9,7 +9,7 @@ require('co-mocha');
 describe('用户model的测试', () => {
   it('findByID方法测试', function* () {
     var r = yield modelUser.findByID('1');
-    expect(r).to.have.lengthOf(1);
+    expect(r).to.have.length.least(1);
 
     r = yield modelUser.findByID('0000');
     expect(r).to.have.lengthOf(0);
@@ -18,7 +18,7 @@ describe('用户model的测试', () => {
 
   it('findByToken方法测试', function* () {
     var r = yield modelUser.findByToken('BJ8R2j0yb');
-    expect(r).to.have.lengthOf(1);
+    expect(r).to.have.length.least(1);
 
     r = yield modelUser.findByToken('00000');
     expect(r).to.have.lengthOf(0);
@@ -27,7 +27,7 @@ describe('用户model的测试', () => {
 
   it('findByAccount方法测试', function* () {
     var r = yield modelUser.findByAccount('123456');
-    expect(r).to.have.lengthOf(1);
+    expect(r).to.have.length.least(1);
 
     r = yield modelUser.findByAccount('00000');
     expect(r).to.have.lengthOf(0);
