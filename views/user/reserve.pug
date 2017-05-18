@@ -10,18 +10,47 @@ block content
         .input
             .input-title 用餐人数
             input#PeopleNum(type="number" maxlength=3)
-        .input
+        .input#root
             .input-title 用餐时间
-            input#OrderTime(type="text")
+            input.calendar#OrderTime(type="text" )
         .input
             .input-title 联系方式
-            input#Phone(type="number" maxlength=11)
+            input#Phone(type="number" maxlength=11 value=phone)
     .check
-        button.check-btn 确定
+        button.check-btn#check-btn 确定
 
 block script
+    script(src="/js/jq-calendar.min.js")
     script.
       $(function(){
+        //  生成日期选项
+        //  将Date格式的时间转换到2017-5-8
+        var formatTime = function(date){
+            var year = date.getFullYear();
+            var month = parseInt(date.getMonth()) + 1;
+            var date = date.getDate();
+            return `${year}-${month}-${date}`;
+        }
+
+        //  时间转换到date对象
+        var unFormatTime = function(time){
+            var times = time.split('-');
+            var date = new Date();
+            date.setYear(times[0]);
+            date.setMonth(parseInt(times[1]) - 1);
+            date.setDate(times[2]);
+            return date;
+        }
+        var date = new Date();
+        const WEEK =  7*24*60*60*1000;
+        var nextDate = new Date( date.getTime() + WEEK);
+        $.Calendar({
+            root:'.calendar',   
+            beginDate:formatTime(date),
+            endDate:formatTime(nextDate)
+         });
+
+        //  按键监听
         $('.header-left').click(function(e){
             history.go(-1);
         });
@@ -29,4 +58,24 @@ block script
         var $PeopleNum = $('#PeopleNum');
         var $OrderTime = $('#OrderTime');
         var $Phone = $('#Phone');
+
+        //预定订单监听
+        $('#check-btn').click(function(e){
+            $.post(
+                '/api/v1/order/reserve',
+                {
+                    PeopleNum:$PeopleNum.val(),
+                    OrderTime:unFormatTime($OrderTime.val()).getTime(),
+                    Phone:$Phone.val(),
+                }
+            ).then(function(res){
+                if(res.success){
+                    alert("预定成功");
+                    window.history.go(-1);
+                }else{
+                    alert(res.data);
+                }
+            })
+            ;
+        });
       })

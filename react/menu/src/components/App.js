@@ -7,9 +7,14 @@ import Index from './Index.js'
 import OrderedMenu from './OrderedMenu.js';
 
 //最终渲染
-ReactDom.render((
-    <Router history={hashHistory}>
-        <Route path='/' component={Index}></Route>
-        <Route path='/ordered' component={OrderedMenu}></Route>
-    </Router>
-), document.getElementById('app'));
+var ___render = function(){
+    ReactDom.render((
+        <Router history={hashHistory}>
+            <Route path='/' component={Index}></Route>
+            <Route path='/ordered' component={OrderedMenu}></Route>
+        </Router>
+    ), document.getElementById('app'));
+};
+window.___render = ___render;
+___render();
+

@@ -3,7 +3,7 @@ exports.index = function () {
 };
 
 exports.reserve = function () {
-  this.render('user/reserve', { sitename: '预定' });
+  this.render('user/reserve', { sitename: '预定', phone: this.session.user.Phone||"" });
 };
 
 exports.tokenid = function () {

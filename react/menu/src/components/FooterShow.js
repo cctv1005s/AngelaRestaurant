@@ -1,52 +1,52 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 
-export default class FooterShow extends Component{
-    render(){
-        if(!this.props.Active)
-            return (<i></i>)
+export default class FooterShow extends Component {
+  onAdd(Dish) {
+      this.props.Ordered.add(Dish);
+      this.setState({});
+    }
 
-        return (
-            <div 
-             className="footer-show" 
-             style={{height:$(window).height() - 50}} 
-             onClick={this.props.onClick}
-             >
-                <div className="footer-pane">
-                    <div className="footer-info">已点菜单</div>
+  onSub(Dish) {
+      this.props.Ordered.sub(Dish);
+      this.setState({});
+    }
 
-                    <div className="footer-list">
-                        
-                        <div className="footer-item">
-                            <div className="left">红烧牛肉面</div>
-                            <div className="footer-op right" >
-                                <div className="footer-dec left">-</div>
-                                <div className="footer-count left">1</div>
-                                <div className="footer-inc left ">+</div>
-                            </div>
-                        </div>
+  render() {
+      var self = this;
+        // 已经点了的菜的详情
+      var { order } = this.props.Ordered;
 
-                        <div className="footer-item">
-                            <div className="left">红烧牛肉面</div>
-                            <div className="footer-op right" >
-                                <div className="footer-dec left">-</div>
-                                <div className="footer-count left">1</div>
-                                <div className="footer-inc left ">+</div>
-                            </div>
-                        </div>
+      if (!this.props.Active)
+          return null;
+      return (
+          <div
+              className="footer-show"
+              style={{ height: $(window).height() - 50 }}
+              onClick={this.props.onClick}
+            >
+              <div className="footer-pane">
+                  <div className="footer-info">已点菜单</div>
 
-                        <div className="footer-item">
-                            <div className="left">红烧牛肉面</div>
-                            <div className="footer-op right" >
-                                <div className="footer-dec left">-</div>
-                                <div className="footer-count left">1</div>
-                                <div className="footer-inc left ">+</div>
-                            </div>
-                        </div>                        
-
+                  <div className="footer-list">
+                      {
+                            (order||[]).map((ele,i) =>  {
+                              if(ele.Count == 0)
+                                return null;
+                              return (
+                                  <div className="footer-item" key={i}>
+                                      <div className="left">{ele.Dish.Name}</div>
+                                      <div className="footer-op right" >
+                                          <div className="footer-dec left" onClick={(e) => { e.stopPropagation(); self.onSub(ele.Dish) ;}}>-</div>
+                                          <div className="footer-count left">{ele.Count}</div>
+                                          <div className="footer-inc left " onClick={(e) => { e.stopPropagation(); self.onAdd(ele.Dish); }}>+</div>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        }
                     </div>
-
                 </div>
             </div>
-        )
+        );
     }
 }

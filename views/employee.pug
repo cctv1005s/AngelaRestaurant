@@ -16,7 +16,7 @@ block content
       input#password(type="password" name="password" maxlength="10")
 
   .check
-    button#check-btn 登陆
+    button#check-btn 员工登陆
     .check-info
       span.left 
         a(href="/foget") 忘记密码？
@@ -43,7 +43,7 @@ block script
         .then(function(res){
           if(!res.success)
             return alert('登陆失败，账号或密码错误');
-          window.location.href = "/user";
+          window.location.href = "/table";
         })
         .catch(function(e){
           alert('系统错误，请刷新界面或者联系管理员');

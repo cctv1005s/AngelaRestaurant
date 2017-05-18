@@ -32,7 +32,7 @@ exports.canOrder = function* () {
   // 找到一个订单正在用餐，说明可以
   for (let i = 0; i < res.length; i++) {
     if (res[i].Status === 'PROGRESS') {
-      return this.body = { success: true };
+      return this.body = { success: true, data: res[i] };
     }
   }
   return this.body = { success: false };
