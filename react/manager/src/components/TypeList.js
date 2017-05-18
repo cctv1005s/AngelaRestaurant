@@ -7,6 +7,7 @@ import Type from './Type.js';
 export default class TypeList extends Component {
   render() {
     var {typeList} = store.getState();
+    console.log(typeList);
     return (
         <div className="manager-end-left" style={{ height: $(window).height() - 50 }}>
             <div className="title">

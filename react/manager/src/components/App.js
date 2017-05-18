@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 import Index from './Index.js';
+import StaffIndex from './StaffIndex.js';
 var Redux = require('redux');
 import reducer from './reducer.js';
 const store = Redux.createStore(reducer);
@@ -14,10 +15,10 @@ var render = function(){
     ReactDom.render((
         <Router history={hashHistory}>
             <Route path='/' component={Index}></Route>
+            <Route path='/staff' component={StaffIndex}></Route>
         </Router>
     ), document.getElementById('app'));
 }
 
-store.subscribe(render);
 render();
-
+store.subscribe(render);
