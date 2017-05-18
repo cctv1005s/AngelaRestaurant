@@ -57,6 +57,7 @@ router.post('/menu/dish/delete', authRequired(7),menu.deleteDish);
 router.post('/menu/dish/update', authRequired(7),menu.updateDish);
 router.post('/menu/dish/stop', authRequired(7),menu.stopDish);
 router.get('/menu/dish/:id', menu.oneDish);
+
 /**
  * table部分
  */

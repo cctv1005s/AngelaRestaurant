@@ -32,16 +32,18 @@ var style = {
 export default class GreenTab extends Tab {
   bindTable() {
     $.post(
-      '/api/v1/table/1/bind',
+      `/api/v1/table/${this.props.ID}/bind`,
       {
         AccessToken: this.refs.input.value,
         PeopleNum: this.refs.num.value,
       },
-    ).then(function (res) {
-      if(res.succss)
+    ).then((res)=>{
+      if(res.success)
         alert('绑定成功');
-      else
-        alert(res.data);
+      else{
+        alert('绑定失败');
+        console.log(res.data);
+      }
       this.props.onEnd();
     });
   }
