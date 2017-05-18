@@ -11,17 +11,6 @@ exports.getID = function*(accessToken){
     return yield mysql.query(query);
 }
 /**
- * 获取ID对应的职位
- * 
- * @param {string} id 职工ID
- */
-exports.getAuth = function*(id){
-    var query = `
-    SELECT Auth FROM Auth WHERE UserID = '${id}'
-    `;
-    return yield mysql.query(query);
-}
-/**
  * 查询当前用户是否有预定订单
  * 
  * @param {string} userID 顾客ID
@@ -57,6 +46,17 @@ exports.updateOrder = function*(order){
     WHERE ID = '${order.ID}'
     `;
     return yield mysql.query(query);
+}
+/**
+ * 桌子由绿色变为黄色
+ * @param tableID 桌子ID
+ */
+exports.bind = function*(tableID){
+    var sql = `
+    UPDATE \`Table\` SET Status= 'YELLOW' 
+    WHERE ID= '${tableID}'
+    `;
+    return yield mysql.query(sql);
 }
 /**
  * 查看桌子的状态
@@ -107,7 +107,7 @@ exports.cleanup = function*(tableID){
  * 
  * @param {string} tableID 桌子ID
  */
-exports.cleanup2 = function*(tableID){
+exports.cleanup_ = function*(tableID){
     var sql = `
     DELETE FROM \`EmployeeInTable\` 
     WHERE TableID = '${tableID}'
