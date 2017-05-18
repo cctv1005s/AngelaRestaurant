@@ -2,8 +2,8 @@ var mysql = require('../models/index')
 
 exports.getall=function*(){
     var sql =`select *
-    from View_Employee`;
-    console.log(sql);
+    from EmployeeClass`;
+    
     return yield mysql.query(sql);
 }
 exports.addtype=function* (newClass){
