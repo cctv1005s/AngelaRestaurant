@@ -88,6 +88,7 @@ exports.subDish = function* () {
   var cookingInfo = yield orderModel.getCookingInfo(orderID, CookingID);
 
   // var waiterID = 1;
+
   // var auth = yield orderModel.getAuthByID(waiterID);
   if (cookingInfo.length === 0) { return this.body = { success: false, data: '订单没有这道菜' }; }
 
@@ -98,6 +99,7 @@ exports.subDish = function* () {
   } catch (error) {
     return this.body = { success: false, data: error };
   }
+
 
   this.body = { success: true, data: '删除成功' };
 };
@@ -123,7 +125,6 @@ exports.cancelOrder = function* () {
   this.body = { success: true, data: '取消订单成功' };
 };
 
-
 /**
  * 支付订单
  */
@@ -139,8 +140,10 @@ exports.payforOrder = function* () {
       continue;
     }
     var dishID = dishIDList[i].DishID;
+
     var dishInfo = yield orderModel.getInfoByDishID(dishID);
 //    console.log(dishInfo[0].Price);
+
 
     amount += dishInfo[0].Price;
   }

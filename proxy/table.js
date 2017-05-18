@@ -28,7 +28,7 @@ exports.getAuth = function*(id){
  */
 exports.isOrder = function*(userID){
     var query = `
-    SELECT * FROM \`Order\` WHERE UserID = '${userID}'
+    SELECT * FROM \`CustomerOrder\` WHERE UserID = '${userID}'
     `;
     return yield mysql.query(query);
 }
@@ -39,7 +39,7 @@ exports.isOrder = function*(userID){
  */
 exports.newOrder = function*(order){
     var query = `
-    INSERT INTO \`Order\`( ID , TableID, UserID, OrderTime, Phone, Type, Status, WaiterID, PeopleNum) 
+    INSERT INTO \`CustomerOrder\`( ID , TableID, UserID, OrderTime, Phone, Type, Status, WaiterID, PeopleNum) 
     VALUES ('${order.ID}','${order.TableID}','${order.UserID}','${order.OrderTime}','${order.Phone}',
     '${order.Type}','${order.Status}','${order.WaiterID}','${order.PeopleNum}')
     `;
@@ -52,7 +52,7 @@ exports.newOrder = function*(order){
  */
 exports.updateOrder = function*(order){
     var query = `
-    UPDATE \`Order\` SET TableID ='${order.TableID}', OrderTime ='${order.OrderTime}', Phone ='${order.Phone}',
+    UPDATE \`CustomerOrder\` SET TableID ='${order.TableID}', OrderTime ='${order.OrderTime}', Phone ='${order.Phone}',
     Type ='${order.Type}', Status ='${order.Status}', WaiterID ='${order.WaiterID}', PeopleNum ='${order.PeopleNum}' 
     WHERE ID = '${order.ID}'
     `;
