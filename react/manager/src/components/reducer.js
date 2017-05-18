@@ -15,7 +15,7 @@ var initAction = {
 export default function (state = defaultState, action = initAction) {
   var fn = {};
   var href = window.location.href;
-  if(href.indexOf('staff')){
+  if(href.indexOf('staff')>=0){
       fn = StaffFn;
   }else{
       fn = MenuFn;
