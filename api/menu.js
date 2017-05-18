@@ -33,7 +33,7 @@ exports.oneDish = function* (next) {
     var id = this.params.id;
     try {
         var dish = yield menu_model.oneDish(id);
-        this.body = { success: true, data: dish };
+        this.body = { success: true, data: dish[0] };
     } catch (e) {
         this.body = { success: false, data: e };
     }
@@ -50,7 +50,7 @@ exports.addType = function* (next) {
             ClassName: ClassName,
             ClassDescription: ClassDescription
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         this.body = { success: false, data: e };
@@ -64,7 +64,7 @@ exports.deleteType = function* (next) {
     try {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteType(ID);
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         this.body = { success: false, data: e };
@@ -74,7 +74,6 @@ exports.deleteType = function* (next) {
  * 修改一种菜单类别
  */
 exports.updateType = function* (next) {
-    var userID = '6';
     try {
         var { ID, ClassName, ClassDescription } = this.request.body;
         var info = yield menu_model.updateType({
@@ -82,7 +81,7 @@ exports.updateType = function* (next) {
             ClassName: ClassName,
             ClassDescription: ClassDescription
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         this.body = { success: false, data: e };
@@ -103,7 +102,7 @@ exports.addDish = function* (next) {
             Name: Name,
             Status: 'Available'
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         this.body = { success: false, data: e };
@@ -117,8 +116,7 @@ exports.deleteDish = function* (next) {
     try {
         var { ID } = this.request.body;
         var info = yield menu_model.deleteDish(ID);
-        console.log(info);
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         this.body = { success: false, data: e };
@@ -139,7 +137,7 @@ exports.updateDish = function* (next) {
             Name: Name,
             Status: 'Available'
         });
-        this.bofy = { success: true, data: info };
+        this.body = { success: true, data: info };
     }
     catch (e) {
         this.body = { success: false, data: e };

@@ -94,11 +94,8 @@ exports.subDish = function* (next) {
   // var waiterID = 1;
   // var auth = yield order_model.getAuthByID(waiterID);
   if (cookingInfo.length == 0) { return this.body = { success: false, data: '订单没有这道菜' }; }
-
-  if (cookingInfo[0].Status != 'WAIT') { return this.body = { success: false, data: '这道菜处于不能被取消状态' }; }
-
+  if (cookingInfo[0].Status != 'WAIT'.toUpperCase()) { return this.body = { success: false, data: '这道菜处于不能被取消状态' }; }
   var result = yield order_model.deleteOneDishByCookingID(CookingID);
-
   this.body = { success: true, data: '删除成功' };
 };
 
@@ -121,7 +118,6 @@ exports.cancelOrder = function* (next) {
   this.body = { success: true, data: '取消订单成功' };
 };
 
-
 /**
  * 支付订单
  */
@@ -138,8 +134,6 @@ exports.payforOrder = function* (next) {
     }
     var dishID = dishIDList[i].DishID;
     var dishInfo = yield order_model.getInfoByDishID(dishID);
-    console.log(dishInfo[0].Price);
-
     amount += dishInfo[0].Price;
   }
 

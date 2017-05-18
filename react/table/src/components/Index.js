@@ -15,7 +15,7 @@ for (let i = 0; i < 10; i++) {
 //* ************************************************* */
 export default class Index extends Component{
   componentDidMount(){
-
+    
   }
   return (
     <div>
