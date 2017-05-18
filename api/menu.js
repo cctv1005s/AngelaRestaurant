@@ -10,7 +10,7 @@ exports.type = function* (next) {
         var type = yield menu_model.type();
         this.body = { success: true, data: type };
     } catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 
@@ -23,7 +23,7 @@ exports.oneType = function* (next) {
         var dishs = yield menu_model.oneType(id);
         this.body = { success: true, data: dishs };
     } catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -35,7 +35,7 @@ exports.oneDish = function* (next) {
         var dish = yield menu_model.oneDish(id);
         this.body = { success: true, data: dish[0] };
     } catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -53,7 +53,7 @@ exports.addType = function* (next) {
         this.body = { success: true, data: info };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -67,7 +67,7 @@ exports.deleteType = function* (next) {
         this.body = { success: true, data: info };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -76,15 +76,21 @@ exports.deleteType = function* (next) {
 exports.updateType = function* (next) {
     try {
         var { ID, ClassName, ClassDescription } = this.request.body;
-        var info = yield menu_model.updateType({
-            ID: ID,
-            ClassName: ClassName,
-            ClassDescription: ClassDescription
-        });
-        this.body = { success: true, data: info };
+        var data = yield menu_model.type();
+        for (var i = 0; i < data.length; i++) {
+            if (ID == data[i].ID) {
+                var info = yield menu_model.updateType({
+                    ID: ID,
+                    ClassName: ClassName,
+                    ClassDescription: ClassDescription
+                });
+                return this.body = { success: true, data: info };
+            }
+        }
+        return this.body = { success: false, data: '不存在的ID' };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -105,7 +111,7 @@ exports.addDish = function* (next) {
         this.body = { success: true, data: info };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -119,7 +125,7 @@ exports.deleteDish = function* (next) {
         this.body = { success: true, data: info };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -129,18 +135,24 @@ exports.updateDish = function* (next) {
     var userID = '6';
     try {
         var { ID, Description, ClassID, Price, Name } = this.request.body;
-        var info = yield menu_model.updateDish({
-            ID: ID,
-            Description: Description,
-            ClassID: ClassID,
-            Price: Price,
-            Name: Name,
-            Status: 'Available'
-        });
-        this.body = { success: true, data: info };
+        var data = yield menu_model.allDish();
+        for (var i = 0; i < data.length; i++) {
+            if (ID == data[i].ID) {
+                var info = yield menu_model.updateDish({
+                    ID: ID,
+                    Description: Description,
+                    ClassID: ClassID,
+                    Price: Price,
+                    Name: Name,
+                    Status: 'Available'
+                });
+                return this.body = { success: true, data: info };
+            }
+        }
+        return this.body = { success: false, data: '不存在的ID' };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
 /**
@@ -154,6 +166,6 @@ exports.stopDish = function* (next) {
         this.body = { success: true, data: info };
     }
     catch (e) {
-        this.body = { success: false, data: e };
+        return this.body = { success: false, data: e };
     }
 }
