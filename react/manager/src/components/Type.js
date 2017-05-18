@@ -12,6 +12,7 @@ export default class TypeList extends Component {
            className={`item ${active ? 'active':''}`}
            onClick={()=>{
                //选择新的条目
+               $(this.refs.setting).addClass('hidden');
                store.dispatch({
                     type:'TypeSelect',
                     data:ID
@@ -21,12 +22,15 @@ export default class TypeList extends Component {
               <span className="item-name" >{Name}</span>
               {
                     (() => {
-                      if (!this.props.active)
+                      if (!active)
                           return null;
                       return (
                           <button
                               className="item-setting-btn am-icon-gear"
-                              onClick={() => { $(this.refs.setting).toggleClass('hidden'); }}
+                              onClick={(e) => { 
+                                  e.stopPropagation();
+                                  $(this.refs.setting).toggleClass('hidden'); 
+                              }}
                              />
                         );
                     })()
@@ -35,16 +39,21 @@ export default class TypeList extends Component {
               <div className="item-setting hidden" ref="setting">
                   <div 
                    className="rename" 
-                   onClick={()=>{
+                   onClick={(e)=>{
+                       e.stopPropagation();
+                       $(this.refs.setting).toggleClass('hidden');
                        store.dispatch({
                            type:'TypeRename',
-                           data:ID
+                           data:ID,
+                           _name:Name
                        });
                    }}
                   >修改名称</div>
                   <div 
                    className="delete" 
-                   onClick={()=>{
+                   onClick={(e)=>{
+                        e.stopPropagation();
+                        $(this.refs.setting).toggleClass('hidden');
                         store.dispatch({
                         type:'TypeDelete',
                         data:ID

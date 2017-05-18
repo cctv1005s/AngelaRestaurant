@@ -28,6 +28,10 @@
     position: relative;
 }
 
+.manager-end-type > .item:hover{
+    background: rgba(255,255,255,0.3);
+}
+
 .manager-end-type > .active{
     background: rgba(255,255,255,0.3);
     border-left: 5px solid yellow;
@@ -35,6 +39,7 @@
 
 .manager-end-center{
     width: 25%;
+    border-right: 1px solid grey;
 }
 
 .manager-end-right{
@@ -77,4 +82,9 @@
 
 .item-setting > div:hover{
     background: #eee;
+}
+
+
+.manager-end-list > .item:hover{
+    background: rgba(128,128,128,0.3);
 }
