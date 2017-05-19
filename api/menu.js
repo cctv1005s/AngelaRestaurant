@@ -1,6 +1,7 @@
 var menu_model = require('../proxy/menu');
 var table_model = require('../proxy/table');
 var uuidV1 = require('uuid/v1');
+var shortid = require('shortid');
 
 /**
  * 用于获取菜单的类别，不添加权限，对所有类别开放
@@ -46,7 +47,7 @@ exports.addType = function* (next) {
     try {
         var { ClassName, ClassDescription } = this.request.body;
         var info = yield menu_model.addType({
-            ID: uuidV1(),
+            ID: shortid.generate(),
             ClassName: ClassName,
             ClassDescription: ClassDescription
         });
@@ -102,7 +103,7 @@ exports.addDish = function* (next) {
     try {
         var { Description, ClassID, Price, Name } = this.request.body;
         var info = yield menu_model.addDish({
-            ID: uuidV1(),
+            ID: shortid.generate(),
             Description: Description,
             ClassID: ClassID,
             Price: Price,

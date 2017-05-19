@@ -1,0 +1,63 @@
+app listen on 3000
+
+
+  菜单api测试
+  <-- GET /api/v1/menu/type
+GET /api/v1/menu/type - 79
+  --> GET /api/v1/menu/type 200 87ms 797b
+    ✓ 菜单type接口测试 (145ms)
+  <-- GET /api/v1/menu/type/1
+GET /api/v1/menu/type/1 - 93
+  --> GET /api/v1/menu/type/1 200 99ms 1.64kb
+    ✓ 菜单oneType接口测试 (113ms)
+  <-- GET /api/v1/menu/dish/1
+GET /api/v1/menu/dish/1 - 26
+  --> GET /api/v1/menu/dish/1 200 28ms 249b
+    ✓ 菜单oneDish接口测试
+  <-- POST /api/v1/menu/type/add
+POST /api/v1/menu/type/add - 42
+  --> POST /api/v1/menu/type/add 200 50ms 160b
+  <-- POST /api/v1/menu/type/update
+POST /api/v1/menu/type/update - 64
+  --> POST /api/v1/menu/type/update 200 66ms 192b
+{ success: true,
+  data: 
+   { fieldCount: 0,
+     affectedRows: 1,
+     insertId: 0,
+     serverStatus: 2,
+     warningCount: 0,
+     message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+     protocol41: true,
+     changedRows: 1 } }
+BJlkVLnxZ
+  <-- POST /api/v1/menu/type/delete
+POST /api/v1/menu/type/delete - 36
+  --> POST /api/v1/menu/type/delete 200 39ms 151b
+    ✓ 菜单addType,updateType,deleteType接口测试 (219ms)
+  <-- POST /api/v1/menu/dish/add
+POST /api/v1/menu/dish/add - 38
+  --> POST /api/v1/menu/dish/add 200 39ms 161b
+  <-- POST /api/v1/menu/dish/update
+POST /api/v1/menu/dish/update - 61
+  --> POST /api/v1/menu/dish/update 200 63ms 192b
+  <-- POST /api/v1/menu/dish/stop
+POST /api/v1/menu/dish/stop - 45
+  --> POST /api/v1/menu/dish/stop 200 46ms 192b
+  <-- POST /api/v1/menu/dish/delete
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: '',
+  protocol41: true,
+  changedRows: 0 }
+POST /api/v1/menu/dish/delete - 32
+  --> POST /api/v1/menu/dish/delete 200 33ms 151b
+    ✓ 菜单addDish,updateDish,stopDish,deleteDish接口测试 (221ms)
+
+
+  5 passing (772ms)
+
