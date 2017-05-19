@@ -32,11 +32,11 @@ router.get('/order/:id/dish', authRequired(2), order.dish);//  查看某个订�
 /*
  * 厨师部分
  */
-router.get('/chef/:ChefID/order', chef.GetOrder);// 查看分配给我的菜品
-router.post('/chef/:ChefID/confirm/:DishID', chef.Confirm);// 确认开始做某一道菜
-router.post('/chef/:ChefID/finish/:DishID', chef.Finish);// 确认某一道菜完成
-router.post('/chef/:ChefID/cancel/:DishID', chef.Cancle);// 取消某一道菜
-router.post('/chef/:ChefID/rest', chef.Rest);// 将自己标记为休息状态
+router.get('/chef/:ChefID/order',authRequired(8), chef.GetOrder);// 查看分配给我的菜品
+router.post('/chef/:ChefID/confirm/:DishID',authRequired(8), chef.Confirm);// 确认开始做某一道菜
+router.post('/chef/:ChefID/finish/:DishID',authRequired(8), chef.Finish);// 确认某一道菜完成
+router.post('/chef/:ChefID/cancel/:DishID', authRequired(8),chef.Cancle);// 取消某一道菜
+router.post('/chef/:ChefID/rest', authRequired(8),chef.Rest);// 将自己标记为休息状态
 
 /**
  * user部分
