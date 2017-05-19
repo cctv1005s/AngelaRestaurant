@@ -5,7 +5,7 @@ const md5 = require('md5');
 const shortid = require('shortid');
 const Validator = require('Validator');
 
-// 登陆
+// 登录
 exports.signin = function* () {
   const { Account, Password } = this.request.body;
   let user = yield userModel.findByAccount(Account);
