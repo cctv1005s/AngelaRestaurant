@@ -60,4 +60,9 @@ describe('Api_ Order接口测试', () => {
     d = r.body;
     expect(d.data).to.equal('此订单还未点餐');
   });
+
+
+  it('查看订单已点菜品接口测试', function* () {
+    // 查看成功的情况
+  });
 });
