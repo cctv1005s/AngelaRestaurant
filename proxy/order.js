@@ -18,6 +18,8 @@ exports.setReserve = function* (preOrder) {
 /**
  * 通过用户id获取预订单信息
  *
+ * 
+ * 
  * @param {String} userID -用户id
  * @return {return} -用户id对应的预订单信息
  */
@@ -230,4 +232,32 @@ exports.setOrderState = function* (OrderID) {
      WHERE ID= '${OrderID}'
     `;
   return yield mysql.query(q);
+};
+
+
+/**
+ * 获取清理桌子的杂工
+ *
+ */
+exports.getBusboyID = function* () {
+  var q = `
+      SELECT ID FROM View_busboy
+    `;
+  return yield mysql.query(q);
+};
+
+
+/**
+ * 把杂工与桌子绑定起来
+ *
+ * @param {String} BusboyID -杂工id
+ * @param {String} TableID  -桌子id
+ */
+exports.distributeBusboy = function* (BusboyID, TableID) {
+  var query = `
+    INSERT INTO EmployeeInTable (EmployeeID,TableID)
+    VALUES 
+    ('${BusboyID}','${TableID}')
+    `;
+  return yield mysql.query(query);
 };

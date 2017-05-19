@@ -145,4 +145,13 @@ describe('订单model的测试', () => {
     expect(r).to.be.a('object');
   });
 
+  it('订单getBusboyID方法测试', function* () {
+    var r = yield orderModel.getBusboyID();
+    expect(r).to.have.length.least(1);
+  });
+
+  it('订单distributeBusboy方法测试', function* () {
+    var r = yield orderModel.distributeBusboy('afsref', '1');
+    expect(r.affectedRows).to.equal(1);
+  });
 });

@@ -4,7 +4,7 @@ var chef_model = require('../proxy/chef');
  * 确认开始做某一道菜
  **/
 exports.Confirm = function*(next){
-    var ChefID = this.session.user.ID;
+    var ChefID = this.params.ChefID;
     var DishID = this.params.DishID;
 
    //首先查看厨师是否存在
@@ -26,7 +26,7 @@ exports.Confirm = function*(next){
  * 确认完成某一道菜
  **/
 exports.Finish = function*(next){
-     var ChefID = this.session.user.ID;
+    var ChefID = this.params.ChefID;
     var DishID = this.params.DishID;
 
    //首先查看厨师是否存在
@@ -48,9 +48,8 @@ exports.Finish = function*(next){
  * 取消某一道菜
  **/
 exports.Cancle = function*(next){
-     var ChefID = this.session.user.ID;
-     var DishID = this.params.DishID;
-
+   var ChefID = this.session.user.ID;
+   var DishID = this.params.DishID;
    //首先查看厨师是否存在
    var CheckChef = yield chef_model.CheckChef(ChefID);
    if(CheckChef.length == 0)
@@ -91,7 +90,6 @@ exports.GetOrder = function*(next){
    var CheckChef = yield chef_model.CheckChef(ChefID);
    if(CheckChef.length == 0)
       return this.body = {success:false,data:"没有这位厨师"};
-
     var AllDish = yield chef_model.FindDish(ChefID);
     if(AllDish.length == 0)
         return this.body = {success:false,data:"该厨师没有分配到任何菜品"};
@@ -101,7 +99,6 @@ exports.GetOrder = function*(next){
                 var DishImg = yield chef_model.FindDishImg(AllDish[i].DishID);
                 AllDish[i].Img = DishImg; 
             }
-            console.log(AllDish);
             return  this.body = {success:true,data:AllDish}; 
     }  
 }
