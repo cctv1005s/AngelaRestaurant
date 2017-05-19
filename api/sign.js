@@ -4,7 +4,7 @@ const uuidV1 = require('uuid/v1');
 const md5 = require('md5');
 const shortid = require('shortid');
 
-// 登陆
+// 登录
 exports.signin = function* () {
   const { Account, Password } = this.request.body;
   let user = yield userModel.findByAccount(Account);

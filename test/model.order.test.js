@@ -37,7 +37,7 @@ describe('订单model的测试', () => {
 
 
   it('订单findChefIDByDishID方法测试', function* () {
-    var r = yield orderModel.findChefIDByDishID('3');
+    var r = yield orderModel.findChefIDByDishID('12');   
     expect(r).to.have.length.least(1);
 
     r = yield orderModel.findChefIDByDishID('20');
