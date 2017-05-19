@@ -4,6 +4,7 @@ const menu = require('./api/menu');
 const order = require('./api/order');
 const sign = require('./api/sign');
 const table = require('./api/table');
+const staff=require('./api/staff');
 var chef = require('./api/chef');
 
 const authControl = require('./middleware/authControl.js');// 权限控制
@@ -31,11 +32,11 @@ router.get('/order/:id/dish', authRequired(2), order.dish);//  查看某个订�
 /*
  * 厨师部分
  */
-router.get('/chef/:ChefID/order', chef.GetOrder);// 查看分配给我的菜品
-router.post('/chef/:ChefID/confirm/:DishID', chef.Confirm);// 确认开始做某一道菜
-router.post('/chef/:ChefID/finish/:DishID', chef.Finish);// 确认某一道菜完成
-router.post('/chef/:ChefID/cancel/:DishID', chef.Cancle);// 取消某一道菜
-router.post('/chef/:ChefID/rest', chef.Rest);// 将自己标记为休息状态
+router.get('/chef/:ChefID/order',authRequired(8), chef.GetOrder);// 查看分配给我的菜品
+router.post('/chef/:ChefID/confirm/:DishID',authRequired(8), chef.Confirm);// 确认开始做某一道菜
+router.post('/chef/:ChefID/finish/:DishID',authRequired(8), chef.Finish);// 确认某一道菜完成
+router.post('/chef/:ChefID/cancel/:DishID', authRequired(8),chef.Cancle);// 取消某一道菜
+router.post('/chef/:ChefID/rest', authRequired(8),chef.Rest);// 将自己标记为休息状态
 
 /**
  * user部分
@@ -61,9 +62,18 @@ router.get('/menu/dish/:id', menu.oneDish);
 /**
  * table部分
  */
-router.post('/table/:id/bind', authRequired(3), table.bind);
-router.get('/table', authRequired(6), table.table);
-router.get('/table/:id', authRequired(6), table.oneTable);
-router.post('/table/cleanup', authRequired(6), table.cleanup);
+router.post('/table/:id/bind', authRequired(3) ,table.bind);
+router.get('/table',authRequired(6), table.table);
+router.get('/table/:id',authRequired(6) ,table.oneTable);
+router.post('/table/cleanup',authRequired(6), table.cleanup);
+/**
+ * staff部分
+ */
+router.get('/staff/type',authRequired(7),staff.type);
+router.post('/staff/type/add',authRequired(7),staff.addtype);
+router.get('/staff/:id',authRequired(7),staff.getemDetail);
+router.post('/staff/add',authRequired(7),staff.addemployee);
+router.post('/staff/update',authRequired(7),staff.updateEmployee);
+router.post('/staff/sub',authRequired(7),staff.deleteEmployee);
 
 module.exports = router;
