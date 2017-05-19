@@ -55,9 +55,10 @@ exports.addType = function* (next) {
           ClassName,
           ClassDescription,
         });
-      this.body = { success: true, data: info };
-    }    catch (e) {
-      this.body = { success: false, data: e };
+        this.body = { success: true, data: info };
+    }
+    catch (e) {
+        this.body = { success: false, data: e };
     }
 
 };
