@@ -20,13 +20,24 @@ exports.FindCanDish = function*(ChefID){
  */
 exports.FindDish = function*(ChefID){
     var query = `
-      select A.OrderID,A.DishID,A.Status,A.StartTime,A.EndTime,
-             B.Description,B.Price 
+      select *
       from CookingList as A,Dish as B 
       where A.DishID=B.ID and A.ChefID = ${ChefID}
     `;
     return yield mysql.query(query);
 }
+
+/**
+ * 返回每一个菜品的所有图片 
+ * @param ChefID 厨师ID
+ */
+exports.FindDishImg = function*(DishID){
+    var query = `
+      select * from DishImg where DishID =  ${DishID} 
+        `;
+    return yield mysql.query(query);
+}
+
 
 /**
  * 查看厨师是否存在 

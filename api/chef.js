@@ -97,6 +97,11 @@ exports.GetOrder = function*(next){
         return this.body = {success:false,data:"该厨师没有分配到任何菜品"};
     else
     {
-        return  this.body = {success:true,data:AllDish};
+            for(var i=0;i<AllDish.length;i++){
+                var DishImg = yield chef_model.FindDishImg(AllDish[i].DishID);
+                AllDish[i].Img = DishImg; 
+            }
+            console.log(AllDish);
+            return  this.body = {success:true,data:AllDish}; 
     }  
 }
