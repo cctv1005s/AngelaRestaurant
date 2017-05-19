@@ -21,17 +21,25 @@
 
 
 .manager-end-type > .item{
-    background: rgba(255,255,255,0.3);
     height: 40px;
     line-height: 40px;
     padding-left: 20px;
-    border-left: 5px solid yellow;
     cursor: pointer;
     position: relative;
 }
 
+.manager-end-type > .item:hover{
+    background: rgba(255,255,255,0.3);
+}
+
+.manager-end-type > .active{
+    background: rgba(255,255,255,0.3);
+    border-left: 5px solid yellow;
+}
+
 .manager-end-center{
     width: 25%;
+    border-right: 1px solid grey;
 }
 
 .manager-end-right{
@@ -45,6 +53,8 @@
     display: inline-block;
     line-height: 40px;
     outline: none;
+    position: absolute;
+    right: 0;
 }
 
 .item-setting{
@@ -58,6 +68,7 @@
     font-size: 13px;
     line-height: 30px;
     overflow: hidden;
+    z-index: 10;
 }
 
 .item-setting > .rename{
@@ -71,4 +82,9 @@
 
 .item-setting > div:hover{
     background: #eee;
+}
+
+
+.manager-end-list > .item:hover{
+    background: rgba(128,128,128,0.3);
 }

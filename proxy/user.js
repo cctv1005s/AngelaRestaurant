@@ -12,8 +12,10 @@ exports.add = function* (user) {
     VALUES 
     ('${user.ID}','${user.Account}','${user.Password}','${user.AccessToken}','${timeFormat.format(new Date())}','${user.Phone}','${user.NickName}')
     `;
+
   return yield mysql.query(query);
 };
+
 
 exports.findByAccount = function* (Account) {
   var query = `

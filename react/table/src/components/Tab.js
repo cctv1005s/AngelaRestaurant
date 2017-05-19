@@ -11,10 +11,9 @@ var style = {
     'z-index': 20,
   },
   box: {
-    height: '40%',
+    height: '60%',
     width: '100%',
     'max-width': '500px',
-    'max-height': '400px',
     background: 'white',
     left: '50%',
     top: '43%',

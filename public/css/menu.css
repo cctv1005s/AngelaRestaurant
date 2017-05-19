@@ -298,3 +298,80 @@
     line-height: 40px;
     height: 40px;
 }
+
+
+.ordered-footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    border-top: 1px solid #a0a0a0;
+    height: 50px;
+    background: white;
+}
+
+.ordered-footer > div{
+    float: left;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    width: 70%;
+}
+.ordered-footer > div >span{
+    color: red;
+}
+
+.ordered-footer > button{
+    float: right;
+    width: 30%;
+    height: 100%;
+    border: none;
+    background: rgb(255,237,91);
+}
+
+.ordered-item{
+    padding: 0 10px;
+    margin: 10px 0;
+    overflow: auto;
+    border-bottom: 1px solid #a0a0a0;
+}
+
+.ordered-item > .img{    
+    float: left;
+    width: 100px;
+}
+
+.ordered-list{
+    overflow: auto;
+}
+
+.ordered-item > .img > img{
+    height: 100%;
+    width: 100%;
+}
+
+.ordered-item > .info{
+    float: left;
+    padding-left: 20px;
+}
+
+.ordered-item > .info > *{
+    margin: 0;
+}
+
+.ordered-item > .info > .cost{
+    margin-top: 10px;
+    color: red;
+}
+
+.ordered-cancel{
+    float: right;
+    line-height: 100px;
+}
+
+.ordered-cancel > button{
+    border: none;
+    background: red;
+    color: white;
+    height: 40px;
+    width: 60px;
+}

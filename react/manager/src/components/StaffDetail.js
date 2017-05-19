@@ -5,9 +5,11 @@ import React , {Component} from 'react';
  */
 export default class Detail extends Component{
     render(){
+        var {itemList} = store.getState();
         return (
             <div className="manager-end-right">
                 <div className="manager-end-detail">
+                    
                 </div>
             </div>
         );

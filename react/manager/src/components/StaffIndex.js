@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import TypeList from './TypeList.js';
 import List from './List.js';
-import MenuDetail from './MenuDetail.js';
+import StaffDetail from './StaffDetail.js';
 
 export default class Index extends Component {
   constructor(p) {
@@ -13,7 +13,7 @@ export default class Index extends Component {
           <div className="manager-end">
               <TypeList />
               <List />
-              <MenuDetail />
+              <StaffDetail />
             </div>
         );
     }

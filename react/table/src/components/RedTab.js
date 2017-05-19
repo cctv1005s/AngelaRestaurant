@@ -34,7 +34,11 @@ export default class RedTab extends Tab {
           <p style={style.word}>XX号员工清理中</p>
         </div>
         <div>
-          <button style={style.button}>清理结束</button>
+          <button style={style.button} onClick={(e)=>{
+            
+          }}>
+            清理结束
+          </button>
         </div>
       </div>
     );
