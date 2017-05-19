@@ -42,7 +42,6 @@ export default class GreenTab extends Tab {
         alert('绑定成功');
       else{
         alert('绑定失败');
-        console.log(res.data);
       }
       this.props.onEnd();
     });

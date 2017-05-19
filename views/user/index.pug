@@ -3,7 +3,7 @@ extends ../layout
 block content
     -var header = {title:"客户界面",left:bars}
     include ../model/nav
-    -var slider = [{title:'历史订单',href:'/history',},{title:'个人资料',href:'/profile'}]
+    -var slider = [{title:'历史订单',href:'/history',},{title:'个人资料',href:'/profile',},{title:'登出',href:'/signout'}]
     include ../model/slider
     style.
      .select{

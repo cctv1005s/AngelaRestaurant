@@ -11,7 +11,7 @@ exports.employeeLogin = function () {
 
 exports.signout = function(){
   this.session.user = null;
-  redirect('/');
+  this.redirect('/');
 }
 
 exports.signup = function(){
