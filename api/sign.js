@@ -25,6 +25,7 @@ exports.signout = function () {
   this.body = { success: true };
 };
 
+
 //  注册
 exports.signup = function* () {
   const { Account, Password, Phone, NickName } = this.request.body;
@@ -44,6 +45,7 @@ exports.signup = function* () {
   console.log(info);
   this.body = { success: true, data: info };
 };
+
 
 //  员工登陆
 exports.employeeSignin = function* () {
