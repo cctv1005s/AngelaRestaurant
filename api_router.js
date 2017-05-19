@@ -4,6 +4,7 @@ const menu = require('./api/menu');
 const order = require('./api/order');
 const sign = require('./api/sign');
 const table = require('./api/table');
+const staff=require('./api/staff');
 var chef = require('./api/chef');
 
 const authControl = require('./middleware/authControl.js');// 权限控制
@@ -21,21 +22,21 @@ router.post('/employeeSignin', sign.employeeSignin);// 员工登陆
 /*
  * order部分
  */
-router.post('/order/reserve', order.reserve);// 预定
-router.post('/order/:id/add', order.addDish);// 增加要做的菜
-router.post('/order/:id/sub', order.subDish);// 删除某道未做的菜
-router.post('/order/:id/cancel', order.cancelOrder);// 删除某道未做的菜
-router.post('/order/:id/pay', order.payforOrder);// 删除某道未做的菜
-router.get('/order/:id/dish', order.dish);//  查看某个订单的某道菜
+router.post('/order/reserve', authRequired(2), order.reserve);// 预定
+router.post('/order/:id/add', authRequired(2), order.addDish);// 增加要做的菜
+router.post('/order/:id/sub', authRequired(2), order.subDish);// 删除某道未做的菜
+router.post('/order/:id/cancel', authRequired(3), order.cancelOrder);// 取消某个订单
+router.post('/order/:id/pay', authRequired(2), order.payforOrder);// 支付
+router.get('/order/:id/dish', authRequired(2), order.dish);//  查看某个订单的某道菜
 
 /*
  * 厨师部分
  */
-router.get('/chef/:ChefID/order', chef.GetOrder);// 查看分配给我的菜品
-router.post('/chef/:ChefID/confirm/:DishID', chef.Confirm);// 确认开始做某一道菜
-router.post('/chef/:ChefID/finish/:DishID', chef.Finish);// 确认某一道菜完成
-router.post('/chef/:ChefID/cancel/:DishID', chef.Cancle);// 取消某一道菜
-router.post('/chef/:ChefID/rest', chef.Rest);// 将自己标记为休息状态
+router.get('/chef/:ChefID/order',authRequired(8), chef.GetOrder);// 查看分配给我的菜品
+router.post('/chef/:ChefID/confirm/:DishID',authRequired(8), chef.Confirm);// 确认开始做某一道菜
+router.post('/chef/:ChefID/finish/:DishID',authRequired(8), chef.Finish);// 确认某一道菜完成
+router.post('/chef/:ChefID/cancel/:DishID', authRequired(8),chef.Cancle);// 取消某一道菜
+router.post('/chef/:ChefID/rest', authRequired(8),chef.Rest);// 将自己标记为休息状态
 
 /**
  * user部分
@@ -57,12 +58,22 @@ router.post('/menu/dish/delete', authRequired(7),menu.deleteDish);
 router.post('/menu/dish/update', authRequired(7),menu.updateDish);
 router.post('/menu/dish/stop', authRequired(7),menu.stopDish);
 router.get('/menu/dish/:id', menu.oneDish);
+
 /**
  * table部分
  */
-router.post('/table/:id/bind', authRequired(3) , table.bind);
-router.get('/table', authRequired(6), table.table);
-router.get('/table/:id', authRequired(6) , table.oneTable);
-router.post('/table/cleanup', authRequired(6), table.cleanup);
+router.post('/table/:id/bind', authRequired(3) ,table.bind);
+router.get('/table',authRequired(6), table.table);
+router.get('/table/:id',authRequired(6) ,table.oneTable);
+router.post('/table/cleanup',authRequired(6), table.cleanup);
+/**
+ * staff部分
+ */
+router.get('/staff/type',authRequired(7),staff.type);
+router.post('/staff/type/add',authRequired(7),staff.addtype);
+router.get('/staff/:id',authRequired(7),staff.getemDetail);
+router.post('/staff/add',authRequired(7),staff.addemployee);
+router.post('/staff/update',authRequired(7),staff.updateEmployee);
+router.post('/staff/sub',authRequired(7),staff.deleteEmployee);
 
 module.exports = router;

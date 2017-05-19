@@ -10,6 +10,10 @@
         "no-var":"off",
         "img-has-alt":"off",
         "curly":"off",
-        "prefer-const":"off"
+        "prefer-const":"off",
+        "vars-on-top":"off",
+        "no-plusplus":"off",
+        "no-continue":"off"
+
     }
 }

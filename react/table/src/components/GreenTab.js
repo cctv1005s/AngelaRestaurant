@@ -32,13 +32,18 @@ var style = {
 export default class GreenTab extends Tab {
   bindTable() {
     $.post(
-      '/api/v1/table/1/bind',
+      `/api/v1/table/${this.props.ID}/bind`,
       {
         AccessToken: this.refs.input.value,
-        PeopleNum: 5,
+        PeopleNum: this.refs.num.value,
       },
-    ).then(function (res) {
-      alert('绑定成功');
+    ).then((res)=>{
+      if(res.success)
+        alert('绑定成功');
+      else{
+        alert('绑定失败');
+        console.log(res.data);
+      }
       this.props.onEnd();
     });
   }
@@ -50,6 +55,8 @@ export default class GreenTab extends Tab {
         <div>
           <div style={style.title}>TOKENID:</div>
           <input style={style.input} maxLength="12" ref="input" />
+          <div style={style.title}>人数:</div>
+          <input style={style.input} maxLength="12" ref="num" />
         </div>
         <div>
           <button style={style.button} onClick={this.bindTable.bind(this)}>开始</button>
