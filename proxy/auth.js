@@ -6,5 +6,5 @@ var mysql = require('../models');
  * @param {string} id -用户的id
  */
 exports.getAuth = function* (id) {
-  return yield mysql.query(`SELECT Auth FROM Auth where UserID = ${id}`);
+  return yield mysql.query(`SELECT Auth FROM Auth where UserID = '${id}'`);
 };

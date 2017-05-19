@@ -18,6 +18,7 @@ export default class OrderedMenu extends Component {
         }
      })
      .then(ID => {
+        //这个订单的ID
         this.OrderID = ID;
         $.get(`/api/v1/order/${ID}/dish`)
          .then((res)=>{
@@ -48,7 +49,8 @@ export default class OrderedMenu extends Component {
   }
 
   checkOut(e){
-    alert("还没做好呢");
+    $.post(`/api/v1/order/${this.OrderID}/pay`)
+     .then();
   }
   
   render() {
@@ -61,14 +63,28 @@ export default class OrderedMenu extends Component {
                     return (
                     <div className="ordered-item">
                         <div className="img"><img src="http://img1.cache.netease.com/catchpic/A/A3/A3620DF6788FB30026E185BDD6D6182B.jpg" /></div>
-                        
                         <div className="info">
                             <h3 maxLength="10">{ele.Name}</h3>
                             <p maxLength="10">{ele.Description}</p>
                             <p className="money">￥{ele.Price}</p>
+                            <span className="serial">流水号：{ele.ID}</span>
                         </div>
-                        <div className="ordered-cancel">
-                        <button onClick={self.cancelDish(ele.ID)}>取消</button>
+                        <div className="ordered-cancel ">
+                            {
+                                (function(){
+                                    switch(ele.Status){
+                                        case 'WAIT':
+                                            return (<button className="am-btn-danger" onClick={self.cancelDish(ele.ID)}>取消</button>);
+                                        case 'COOKING':
+                                            return (<button className="am-btn-default" disabled="disabled">制作中</button>);
+                                        case 'CANCEL':
+                                            return (<button className="am-btn-default" disabled="disabled">已取消</button>);
+                                        default:
+                                            return (<button className="am-btn-default" disabled="disabled">未知状态</button>);
+                                    }
+                                })()
+                            }
+                            
                         </div>
                     </div>
                     );
