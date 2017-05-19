@@ -1,27 +1,34 @@
 import React,{Component} from 'react';
 import Table from './Table.js';
 
-//* *********************************************** */
-// 模拟数据部分
-var tables = [];
-for (let i = 0; i < 10; i++) {
-  var colors = ['YELLOW', 'GREEN', 'RED'];
-  tables.push({
-    ID: i,
-    Status: colors[parseInt(Math.random() * 3)],
-  });
-}
-
-//* ************************************************* */
 export default class Index extends Component{
-  componentDidMount(){
-
+  constructor(p){
+    super(p);
+    this.state = {
+      tables:[]
+    };
   }
-  return (
-    <div>
-      {
-        tables.map(ele => (<Table ele={ele} />))
-      }
-    </div>
-  );
+
+  componentDidMount(){
+    setInterval(()=>{
+      $.get('/api/v1/table')
+      .then(res =>{
+          if(!res.success)
+            return alert(res.data);
+          this.setState({tables:res.data});
+      });
+    },1000);
+  }
+  render(){
+    return (
+      <div>
+        {
+          this.state.tables.map(ele => 
+            {
+              return (<Table ele={ele} />);
+            })
+        }
+      </div>
+    );
+  }
 }

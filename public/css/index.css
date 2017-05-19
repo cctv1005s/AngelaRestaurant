@@ -79,3 +79,14 @@ body{
 .check-info .right a{
     color: rgb(255,237,91);    
 }
+
+.employee{
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+}
+
+.employee > a{
+    color: rgb(255,237,91);
+}
