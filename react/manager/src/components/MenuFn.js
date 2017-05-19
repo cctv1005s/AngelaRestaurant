@@ -36,7 +36,22 @@ fn.TypeRename = function (state, action) {
 };
 
 fn.TypeDelete = function (state, action) {
-
+  var ID = action.data;
+  //请求数据
+  $.post('/api/v1/menu/type/delete',{ID:ID})
+   .then(res =>{
+    if(!res.success)
+      return alert("删除失败");
+    //更新数据
+    fn.getTypeList()
+      .then(data =>{
+        state.activeType = (data[0]||{}).ID;
+        state.typeList = data;
+        fn._SetState(state);
+        alert("删除成功");
+      })
+   });
+  return state;
 };
 
 fn.TypeAdd = function (state, action) {

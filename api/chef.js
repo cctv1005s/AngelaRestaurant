@@ -4,7 +4,7 @@ var chef_model = require('../proxy/chef');
  * 确认开始做某一道菜
  **/
 exports.Confirm = function*(next){
-    var ChefID = this.params.ChefID;
+    var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
     var Result = yield chef_model.DishState(ChefID,DishID,1);
@@ -21,7 +21,7 @@ exports.Confirm = function*(next){
  * 确认某一道菜完成
  **/
 exports.Finish = function*(next){
-     var ChefID = this.params.ChefID;
+     var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
     var Result = yield chef_model.DishState(ChefID,DishID,2);
@@ -38,7 +38,7 @@ exports.Finish = function*(next){
  * 取消某一道菜
  **/
 exports.Cancle = function*(next){
-       var ChefID = this.params.ChefID;
+    var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
     var Result = yield chef_model.DishState(ChefID,DishID,3);
@@ -55,7 +55,7 @@ exports.Cancle = function*(next){
  * 将自己标记为休息状态
  **/
 exports.Rest = function*(next){
-   var ChefID = this.params.ChefID;
+   var ChefID = this.session.user.ID;
 
    var Result = yield chef_model.ChefState(ChefID);
     if(Result.length == 0)
@@ -68,7 +68,7 @@ exports.Rest = function*(next){
  * 查看分配给我的菜品
  **/
 exports.GetOrder = function*(next){
-    var ChefID = this.params.ChefID;
+    var ChefID = this.session.user.ID;
     var AllDish = yield chef_model.FindDish(ChefID);
     if(AllDish.length == 0)
         return this.body = {success:false};
