@@ -132,7 +132,6 @@ exports.payforOrder = function* () {
   var { orderID } = this.request.body;
 
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
-
   if (dishIDList.length === 0) { return this.body = { success: false, data: '此订单还未点餐' }; }
   var amount = 0.0;
   for (var i = 0; i < dishIDList.length; i++) {
