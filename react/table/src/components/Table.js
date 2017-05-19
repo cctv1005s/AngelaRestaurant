@@ -51,10 +51,12 @@ export default class Table extends Component {
     var Status = ele.Status;
     var Tabs = {
       RED: <RedTab
+        ID={ele.ID}
         visible={this.state.tabVisible}
         onEnd={(e) => { this.setState({ tabVisible: false }); }}
       />,
       GREEN: <GreenTab
+        ID={ele.ID}
         visible={this.state.tabVisible}
         onEnd={(e) => { this.setState({ tabVisible: false }); }}
       />,

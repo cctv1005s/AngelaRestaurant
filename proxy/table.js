@@ -11,24 +11,13 @@ exports.getID = function*(accessToken){
     return yield mysql.query(query);
 }
 /**
- * 获取ID对应的职位
- * 
- * @param {string} id 职工ID
- */
-exports.getAuth = function*(id){
-    var query = `
-    SELECT Auth FROM Auth WHERE UserID = '${id}'
-    `;
-    return yield mysql.query(query);
-}
-/**
  * 查询当前用户是否有预定订单
  * 
  * @param {string} userID 顾客ID
  */
 exports.isOrder = function*(userID){
     var query = `
-    SELECT * FROM \`Order\` WHERE UserID = '${userID}'
+    SELECT * FROM \`CustomerOrder\` WHERE UserID = '${userID}'
     `;
     return yield mysql.query(query);
 }
@@ -39,7 +28,7 @@ exports.isOrder = function*(userID){
  */
 exports.newOrder = function*(order){
     var query = `
-    INSERT INTO \`Order\`( ID , TableID, UserID, OrderTime, Phone, Type, Status, WaiterID, PeopleNum) 
+    INSERT INTO \`CustomerOrder\`( ID , TableID, UserID, OrderTime, Phone, Type, Status, WaiterID, PeopleNum) 
     VALUES ('${order.ID}','${order.TableID}','${order.UserID}','${order.OrderTime}','${order.Phone}',
     '${order.Type}','${order.Status}','${order.WaiterID}','${order.PeopleNum}')
     `;
@@ -52,11 +41,22 @@ exports.newOrder = function*(order){
  */
 exports.updateOrder = function*(order){
     var query = `
-    UPDATE \`Order\` SET TableID ='${order.TableID}', OrderTime ='${order.OrderTime}', Phone ='${order.Phone}',
+    UPDATE \`CustomerOrder\` SET TableID ='${order.TableID}', OrderTime ='${order.OrderTime}', Phone ='${order.Phone}',
     Type ='${order.Type}', Status ='${order.Status}', WaiterID ='${order.WaiterID}', PeopleNum ='${order.PeopleNum}' 
     WHERE ID = '${order.ID}'
     `;
     return yield mysql.query(query);
+}
+/**
+ * 桌子由绿色变为黄色
+ * @param tableID 桌子ID
+ */
+exports.bind = function*(tableID){
+    var sql = `
+    UPDATE \`Table\` SET Status= 'YELLOW' 
+    WHERE ID= '${tableID}'
+    `;
+    return yield mysql.query(sql);
 }
 /**
  * 查看桌子的状态
@@ -107,7 +107,7 @@ exports.cleanup = function*(tableID){
  * 
  * @param {string} tableID 桌子ID
  */
-exports.cleanup2 = function*(tableID){
+exports.cleanup_ = function*(tableID){
     var sql = `
     DELETE FROM \`EmployeeInTable\` 
     WHERE TableID = '${tableID}'

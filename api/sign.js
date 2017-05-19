@@ -8,11 +8,13 @@ const shortid = require('shortid');
 exports.signin = function* () {
   const { Account, Password } = this.request.body;
   let user = yield userModel.findByAccount(Account);
+  if (user.length === 0)
+    return this.body = { success: false, data: '用户不存在' };
   user = user[0];
   const userPassword = user.Password;
   if (md5(Password) === userPassword) {
     this.session.user = user;
-    this.session.role = "customer";
+    this.session.role = 'customer';
     return this.body = { success: true, data: user };
   }
 };
@@ -38,6 +40,8 @@ exports.signup = function* () {
     NickName,
     AccessToken: shortid.generate(),
   });
+
+  console.log(info);
   this.body = { success: true, data: info };
 };
 
@@ -48,9 +52,9 @@ exports.employeeSignin = function* () {
   if (r.length === 0)
     return this.body = { success: false, data: '账号不存在' };
   let password = r[0].Password;
-  if (password === md5(Password)){
+  if (password === md5(Password)) {
     this.session.user = r[0];
-    this.session.role = "employee";
+    this.session.role = 'employee';
     return this.body = { success: true };
   }
   return this.body = { success: false, data: '密码不正确' };
