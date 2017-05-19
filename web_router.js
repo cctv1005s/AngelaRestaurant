@@ -16,6 +16,8 @@ var roleRequired = authControl.roleRequired;
  */
 router.get('/', site.index);// 首页
 router.get('/signin', site.index);// 登陆界面
+router.get('/signout', site.signout);//  登出
+router.get('/signup', site.signup);// 注册
 
 router.get('/user', user.index);// 用户首页
 
