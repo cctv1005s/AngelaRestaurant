@@ -147,14 +147,18 @@ exports.payforOrder = function* () {
 
     amount += dishInfo[0].Price;
   }
-
+  var tableID;
   try {
-    var tableID = yield orderModel.getTableId(orderID);
+    tableID = yield orderModel.getTableId(orderID);
     yield orderModel.setTableState(tableID[0].TableID);
     yield orderModel.setOrderState(orderID);
   } catch (error) {
     return this.body = { success: false, data: error };
   }
+
+  var busboy = yield orderModel.getBusboyID();
+  yield orderModel.distributeBusboy(busboy[0], tableID[0].TableID);
+
 
   var dataMoney = `请支付：${amount}元`;
   this.body = { success: true, data: dataMoney };
