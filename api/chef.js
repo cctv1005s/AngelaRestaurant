@@ -7,9 +7,14 @@ exports.Confirm = function*(next){
     var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
+   //首先查看厨师是否存在
+   var CheckChef = yield chef_model.CheckChef(ChefID);
+   if(CheckChef.length == 0)
+      return this.body = {success:false,data:"没有这位厨师"};
+
     var Result = yield chef_model.DishState(ChefID,DishID,1);
-    if(Result.length == 0)
-        return this.body = {success:false};
+    if(Result.affectedRows == 0)
+        return this.body = {success:false , data:"没有这道菜品"};
     else
         return  this.body = {success:true,data:{
             ChefID : ChefID,
@@ -18,15 +23,20 @@ exports.Confirm = function*(next){
 }
 
 /** 
- * 确认某一道菜完成
+ * 确认完成某一道菜
  **/
 exports.Finish = function*(next){
      var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
+   //首先查看厨师是否存在
+   var CheckChef = yield chef_model.CheckChef(ChefID);
+   if(CheckChef.length == 0)
+      return this.body = {success:false,data:"没有这位厨师"};
+
     var Result = yield chef_model.DishState(ChefID,DishID,2);
-    if(Result.length == 0)
-        return this.body = {success:false};
+    if(Result.affectedRows == 0)
+        return this.body = {success:false , data:"没有这道菜品"};
     else
         return  this.body = {success:true,data:{
             ChefID : ChefID,
@@ -38,12 +48,17 @@ exports.Finish = function*(next){
  * 取消某一道菜
  **/
 exports.Cancle = function*(next){
-    var ChefID = this.session.user.ID;
-    var DishID = this.params.DishID;
+     var ChefID = this.session.user.ID;
+     var DishID = this.params.DishID;
+
+   //首先查看厨师是否存在
+   var CheckChef = yield chef_model.CheckChef(ChefID);
+   if(CheckChef.length == 0)
+      return this.body = {success:false,data:"没有这位厨师"};
 
     var Result = yield chef_model.DishState(ChefID,DishID,3);
-    if(Result.length == 0)
-        return this.body = {success:false};
+    if(Result.affectedRows == 0)
+        return this.body = {success:false , data:"没有这道菜品"};
     else
         return  this.body = {success:true,data:{
             ChefID : ChefID,
@@ -56,12 +71,15 @@ exports.Cancle = function*(next){
  **/
 exports.Rest = function*(next){
    var ChefID = this.session.user.ID;
-
    var Result = yield chef_model.ChefState(ChefID);
-    if(Result.length == 0)
-        return this.body = {success:false};
-    else   
-        return  this.body = {success:true,data:Result};
+    if(Result.affectedRows == 0)
+        return this.body = {success:false,data:"没有这位厨师"};
+    else if(Result.changedRows == 0)
+        return this.body = {success:false,data:"该厨师已经在休息"};
+    else
+        return  this.body = {success:true,data:{
+            ChefID : ChefID
+        }};
 }
 
 /** 
@@ -69,12 +87,16 @@ exports.Rest = function*(next){
  **/
 exports.GetOrder = function*(next){
     var ChefID = this.session.user.ID;
+   //首先查看厨师是否存在
+   var CheckChef = yield chef_model.CheckChef(ChefID);
+   if(CheckChef.length == 0)
+      return this.body = {success:false,data:"没有这位厨师"};
+
     var AllDish = yield chef_model.FindDish(ChefID);
     if(AllDish.length == 0)
-        return this.body = {success:false};
+        return this.body = {success:false,data:"该厨师没有分配到任何菜品"};
     else
     {
-        console.log(AllDish);
         return  this.body = {success:true,data:AllDish};
     }  
 }

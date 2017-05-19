@@ -29,26 +29,37 @@ exports.FindDish = function*(ChefID){
 }
 
 /**
+ * 查看厨师是否存在 
+ * @param ChefID 厨师ID
+ */
+exports.CheckChef = function*(ChefID){
+    var query = `
+       select * from Employee where ID = ${ChefID}
+    `;
+    return yield mysql.query(query);
+}
+
+/**
  * 确认某位厨师的某位菜品开始，完成，取消 
  * @param ChefID 厨师ID
- * @param DishID 菜品ID
+ * @param CookingListID 单个菜品ID
  * @param Choise 选择的操作：1代表开始，2代表完成，3代表取消
  */
-exports.DishState = function*(ChefID,DishID,Choise){
-    var Dish = 'Wait';
+exports.DishState = function*(ChefID,CookingListID,Choise){
+    var Dish = 'WAIT';
     var query = ``;
-    if(Choise == 1) Dish = 'Begin';
-    else if(Choise == 2) Dish = 'Down';
-    else if(Choise == 3) Dish = 'Cancle';
+    if(Choise == 1) Dish = 'COOKING';
+    else if(Choise == 2) Dish = 'FINISH';
+    else if(Choise == 3) Dish = 'CANCEL';
 
     var Time =  new Date().toLocaleString();
     if(Choise == 1) 
     query = `
-      UPDATE CookingList SET Status='${Dish}',StartTime='${Time}' WHERE ChefID = '${ChefID}' and DishID = '${DishID}'
+      UPDATE CookingList SET Status='${Dish}',StartTime='${Time}' WHERE ID = '${CookingListID}'
     `;
     else if(Choise == 2 || Choise == 3)
     query = `
-      UPDATE CookingList SET Status='${Dish}',EndTime='${Time}' WHERE ChefID = '${ChefID}' and DishID = '${DishID}'
+      UPDATE CookingList SET Status='${Dish}',EndTime='${Time}' WHERE ID = '${CookingListID}'
     `;
 
     return yield mysql.query(query);
@@ -61,7 +72,7 @@ exports.DishState = function*(ChefID,DishID,Choise){
  */
 exports.ChefState = function*(ChefID){
     var query = `
-    UPDATE Employee SET Status='Rest' WHERE ID = '${ChefID}'
+    UPDATE Employee SET Status='REST' WHERE ID = '${ChefID}'
     `;
     return yield mysql.query(query);
 }
