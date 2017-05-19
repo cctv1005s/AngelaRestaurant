@@ -8,7 +8,7 @@ var timeFormat = require('../tools/time.js');
  * 用户填写订单信息，提交预订单
  */
 exports.reserve = function* () {
-  var { PeopleNum, Phone, OrderTime } = this.request.body;
+  var { PeopleNum, Phone, OrderTime } = this.request.body;``
   var UserId = this.session.user.ID;
 
   if (PeopleNum < 1 || PeopleNum > 20) { return this.body = { success: false, data: '预订人数范围为1-20人' }; }

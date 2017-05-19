@@ -24,7 +24,7 @@ describe('Api_ Order接口测试', () => {
     //   r = yield request
     //           .post('/api/v1/reserve')
     //           .send({ PeopleNum: '5', Phone: '13113124125',  OrderTime: new Data()})
-    //           .end();
+    //        ``  .end();
     // d = r.body;
     // expect(d.data).to.equal('请预订七天以内的时间');
 
