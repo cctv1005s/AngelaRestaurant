@@ -21,6 +21,5 @@ exports.token2session = function* (next) {
     this.session.user = r[0];
     this.session.role = "employee";
   }
-  
   yield next;
 };

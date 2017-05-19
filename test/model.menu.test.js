@@ -1,5 +1,4 @@
 const menuModel = require('../proxy/menu.js');
-const co = require('co');
 const expect = require('chai').expect;
 require('co-mocha');
 var shortid = require('shortid');
@@ -77,5 +76,4 @@ describe('菜单数据库测试', () => {
         var r = yield menuModel.deleteDish('test');
         expect(r).to.be.an('object');
     });
-
 });

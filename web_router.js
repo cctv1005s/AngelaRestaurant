@@ -27,7 +27,7 @@ router.get('/order/menu', order.menu);// 给用户的订单点单
 
 router.get('/chef', chef.index);// 厨师端界面
 
-router.get('/manager', manager.index);// 经理端界面
+router.get('/manager', authRequired(7), manager.index);// 经理端界面
 
 router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
