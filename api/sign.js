@@ -3,6 +3,7 @@ const employeeModel = require('../proxy/employee');
 const uuidV1 = require('uuid/v1');
 const md5 = require('md5');
 const shortid = require('shortid');
+const Validator = require('Validator');
 
 // 登陆
 exports.signin = function* () {
@@ -28,22 +29,44 @@ exports.signout = function () {
 
 //  注册
 exports.signup = function* () {
-  const { Account, Password, Phone, NickName } = this.request.body;
+  const { Account, Password, Phone, NickName, RePassword, Gender } = this.request.body;
+  // 检查账号是否重复
   const user = yield userModel.findByAccount(Account);
-
-  if (user.length !== 0) { return this.body = { success: false }; }
-
-  const info = yield userModel.add({
+  if (user.length !== 0) { return this.body = { success: false, data: '该账号已被注册' }; }
+  // 检查两次输入的密码是否一致
+  console.log(Password,RePassword);
+  if (Password !== RePassword)
+    return this.body = { success: false, data: '两次输入的密码不一致' };
+  // 规则验证
+  var rules = {
+    ID: 'required',
+    Account: 'required',
+    Password: 'required',
+    NickName: 'required|string',
+    AccessToken: 'required',
+    Gender: 'required',
+  };
+  var newUser = {
     ID: uuidV1(),
     Account,
     Password: md5(Password),
     Phone,
     NickName,
     AccessToken: shortid.generate(),
-  });
+    Gender,
+  };
+  var v = Validator.make(newUser, rules);
+  if (v.fails()) {
+    return this.body = { success: false, data: v.getErrors() };
+  }
+  //  执行数据库插入
+  try {
+    yield userModel.add(newUser);
+  } catch (e) {
+    return this.body = { success: false, data: e };
+  }
 
-  console.log(info);
-  this.body = { success: true, data: info };
+  this.body = { success: true, data: newUser };
 };
 
 
