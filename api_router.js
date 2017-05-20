@@ -22,7 +22,7 @@ router.post('/employeeSignin', sign.employeeSignin);// 员工登陆
 /*
  * order部分
  */
-router.post('/order/reserve', authRequired(2), order.reserve);// 预定
+router.post('/order/reserve', authRequired(), order.reserve);// 预定
 router.post('/order/:id/add', authRequired(2), order.addDish);// 增加要做的菜
 router.post('/order/:id/sub', authRequired(2), order.subDish);// 删除某道未做的菜
 router.post('/order/:id/cancel', authRequired(3), order.cancelOrder);// 取消某个订单
