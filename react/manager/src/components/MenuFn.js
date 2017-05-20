@@ -108,6 +108,28 @@ fn.ItemSelect = (state, action) => {
   return state;
 };
 
+fn.ItemDelete = (state,action)=>{
+  var ID = action.data;
+  $.post('/api/v1/menu/dish/delete',{ID})
+   .then(res =>{
+     if(!res.success){
+      return alert("删除失败" + res.data);
+     }else{
+      //获取到最新的数据
+      fn.getItemList(state.activeType)
+        .then(data=>{
+          state.itemList = data;
+          state.activeItem = data[0].ID;
+          fn._SetState(state);
+        });
+      //滚动到顶部
+      $('.manager-end-list').animate({scrollTop: '0px'}, 1000);
+     }
+   });
+   return state;
+}
+
+//下面是对这个类型是获取的数据函数
 fn.getTypeList = function () {
   return $.get('/api/v1/menu/type')
      .then((res) => {
