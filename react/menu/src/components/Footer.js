@@ -14,36 +14,26 @@ export default class Footer extends Component {
    */
   pushOrder() {
     var { order } = this.props.Ordered;
-    // 先获取自己的订单ID
-    $.get('/api/v1/user/canOrder')
-     .then((res) => {
-       if (!res.success) {
-         alert('不可点餐，请重新预定');
-         window.location.href = '/tokenid';
-       } else {
-         return res.data.ID;
-       }
-     })
-     .then((id) => {
-       var data = {};
-       var list = [];
-       order.map(function(ele){
-        list.push({
-            DishID:ele.Dish.ID,
-            Count: ele.Count 
-        });
-       });
-       //添加数据
-       data.DishIDList = list;
-       $.post(`/api/v1/order/${id}/add`,data)
-        .then((res)=>{
-            if(res.success){
-              this.props.Ordered.clearAll();
-              alert("订餐成功");
-            }
-
-        })
-     });
+    var data = {};
+    var list = [];
+    var pathname = location.pathname;
+    var reg = pathname.match(/\/menu\/(.*)/); 
+    var id = reg[0];
+    order.map(function(ele){
+    list.push({
+        DishID:ele.Dish.ID,
+        Count: ele.Count 
+    });
+    });
+    //添加数据
+    data.DishIDList = list;
+    $.post(`/api/v1/order/${id}/add`,data)
+    .then((res)=>{
+        if(res.success){
+          this.props.Ordered.clearAll();
+          alert("订餐成功");
+        }
+    });
   }
 
   render() {

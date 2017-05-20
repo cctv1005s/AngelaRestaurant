@@ -53,11 +53,13 @@ export default class OrderedMenu extends Component {
   
   render() {
     var self = this;
+    this.allCount = 0;
     return (
         <div>
             <div className="ordered-list" style={{height:($(window).height() - 100)+'px'}}>
                 {
                 this.state.orderedDish.map((ele,i)=>{
+                    this.allCount += ele.Price;
                     return (
                     <div className="ordered-item">
                         <div className="img"><img src="http://img1.cache.netease.com/catchpic/A/A3/A3620DF6788FB30026E185BDD6D6182B.jpg" /></div>
