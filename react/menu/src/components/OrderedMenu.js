@@ -9,25 +9,17 @@ export default class OrderedMenu extends Component {
 
   componentDidMount(){
     var self = this;
-    $.get('/api/v1/user/canOrder')
-     .then(res => {
-        if(res.success){
-            return res.data.ID;
-        }else{
+    var pathname = location.pathname;
+    var reg = pathname.match(/\/menu\/(.*)/); 
+    var id = reg[0];
+    this.OrderID = ID;
+    $.get(`/api/v1/order/${ID}/dish`)
+     .then((res)=>{
+        if(res.success)
+            self.setState({orderedDish:res.data});
+        else
             alert("请求失败，请刷新重试");
-        }
-     })
-     .then(ID => {
-        //这个订单的ID
-        this.OrderID = ID;
-        $.get(`/api/v1/order/${ID}/dish`)
-         .then((res)=>{
-            if(res.success)
-                self.setState({orderedDish:res.data});
-            else
-                alert("请求失败，请刷新重试");
-         });
-     });
+    });
   }
 
   cancelDish(ID){
@@ -50,7 +42,13 @@ export default class OrderedMenu extends Component {
 
   checkOut(e){
     $.post(`/api/v1/order/${this.OrderID}/pay`)
-     .then();
+     .then(res =>{
+         if(!res.success)
+            alert(res.data);
+         else{
+            window.location.href = "/table";
+         }
+     });
   }
   
   render() {

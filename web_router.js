@@ -25,7 +25,7 @@ router.get('/reserve', authRequired(), user.reserve);// 预定
 
 router.get('/tokenid', authRequired(), user.tokenid);// 显示用户的tokenid
 
-router.get('/order/menu', order.menu);// 给用户的订单点单
+router.get('/order/menu/:id', order.menu);// 菜单-点单界面
 
 router.get('/chef', chef.index);// 厨师端界面
 

@@ -1,9 +1,9 @@
 const userModel = require('../proxy/user');
 const employeeModel = require('../proxy/employee');
-const uuidV1 = require('uuid/v1');
 const md5 = require('md5');
 const shortid = require('shortid');
 const Validator = require('Validator');
+const config = require('../config.json');
 
 // 登录
 exports.signin = function* () {
@@ -34,7 +34,6 @@ exports.signup = function* () {
   const user = yield userModel.findByAccount(Account);
   if (user.length !== 0) { return this.body = { success: false, data: '该账号已被注册' }; }
   // 检查两次输入的密码是否一致
-  console.log(Password,RePassword);
   if (Password !== RePassword)
     return this.body = { success: false, data: '两次输入的密码不一致' };
   // 规则验证
@@ -47,7 +46,7 @@ exports.signup = function* () {
     Gender: 'required',
   };
   var newUser = {
-    ID: uuidV1(),
+    ID: shortid.generate(),
     Account,
     Password: md5(Password),
     Phone,
@@ -61,7 +60,9 @@ exports.signup = function* () {
   }
   //  执行数据库插入
   try {
+    //向用户表里面插入新的数据
     yield userModel.add(newUser);
+    //添加它的权限
   } catch (e) {
     return this.body = { success: false, data: e };
   }

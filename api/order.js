@@ -54,18 +54,17 @@ exports.addDish = function* () {
   // 将菜分发到具体的厨师
   for (var i = 0; i < DishIDList.length; i++) {
     chefIDlist = yield orderModel.findChefIDByDishID(DishIDList[i].DishID);
-
     for (let j = 0; j < chefIDlist.length; j++) {
-      chefIDlistCount[j] = yield orderModel.getChefCookingSum(chefIDlist[j]);
+      chefIDlistCount[j] = yield orderModel.getChefCookingSum(chefIDlist[j].ChefID);
     }
 
     for (let j = 0; j < DishIDList[i].Count; j++) {
       var indexChef = chefIDlistCount.indexOf(Math.min(...chefIDlistCount));
-
+    
       yield orderModel.insertCookingList({
         CookingID: uuidV1(),
         OrderID: orderID,
-        ChefID: chefIDlist[indexChef],
+        ChefID: chefIDlist[indexChef].ChefID,
         DishID: DishIDList[i].DishID,
         Status: 'WAIT',
       });

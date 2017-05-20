@@ -382,3 +382,8 @@
     display: block;
     white-space: nowrap;
 }
+
+.footer-list{
+    max-height: 500px;
+    overflow: auto;
+}
