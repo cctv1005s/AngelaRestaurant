@@ -16,14 +16,16 @@ var roleRequired = authControl.roleRequired;
  */
 router.get('/', site.index);// 首页
 router.get('/signin', site.index);// 登陆界面
+router.get('/signout', site.signout);//  登出
+router.get('/signup', site.signup);// 注册
 
-router.get('/user', user.index);// 用户首页
+router.get('/user', authRequired(), user.index);// 用户首页
 
-router.get('/reserve', user.reserve);// 预定
+router.get('/reserve', authRequired(), user.reserve);// 预定
 
-router.get('/tokenid', user.tokenid);// 显示用户的tokenid
+router.get('/tokenid', authRequired(), user.tokenid);// 显示用户的tokenid
 
-router.get('/order/menu', order.menu);// 给用户的订单点单
+router.get('/order/menu/:id', order.menu);// 菜单-点单界面
 
 router.get('/chef', chef.index);// 厨师端界面
 

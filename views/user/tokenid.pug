@@ -17,10 +17,9 @@ block script
         var clock = setInterval(function(){
             $.get('/api/v1/user/canOrder')
              .then(function(res){
-                console.log(res);
                 if(res.success){
                     clearInterval(clock);
-                    window.location.href = '/order/menu';
+                    window.location.href = `/order/menu/${res.data.ID}`;
                 }
              });
         },500);

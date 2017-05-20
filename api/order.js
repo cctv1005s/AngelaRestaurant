@@ -54,18 +54,17 @@ exports.addDish = function* () {
   // 将菜分发到具体的厨师
   for (var i = 0; i < DishIDList.length; i++) {
     chefIDlist = yield orderModel.findChefIDByDishID(DishIDList[i].DishID);
-
     for (let j = 0; j < chefIDlist.length; j++) {
-      chefIDlistCount[j] = yield orderModel.getChefCookingSum(chefIDlist[j]);
+      chefIDlistCount[j] = yield orderModel.getChefCookingSum(chefIDlist[j].ChefID);
     }
 
     for (let j = 0; j < DishIDList[i].Count; j++) {
       var indexChef = chefIDlistCount.indexOf(Math.min(...chefIDlistCount));
-
+    
       yield orderModel.insertCookingList({
         CookingID: uuidV1(),
         OrderID: orderID,
-        ChefID: chefIDlist[indexChef],
+        ChefID: chefIDlist[indexChef].ChefID,
         DishID: DishIDList[i].DishID,
         Status: 'WAIT',
       });
@@ -111,8 +110,9 @@ exports.subDish = function* () {
 
 exports.cancelOrder = function* () {
   var orderID = this.params.id;
-
+  console.log(orderID);
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
+
 
   if (dishIDList.length !== 0) { return this.body = { success: false, data: '无法取消已点菜订单' }; }
 
@@ -129,10 +129,8 @@ exports.cancelOrder = function* () {
  * 支付订单
  */
 exports.payforOrder = function* () {
-  var { orderID } = this.request.body;
-
+  var orderID = this.params.id;
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
-
   if (dishIDList.length === 0) { return this.body = { success: false, data: '此订单还未点餐' }; }
   var amount = 0.0;
   for (var i = 0; i < dishIDList.length; i++) {
@@ -142,9 +140,6 @@ exports.payforOrder = function* () {
     var dishID = dishIDList[i].DishID;
 
     var dishInfo = yield orderModel.getInfoByDishID(dishID);
-//    console.log(dishInfo[0].Price);
-
-
     amount += dishInfo[0].Price;
   }
   var tableID;
@@ -156,8 +151,10 @@ exports.payforOrder = function* () {
     return this.body = { success: false, data: error };
   }
 
+  // 查找BusBoy
   var busboy = yield orderModel.getBusboyID();
-  yield orderModel.distributeBusboy(busboy[0], tableID[0].TableID);
+  var num = parseInt(Math.random() * busboy.length, 10);
+  yield orderModel.distributeBusboy(busboy[num].ID, tableID[0].TableID);
 
 
   var dataMoney = `请支付：${amount}元`;
@@ -172,6 +169,34 @@ exports.dish = function* () {
   var id = this.params.id;//  餐桌id
   try {
     let r = yield orderModel.orderDish(id);
+    return this.body = { success: true, data: r };
+  } catch (e) {
+    return this.body = { success: false, data: e };
+  }
+};
+
+
+/**
+ * 获取预订单排序列表
+ */
+exports.getOrderList = function* () {
+  try {
+    let r = yield orderModel.OrderList();
+    return this.body = { success: true, data: r };
+  } catch (e) {
+    return this.body = { success: false, data: e };
+  }
+};
+
+
+/**
+ * 获取某用户历史订单
+ */
+exports.getHistoryOrder = function* () {
+  var { userID } = this.request.body;
+
+  try {
+    let r = yield orderModel.HistoryOrderList(userID);
     return this.body = { success: true, data: r };
   } catch (e) {
     return this.body = { success: false, data: e };

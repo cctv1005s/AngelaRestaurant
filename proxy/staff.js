@@ -36,12 +36,12 @@ console.log(sql);
     return yield mysql.query(sql);
 }
 exports.updateEmployee=function*(set,id){
-    console.log('in2');
+    
     var sql=`update Employee set ${set} where ID=${id}`;
     return yield mysql.query(sql);
 }
 exports.deleteEmployee=function*(id){
-    console.log('in');
+    
     var sql=`delete from Employee where ID='${id}'`;
     console.log(sql);
     return yield mysql.query(sql);

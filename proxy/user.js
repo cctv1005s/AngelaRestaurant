@@ -8,11 +8,10 @@ var timeFormat = require('../tools/time.js');
  */
 exports.add = function* (user) {
   var query = `
-    INSERT INTO Customer(ID,Account,Password, AccessToken,RegisterTime,Phone,NickName)
+    INSERT INTO Customer(ID,Account,Password, AccessToken,RegisterTime,Phone,NickName,Gender)
     VALUES 
-    ('${user.ID}','${user.Account}','${user.Password}','${user.AccessToken}','${timeFormat.format(new Date())}','${user.Phone}','${user.NickName}')
+    ('${user.ID}','${user.Account}','${user.Password}','${user.AccessToken}','${timeFormat.format(new Date())}','${user.Phone}','${user.NickName}','${user.Gender}')
     `;
-
   return yield mysql.query(query);
 };
 
