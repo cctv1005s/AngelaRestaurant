@@ -37,10 +37,10 @@ describe('订单model的测试', () => {
 
 
   it('订单findChefIDByDishID方法测试', function* () {
-    var r = yield orderModel.findChefIDByDishID('12');   
+    var r = yield orderModel.findChefIDByDishID('12');
     expect(r).to.have.length.least(1);
 
-    r = yield orderModel.findChefIDByDishID('20');
+    r = yield orderModel.findChefIDByDishID('50');
     expect(r).to.have.lengthOf(0);
   });
 
@@ -75,7 +75,7 @@ describe('订单model的测试', () => {
   it('订单insertCookingList方法测试', function* () {
     var r = yield orderModel.insertCookingList({
       CookingID: uuidV1(),
-      OrderID: '1',
+      OrderID: '1234',
       ChefID: '1',
       DishID: '3',
       Status: 'WAIT',
@@ -123,7 +123,6 @@ describe('订单model的测试', () => {
   });
 
 
-
   it('订单getTableId方法测试', function* () {
     var r = yield orderModel.getTableId('1');
     expect(r).to.have.lengthOf(1);
@@ -131,7 +130,6 @@ describe('订单model的测试', () => {
     r = yield orderModel.orderDish('0000');
     expect(r).to.have.lengthOf(0);
   });
-
 
 
   it('订单setTableState方法测试', function* () {
@@ -153,5 +151,17 @@ describe('订单model的测试', () => {
   it('订单distributeBusboy方法测试', function* () {
     var r = yield orderModel.distributeBusboy('afsref', '1');
     expect(r.affectedRows).to.equal(1);
+  });
+
+
+  it('订单OrderList方法测试', function* () {
+    var r = yield orderModel.OrderList();
+    expect(r).to.be.a('array');
+  });
+
+
+  it('订单HistoryOrderList方法测试', function* () {
+    var r = yield orderModel.HistoryOrderList('4432');
+    expect(r).to.be.a('array');
   });
 });
