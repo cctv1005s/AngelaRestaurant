@@ -87,6 +87,8 @@ export default class Menu extends Component{
                             this.state.Dish.map(function(ele,i){
                                 if(ele.ClassID != ActiveClassID)
                                     return ;
+                                if(ele.Status === 'Unavaliable')
+                                    return ;
                                 return (
                                     <Dish 
                                      Dish={ele}

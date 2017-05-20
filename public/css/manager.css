@@ -16,9 +16,12 @@
 .manager-end-left > .title{
     font-size: 15px;
     padding: 10px;
+    cursor: pointer;
 }
 
-
+.title{
+    cursor: pointer;
+}
 
 .manager-end-type > .item{
     height: 40px;

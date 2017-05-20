@@ -22,7 +22,7 @@ fn.TypeSelect = (state, action) => {
 
 fn.TypeRename = function (state, action) {
   var ID = action.data;
-  var name = prompt("请输入新的",action.__name);
+  var name = prompt("请输入新的名称");
   state.typeList.map(function(ele){
     if(ele.ID == ID)
       ele.Name = name;
@@ -43,19 +43,16 @@ fn.TypeDelete = function (state, action) {
     if(!res.success)
       return alert("删除失败");
     //更新数据
-    fn.getTypeList()
-      .then(data =>{
-        state.activeType = (data[0]||{}).ID;
-        state.typeList = data;
-        fn._SetState(state);
-        alert("删除成功");
-      })
+    store.dispatch({type:'@@redux/INIT'});
    });
   return state;
 };
 
 fn.TypeAdd = function (state, action) {
-
+  var ClassName = prompt("请输入新增的类别名称","默认名称");
+  var ClassDescription = prompt("请输入新增类别的描述","默认描述");
+  $.post('/api/v1/menu/type/add',{ClassName:name,ClassDescription:ClassDescription})
+   .then(function())
 };
 
 fn.SetState = function (state,action){
