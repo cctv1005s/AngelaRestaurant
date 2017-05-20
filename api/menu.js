@@ -110,16 +110,16 @@ exports.addDish = function* (next) {
     var userID = '6';
     try {
         var { Description, ClassID, Price, Name } = this.request.body;
-        var info = yield menu_model.addDish({
+        var newDish = {
             ID: shortid.generate(),
-            Description: Description,
-            ClassID: ClassID,
-            Price: Price,
-            Name: Name,
+            Description: Description || "",
+            ClassID: ClassID || "", 
+            Price: Price || "",
+            Name: Name || "",
             Status: 'Available'
-        });
-
-        this.body = { success: true, data: info };
+        };
+        var info = yield menu_model.addDish(newDish);
+        this.body = { success: true, data: newDish };
     }
     catch (e) {
         return this.body = { success: false, data: e };

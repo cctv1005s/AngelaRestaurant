@@ -37,13 +37,18 @@ var style = {
 };
 
 export default class List extends Component {
+  itemAdd(){
+    store.dispatch({type:'ItemAdd'});
+  }
+
   render() {
     var { itemList, activeItem } = store.getState();
     return (
       <div className="manager-end-center">
 
-        <div className="title">
-            <i className="am-icon-plus-circle" /> 添加菜品
+        <div className="title" onClick={this.itemAdd}>
+            <i className="am-icon-plus-circle" /> 
+              添加菜品
             </div>
 
         <div className="manager-end-list" style={{ height: `${$(window).height() - 70}px`, overflow: 'auto' }}>
