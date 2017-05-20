@@ -124,11 +124,24 @@ exports.deleteDish = function* (id) {
  * 
  * @param {object} dishData 菜
  */
-exports.updateDish = function* (dishData) {
+exports.updateDish = function* (dishData,ID) {
     var sql = `
-    UPDATE \`Dish\` SET Description ='${dishData.Description}',ClassID='${dishData.ClassID}',
-    Price ='${dishData.Price}',Name = '${dishData.Name}',Status ='${dishData.Status}' 
-    WHERE ID = '${dishData.ID}'
+    update \`Dish\` set ${dishData}  
+    WHERE ID = '${ID}'
+    `;
+    return yield mysql.query(sql);
+}
+
+/**
+ * 修改菜单的一个菜的图片
+ * 
+ * @param {string} dishID 菜 
+ * @param {string} Img 图片
+ */
+exports.updateDishImg = function* (dishID,Img) {
+    var sql = `
+    update \`DishImg\` set ImgUrl = ${Img}  
+    WHERE DishID = '${dishID}'
     `;
     return yield mysql.query(sql);
 }

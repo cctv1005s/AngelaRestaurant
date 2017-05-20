@@ -22,6 +22,17 @@ exports.isOrder = function*(userID){
     return yield mysql.query(query);
 }
 /**
+ * 查询当前桌子的订单号
+ * 
+ * @param {string} tableID 餐桌ID
+ */
+exports.hasOrder = function*(tableID){
+    var query = `
+    SELECT * FROM \`CustomerOrder\` WHERE TableID = '${tableID}'
+    `;
+    return yield mysql.query(query);
+}
+/**
  * 创建一个新订单，绑定table和customer
  * 
  * @param {object} order 订单信息
