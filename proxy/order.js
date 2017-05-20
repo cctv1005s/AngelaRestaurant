@@ -18,8 +18,6 @@ exports.setReserve = function* (preOrder) {
 /**
  * 通过用户id获取预订单信息
  *
- * 
- * 
  * @param {String} userID -用户id
  * @return {return} -用户id对应的预订单信息
  */
