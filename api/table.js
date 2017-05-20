@@ -13,6 +13,9 @@ exports.bind = function* (next) {
     var waiterID = this.session.user.ID;
     try {
         var customer = yield table_model.getID(AccessToken);
+        if (customer[0] == null) {
+            return this.body = { success: false, data: '用户不存在' };
+        }
         var customerID = customer[0].ID;
         var phone = customer[0].Phone;
         var ordertime = formatTime(new Date());
@@ -60,18 +63,18 @@ exports.bind = function* (next) {
             }
         }
         var info = yield table_model.newOrder({
-                ID: shortid.generate(),
-                TableID: tableID,
-                UserID: customerID,
-                OrderTime: ordertime,
-                Phone: phone,
-                Type: 1,
-                Status: 'PROGRESS',
-                WaiterID: waiterID,
-                PeopleNum: PeopleNum
-            });
-            var data = yield table_model.bind(tableID);
-            return this.body = { success: true, data: info };
+            ID: shortid.generate(),
+            TableID: tableID,
+            UserID: customerID,
+            OrderTime: ordertime,
+            Phone: phone,
+            Type: 1,
+            Status: 'PROGRESS',
+            WaiterID: waiterID,
+            PeopleNum: PeopleNum
+        });
+        var data = yield table_model.bind(tableID);
+        return this.body = { success: true, data: info };
     }
     catch (e) {
         return this.body = { success: false, data: e };
@@ -84,6 +87,18 @@ exports.table = function* (next) {
     var userID = '5';
     try {
         var status = yield table_model.table();
+        for (var i = 0; i < status.length; i++) {
+            if (status[i].Status == 'YELLOW') {
+                var data = yield table_model.hasOrder(status[i].ID);
+                var orderID = data[0].ID;
+                status[i].OrderID = orderID;
+            }
+            else if (status[i].Status == 'RED') {
+                var data = yield table_model.busBoy(status[i].ID);
+                var busBoyID = data[0].EmployeeID;
+                status[i].EmployeeID = busBoyID;
+            }
+        }
         this.body = { success: true, data: status };
     }
     catch (e) {
@@ -99,9 +114,16 @@ exports.oneTable = function* (next) {
         var id = this.params.id;
         var info = yield table_model.oneTable(id);
         var status = info[0].Status;
-        if (status == 'Red') {
-            var info = yield table_model.busBoy(id);
+        if (status == 'RED') {
+            var data = yield table_model.busBoy(id);
+            info[0].EmployeeID = data[0].EmployeeID;
             this.body = { success: true, data: info }
+        }
+        else if (status == 'YELLOW') {
+            var data = yield table_model.hasOrder(info[0].ID);
+            var orderID = data[0].ID;
+            info[0].OrderID = orderID;
+            this.body = { success: true, data: info };
         }
         else {
             this.body = { success: true, data: info };
