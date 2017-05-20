@@ -1,0 +1,78 @@
+link(href="/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css")
+style.
+  .slider-hidden{
+    overflow:hidden !important;
+    left:-100% !important;
+    transform:translateX(0) !important;
+  }
+
+  #slider{
+    position:fixed;
+    left:-100%;
+    transform:translateX(100%);
+    transition:0.5s;
+    top:0;
+    height:100%;
+    width:100%;
+    z-index:10;
+    overflow:visible;
+    cursor:point;
+  }
+ 
+ #jquery-accordion-menu{
+    min-width: 260px;
+    max-width:400px;
+    float: left;
+    position: relative;
+    box-shadow: 0 20px 50px #333;
+    width: 100%;
+    height: 100%;
+    background: #414956;
+ }
+
+ #slider-title{
+  float:left;
+ }
+
+ #slider-close{
+   float:right;
+   margin-right:30px;
+ }
+
+#slider.slider-hidden
+  #jquery-accordion-menu.jquery-accordion-menu(class='#FF00FF')
+    #form.jquery-accordion-menu-header 
+      p#slider-title 安其拉餐厅
+      i.am-icon-times#slider-close
+    ul#slider-list
+      each val , index in slider
+        if index == 0
+          li.active
+            a(href=val.href id=val.id||"")=val.title
+        else 
+          li
+            a(href=val.href id=val.id||"")=val.title
+    .jquery-accordion-menu-footer @copyright #12小组
+
+script(src="/js/jquery-accordion-menu.js")
+script.
+  $(function(){
+    $("#jquery-accordion-menu").jqueryAccordionMenu();
+    $("#slider-list li").on('click touchstart',function(){
+      $("#slider-list li.active").removeClass("active")
+      $(this).addClass("active");
+    })	
+
+    $('.am-icon-bars').on('click',function(e){
+      $('#slider').removeClass('slider-hidden');
+    });
+
+    $('#slider-close').click(function(e){
+      $('#slider').addClass('slider-hidden');
+    });
+  })
+
+
+
+
+

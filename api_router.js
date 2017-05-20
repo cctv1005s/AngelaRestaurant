@@ -27,10 +27,10 @@ router.post('/order/reserve', authRequired(), order.reserve);// 预定
 router.post('/order/:id/add', authRequired(2), order.addDish);// 增加要做的菜
 router.post('/order/:id/sub', authRequired(2), order.subDish);// 删除某道未做的菜
 router.post('/order/:id/cancel', authRequired(3), order.cancelOrder);// 取消某个订单
-router.post('/order/:id/pay', authRequired(2), order.payforOrder);// 支付
+router.post('/order/:id/pay', authRequired(3), order.payforOrder);// 支付
 router.get('/order/:id/dish', authRequired(2), order.dish);//  查看某个订单的某道菜
-router.get('/order/list', order.getOrderList);//  查看某个订单的某道菜
-router.post('/order/history', authRequired(9), order.getHistoryOrder);//  查看某个订单的某道菜
+router.get('/order/list', order.getOrderList);//  查看预订单列表
+router.post('/order/history', authRequired(9), order.getHistoryOrder);//  查看某个用户的历史订单
 
 /*
  * 厨师部分

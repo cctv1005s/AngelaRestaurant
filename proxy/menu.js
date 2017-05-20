@@ -60,9 +60,12 @@ exports.oneDish = function* (id) {
 exports.addType = function* (newClass) {
     var sql = `
     INSERT INTO \`DishClass\`(ID, ClassName, ClassDescription) 
-    VALUES ('${newClass.ID}','${newClass.ClassName}','${newClass.classDescription}')
+    VALUES ('${newClass.ID}','${newClass.ClassName}','${newClass.ClassDescription}')
     `;
-    return yield mysql.query(sql);
+    var type = yield mysql.query(sql);
+    var id = newClass.ID;
+    type.message = id;
+    return type;
 }
 /**
  * 给菜单删除一个类别
@@ -99,7 +102,10 @@ exports.addDish = function* (newDish) {
     VALUES ('${newDish.ID}','${newDish.Description}','${newDish.ClassID}',
     '${newDish.Price}','${newDish.Name}','${newDish.Status}')
     `;
-    return yield mysql.query(sql);
+    var dish = yield mysql.query(sql);
+    var id = newDish.ID;
+    dish.message = id;
+    return dish;
 }
 /**
  * 给菜单删除一道菜

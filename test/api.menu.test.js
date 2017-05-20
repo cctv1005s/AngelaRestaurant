@@ -22,35 +22,34 @@ describe('菜单api测试', () => {
         expect(r.body.success).to.be.equal(true);
     });
 
-    it('菜单addType接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/type/add')
+    it('菜单addType,updateType,deleteType接口测试', function* () {
+        const a = yield request.post('/api/v1/menu/type/add')
             .send({
                 ClassName: 'test1',
                 ClassDescription: 'test',
                 Token: 'H14WnStlb'
             });
-        expect(r.body.success).to.be.equal(true);
-    });
+        var typeID = a.body.data.message;
+        expect(a.body.success).to.be.equal(true);
 
-    it('菜单updateType接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/type/update')
+        const u = yield request.post('/api/v1/menu/type/update')
             .send({
-                ID: 'test',
+                ID: typeID,
                 ClassName: 'test',
                 ClassDescription: shortid.generate(),
                 Token: 'H14WnStlb'
             });
-        expect(r.body.success).to.be.equal(true);
+            console.log(u.body);
+            console.log(typeID);
+        expect(u.body.success).to.be.equal(true);
+
+        const d = yield request.post('/api/v1/menu/type/delete')
+            .send({ ID: typeID, Token: 'H14WnStlb' });
+        expect(d.body.success).to.be.equal(true);
     });
 
-    it('菜单deleteType接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/type/delete')
-            .send({ ID: 'test', Token: 'H14WnStlb' });
-        expect(r.body.success).to.be.equal(true);
-    });
-
-    it('菜单addDish接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/dish/add')
+    it('菜单addDish,updateDish,stopDish,deleteDish接口测试', function* () {
+        const a = yield request.post('/api/v1/menu/dish/add')
             .send({
                 Description: 'test',
                 ClassID: '2',
@@ -58,33 +57,27 @@ describe('菜单api测试', () => {
                 Name: 'test',
                 Token: 'H14WnStlb'
             });
-        expect(r.body.success).to.be.equal(true);
-    });
+        var dishID = a.body.data.message;
+        expect(a.body.success).to.be.equal(true);
 
-    it('菜单updateDish接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/dish/update')
+        const u = yield request.post('/api/v1/menu/dish/update')
             .send({
-                ID: 'test',
+                ID: dishID,
                 Description: 'test',
                 ClassID: '1',
                 Price: 1000,
                 Name: 'test',
                 Token: 'H14WnStlb'
             });
-        expect(r.body.success).to.be.equal(true);
-    });
+        expect(u.body.success).to.be.equal(true);
 
+        const s = yield request.post('/api/v1/menu/dish/stop')
+            .send({ ID: dishID, Token: 'H14WnStlb' });
+        expect(s.body.success).to.be.equal(true);
 
-    it('菜单stopDish接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/dish/stop')
-            .send({ ID: 'test', Token: 'H14WnStlb' });
-        expect(r.body.success).to.be.equal(true);
-    });
-
-    it('菜单deleteDish接口测试', function* () {
-        const r = yield request.post('/api/v1/menu/dish/delete')
-            .send({ ID: 'test', Token: 'H14WnStlb' });
-        expect(r.body.success).to.be.equal(true);
+        const d = yield request.post('/api/v1/menu/dish/delete')
+            .send({ ID: dishID, Token: 'H14WnStlb' });
+        expect(d.body.success).to.be.equal(true);
     });
 
 });

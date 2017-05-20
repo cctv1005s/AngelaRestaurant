@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
 import ChefDish from './ChefDish.js';
 
-// 生成模拟数据
-let _onedish = {
-  Img: '/img/dish.png',
-  Name: '红烧牛肉面',
-  Description: '非常好吃的红烧牛肉面',
-  Sales: '180',
-  Price: '18',
-};
-
-let Dishs = [];
-let state = ['ready', 'working', 'finish'];
-for (let i = 0; i < 100; i++) {
-  let t = Object.assign({}, _onedish);
-  t.State = state[parseInt(Math.random() * 3)];
-  t.ID = i;
-  Dishs.push(t);
-}
-
 export default class Index extends Component {
   constructor(p) {
       super(p);
       this.state = {
-          Dish: Dishs,
+          Dish: [],
         };
     }
+
+  componentDidMount(){
+      $.get('/api/v1/user')
+       .then(res => {
+        if(!res.success)
+            return alert(res.data);
+        var {ID} = res.data;
+        console.log(res.data);
+        return ID;
+       })
+       .then(ID =>{
+        $.get(`/api/v1/chef/${encodeURI(ID)}/order`)
+         .then(res =>{
+            if(!res.success)
+                alert('获取数据失败' + res.data);
+            this.setState({
+                Dish:res.data
+            });
+            console.log(res.data);
+         })
+       });
+  }
 
   render() {
       return (
@@ -38,7 +42,7 @@ export default class Index extends Component {
                   <div className="chef-end-wrapper" style={{ height: $(window).height() - 100 }}>
                       {
                         this.state.Dish.map((ele) =>  {
-                          if (ele.State != 'ready')
+                          if (ele.Status != 'WAIT')
                               {return null;}
                           return (
                               <ChefDish
@@ -58,7 +62,7 @@ export default class Index extends Component {
                   <div className="chef-end-wrapper" style={{ height: $(window).height() - 100 }}>
                       {
                         this.state.Dish.map((ele) =>  {
-                          if (ele.State != 'working')
+                          if (ele.Status != 'COOKING')
                               {return null;}
                           return (
                               <ChefDish
