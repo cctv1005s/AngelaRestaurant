@@ -1,0 +1,85 @@
+extends layout.pug
+
+block css
+  link(href="/css/index.css" rel="stylesheet" type="text/css")
+
+block content
+  .input-box
+    .input-item
+      span(style="background:url(/img/icon/sign-account.png)")
+      input#account(type="text" name="account" maxlength="13"  autofocus="autofocus" placeholder="用户名")
+    .input-item
+      span(style="background:url(/img/icon/sign-nickname.png)")
+      input#nickname(type="text" name="nickname" maxlength="13"  autofocus="autofocus" placeholder="昵称")
+    .input-item
+      span(style="background:url(/img/icon/sign-phone.png)")
+      input#phone(type="number" name="phone" maxlength="13"  autofocus="autofocus" placeholder="手机号")
+    .input-item
+      span(style="background:url(/img/icon/sign-gender.png)")
+      select#gender
+        option(value="Male") 男
+        option(value="Female") 女
+    .input-item
+      span(style="background:url(/img/icon/sign-password.png)" )
+      input#password(type="password" name="password" maxlength="10" placeholder="密码")
+
+  .check
+    button#check-btn 保存
+
+block script
+  script(src="https://unpkg.com/Validator")
+  script.
+    $(function(){
+      var $Account = $('#account');
+      var $NickName = $('#nickname');
+      var $Phone = $('#phone');
+      var $Gender = $('#gender');
+      var $Password = $('#password');
+      var $RePassowrd = $('#repassword');
+      $('#check-btn').click( e =>{
+        //设置验证规则
+        var rules = {
+          Account: 'required',
+          NickName: 'required|string',
+          Phone: 'required|numeric',
+          Gender: 'required',
+          Password: 'required',
+          RePassword: 'required',
+        };
+
+        var newUser = {
+          Account: $Account.val().trim(),
+          Password: $Password.val().trim(),
+          NickName: $NickName.val().trim(),
+          Gender: $Gender.val().trim(),
+          RePassword: $RePassowrd.val().trim(),
+          Phone: $Phone.val().trim(),
+        }
+        //检查密码是否一致
+        var p = newUser.Password;
+        var rep = newUser.RePassword;
+        
+        if(p != rep){
+          return alert("两次输入密码长度不一样");
+        }
+
+        //验证
+        var v = Validator.make(newUser,rules);
+        if(v.fails()){
+          console.log(v.getErrors());
+          return alert("填写信息错误");
+        }
+
+        //提交表单
+        $.post('/api/v1/signup',newUser)
+        .then(res=>{
+
+          if(!res.success)
+            return alert(res.data);
+
+          alert("注册成功，正在跳转");
+          window.location.href = "/";
+        });
+
+      });
+    })

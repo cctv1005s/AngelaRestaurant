@@ -144,6 +144,14 @@ fn.ItemUpdate = (state,action) =>{
     if(!res.success)
       alert("修改失败");
    });
+
+  $.post('/api/v1/menu/dish/updateimg',{ID,Img:action.ImgUrl})   
+   .then(res =>{
+    if(!res.success){
+      alert("修改失败")
+      console.log(res.data);
+    }
+   });
 }
 
 

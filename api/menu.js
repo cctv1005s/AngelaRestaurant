@@ -157,7 +157,7 @@ exports.updateDish = function* (next) {
         for (var i = 0; i < data.length; i++) {
             if (id == data[i].ID) {
                 for (var i in body) {
-                    arr.push(i + '=' + body[i]);
+                    arr.push(`${i}='${body[i]}'`);
                 }
                 setstr = arr.join(',');
                 var info = yield menu_model.updateDish(setstr, id);

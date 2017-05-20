@@ -22,7 +22,7 @@ export default class MenuDetail extends Component {
         });
     }
   }
-  
+
   itemUpdate(ID){
 
       return function(e){
@@ -34,9 +34,10 @@ export default class MenuDetail extends Component {
 
           //获取表单数据
           ['Description','Name','Price','Status'].map((ele,i)=>{
-            data.form[ele] = this.props[ele].value;
+            data.form[ele] = this.refs[ele].value;
           });
           //发布
+          data.ImgUrl = this.refs['ImgUrl'].value;
           store.dispatch(data);
       }
   }
@@ -93,6 +94,7 @@ export default class MenuDetail extends Component {
                               type="text" 
                               id="doc-ipt-pwd-2" 
                               placeholder="图片链接" 
+                              ref="ImgUrl"
                               value={(item.Imgs[0]||{}).ImgUrl||""} 
                               onChange={(e)=>{
                                   if(!item.Imgs[0])

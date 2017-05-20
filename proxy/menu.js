@@ -145,7 +145,7 @@ exports.updateDish = function* (dishData,ID) {
  */
 exports.updateDishImg = function* (dishID,Img) {
     var sql = `
-    update \`DishImg\` set ImgUrl = ${Img}  
+    update \`DishImg\` set ImgUrl = '${Img}'
     WHERE DishID = '${dishID}'
     `;
     return yield mysql.query(sql);
