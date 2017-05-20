@@ -111,8 +111,9 @@ exports.subDish = function* () {
 
 exports.cancelOrder = function* () {
   var orderID = this.params.id;
-
+  console.log(orderID);
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
+
 
   if (dishIDList.length !== 0) { return this.body = { success: false, data: '无法取消已点菜订单' }; }
 
@@ -176,3 +177,19 @@ exports.dish = function* () {
     return this.body = { success: false, data: e };
   }
 };
+
+
+
+
+/**
+ * 获取预订单排序列表
+ */
+exports.getOrderList = function* () {
+  try {
+    let r = yield orderModel.OrderList();
+    return this.body = { success: true, data: r };
+  } catch (e) {
+    return this.body = { success: false, data: e };
+  }
+};
+
