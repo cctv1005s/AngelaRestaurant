@@ -266,11 +266,22 @@ exports.distributeBusboy = function* (BusboyID, TableID) {
 
 /**
  * 获取预订单列表
- * 
  */
 exports.OrderList = function* () {
   var q = `
       SELECT * FROM CustomerOrder WHERE Status = 'RESERVE' ORDER BY OrderTime
+    `;
+  return yield mysql.query(q);
+};
+
+
+
+/**
+ * 获取用户全部订单
+ */
+exports.HistoryOrderList = function* (userid) {
+  var q = `
+      SELECT * FROM CustomerOrder WHERE UserID = '${userid}'
     `;
   return yield mysql.query(q);
 };

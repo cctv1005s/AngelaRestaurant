@@ -14,9 +14,9 @@
     "title":"安其拉餐厅",
     "port":"3002",
     "role":{
-        "Customer":[2,4],
-        "Waiter":[2,3,4,5,6],
-        "Manager":[5,7],
+        "Customer":[2,4,9],
+        "Waiter":[2,3,4,5,6,9],
+        "Manager":[5,7,9],
         "BusBoy":[6]
     }
 }

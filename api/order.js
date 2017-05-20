@@ -179,8 +179,6 @@ exports.dish = function* () {
 };
 
 
-
-
 /**
  * 获取预订单排序列表
  */
@@ -193,3 +191,17 @@ exports.getOrderList = function* () {
   }
 };
 
+
+/**
+ * 获取某用户历史订单
+ */
+exports.getHistoryOrder = function* () {
+  var { userID } = this.request.body;
+
+  try {
+    let r = yield orderModel.HistoryOrderList(userID);
+    return this.body = { success: true, data: r };
+  } catch (e) {
+    return this.body = { success: false, data: e };
+  }
+};

@@ -30,6 +30,7 @@ router.post('/order/:id/cancel', authRequired(3), order.cancelOrder);// 取消�
 router.post('/order/:id/pay', authRequired(2), order.payforOrder);// 支付
 router.get('/order/:id/dish', authRequired(2), order.dish);//  查看某个订单的某道菜
 router.get('/order/list', order.getOrderList);//  查看某个订单的某道菜
+router.post('/order/history', authRequired(9), order.getHistoryOrder);//  查看某个订单的某道菜
 
 /*
  * 厨师部分
