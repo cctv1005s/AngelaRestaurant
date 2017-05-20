@@ -8,6 +8,10 @@ fn._SetState = (state) => {
   });
 };
 
+fn.UpdateState = (state) =>{
+  return state;
+}
+
 fn.TypeSelect = (state, action) => {
   var ID = action.data;
   state.activeType = ID;
@@ -23,6 +27,8 @@ fn.TypeSelect = (state, action) => {
 fn.TypeRename = function (state, action) {
   var ID = action.data;
   var name = prompt('请输入新的名称', action._name);
+  if(name.trim().length == 0)
+    return name = action._name;
   state.typeList.map((ele) => {
     if (ele.ID == ID)
       ele.Name = name;
@@ -128,6 +134,18 @@ fn.ItemDelete = (state,action)=>{
    });
    return state;
 }
+
+fn.ItemUpdate = (state,action) =>{
+  var ID = action.data;
+  var form = action.form;
+  form.ID = ID;
+  $.post('/api/v1/menu/dish/update',form)
+   .then(res =>{
+    if(!res.success)
+      alert("修改失败");
+   });
+}
+
 
 //下面是对这个类型是获取的数据函数
 fn.getTypeList = function () {

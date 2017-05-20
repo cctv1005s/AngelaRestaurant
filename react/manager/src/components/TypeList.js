@@ -21,7 +21,7 @@ export default class TypeList extends Component {
             >
                 + 新建类别
             </div>
-            <div className="manager-end-type">
+            <div className="manager-end-type" style={{ height: $(window).height() - 70 ,overflow:'auto'}}>
             {
                 typeList.map((ele, i) => (
                     <Type

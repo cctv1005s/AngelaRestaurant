@@ -1,6 +1,9 @@
 .hidden{display: none;}
 .left{float: left;}
 .right{float: right;}
+body{
+    overflow: hidden;
+}
 
 .manager-end > div{
     float: left;

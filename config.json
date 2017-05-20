@@ -18,5 +18,8 @@
         "Waiter":[2,3,4,5,6,9],
         "Manager":[5,7,9],
         "BusBoy":[6]
+    },
+    "icon":{
+        "dish":"http://i2.muimg.com/1949/be70d55a6c109c1d.png"
     }
 }

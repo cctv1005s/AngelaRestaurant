@@ -114,6 +114,11 @@ exports.addDish = function* (newDish) {
  */
 exports.deleteDish = function* (id) {
     var sql = `
+    DELETE FROM DishImg
+    WHERE DishID = '${id}'
+    `;
+    yield mysql.query(sql);
+    sql = `
     DELETE FROM \`Dish\` 
     WHERE ID = '${id}'
     `;
@@ -154,6 +159,13 @@ exports.stopDish = function* (ID) {
     var sql = `
     update \`Dish\` set Status = 'Disavailable'
     where ID = '${ID}'
+    `;
+    return yield mysql.query(sql);
+}
+
+exports.addImg = function*(DishID,ImgUrl){
+    var sql = `
+        INSERT INTO \`DishImg\` (\`DishID\`, \`ImgUrl\`) VALUES ('${DishID}', '${ImgUrl}')
     `;
     return yield mysql.query(sql);
 }

@@ -2,6 +2,7 @@ var menu_model = require('../proxy/menu');
 var table_model = require('../proxy/table');
 var uuidV1 = require('uuid/v1');
 var shortid = require('shortid');
+var config = require('../config.json');
 
 /**
  * 用于获取菜单的类别，不添加权限，对所有类别开放
@@ -107,7 +108,6 @@ exports.updateType = function* (next) {
  * 新增一道菜
  */
 exports.addDish = function* (next) {
-    var userID = '6';
     try {
         var { Description, ClassID, Price, Name } = this.request.body;
         var newDish = {
@@ -118,7 +118,10 @@ exports.addDish = function* (next) {
             Name: Name || "",
             Status: 'Available'
         };
+        //插入Dish表
         var info = yield menu_model.addDish(newDish);
+        //为图片插入默认图片
+        yield menu_model.addImg(newDish.ID,config.icon.dish);
         this.body = { success: true, data: newDish };
     }
     catch (e) {

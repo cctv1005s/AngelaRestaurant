@@ -22,8 +22,27 @@ export default class MenuDetail extends Component {
         });
     }
   }
+  
+  itemUpdate(ID){
+
+      return function(e){
+          var data = {
+            type:'ItemUpdate',
+            data:ID,
+            form:{}
+          };
+
+          //获取表单数据
+          ['Description','Name','Price','Status'].map((ele,i)=>{
+            data.form[ele] = this.props[ele].value;
+          });
+          //发布
+          store.dispatch(data);
+      }
+  }
 
   render() {
+      var self = this;
       var { activeItem, itemList } = store.getState();
       var item = {};
       for(var i in itemList){
@@ -32,15 +51,15 @@ export default class MenuDetail extends Component {
             break;
         }
       }
+      
+      if($.isEmptyObject(item))
+        return null;
 
       return (
-          <div className="manager-end-right">
+          <div className="manager-end-right" style={{ height: $(window).height() - 50 ,overflow:'auto'}}>
               <div className="manager-end-detail">
                     <form className="am-form am-form-horizontal">
                         <legend>基本信息</legend>
-                        {
-                            item.ID
-                        }
                         {
                             ['Description','Name','Price','Status'].map(function(ele,i){
                                 return (
@@ -49,17 +68,54 @@ export default class MenuDetail extends Component {
                                             {translate[ele]}
                                         </label>
                                         <div className="am-u-sm-10">
-                                        <input type="text" placeholder={translate[ele]} value={item[ele]}/>
+                                        <input 
+                                          type="text" 
+                                          ref={ele} 
+                                          placeholder={translate[ele]} 
+                                          value={item[ele]} 
+                                          onChange={(e)=>{
+                                              item[ele] = e.target.value;
+                                              store.dispatch({
+                                                  type:'UpdateState'
+                                              });
+                                          }}
+                                         />
                                         </div>
                                     </div>
                                 );
                             })
                         }
+
                         <div className="am-form-group">
-                            <div className="am-u-sm-10 am-u-sm-offset-2">
-                            <button type="submit" className="am-btn am-btn-primary">更改</button>
+                            <img for="doc-ipt-pwd-2" className="am-u-sm-2 am-form-label" src={(item.Imgs[0]||{}).ImgUrl||""} alt={item.Name+"的图片"}/>
+                            <div className="am-u-sm-10">
+                            <input 
+                              type="text" 
+                              id="doc-ipt-pwd-2" 
+                              placeholder="图片链接" 
+                              value={(item.Imgs[0]||{}).ImgUrl||""} 
+                              onChange={(e)=>{
+                                  if(!item.Imgs[0])
+                                    return ;
+                                  item.Imgs[0].ImgUrl = e.target.value;
+                                  store.dispatch({
+                                    type:'UpdateState'
+                                  });
+                              }}
+                             />
                             </div>
                         </div>
+
+                        <div className="am-form-group">
+                            <div className="am-u-sm-10 am-u-sm-offset-2">
+                            <button 
+                             type="submit" 
+                             className="am-btn am-btn-primary"
+                             onClick={this.itemUpdate(item.ID).bind(this)}
+                            >确认更改</button>
+                            </div>
+                        </div>
+
                         <div className="am-form-group">
                             <div className="am-u-sm-10 am-u-sm-offset-2">
                             <button 
