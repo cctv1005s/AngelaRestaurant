@@ -8,3 +8,9 @@ var mysql = require('../models');
 exports.getAuth = function* (id) {
   return yield mysql.query(`SELECT Auth FROM Auth where UserID = '${id}'`);
 };
+exports.addAuth=function*(userid,authtype){
+  return yield mysql.query(`
+  insert into Auth (UserID,Auth)
+  values ('${userid}','${authtype}')
+  `) ;
+}

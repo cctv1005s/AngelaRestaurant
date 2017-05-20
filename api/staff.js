@@ -2,7 +2,8 @@ var uuidV1=require('uuid/v1');
 var shortid=require('shortid');
 var md5=require('md5');
 var staff_model=require('../proxy/staff');
-
+var auth_model=require('../proxy/auth');
+var configjson=require('../config.json');
 exports.type=function*(next){
     try{
         var info=yield staff_model.getall();
@@ -43,8 +44,9 @@ exports.addemployee=function*(next){
         var {Account,Password,Status,Name,Salary,Phone,BankCard,
         WorkTime,HeadIcon,ClassID}=this.request.body;
         console.log(this.request.body);
+        var generateID=shortid.generate();
         var info=yield staff_model.addemployee({
-            ID:shortid.generate(),
+            ID:generateID,
             Account:Account||'NULL',
             Password:md5(Password)||'NULL',
             Status:Status||'REST',
@@ -57,6 +59,18 @@ exports.addemployee=function*(next){
             ClassID:ClassID||'NULL',
             AccessToken:shortid.generate()
         });
+        var role=configjson.role;
+        console.log(role);
+        var res=yield staff_model.getstaffdetail(generateID);
+        console.log(res);
+        if (role[res[0]['ClassName']]){
+            var types=role[res[0]['ClassName']];
+            console.log(types);
+            for (var type in types) {
+                yield auth_model.addAuth(generateID,types[type]);
+            }
+        }
+        
         this.body={success:true,data:info};
     }catch (e){
         this.body={success:false,data:e};
