@@ -1,32 +1,125 @@
 var expect = require('chai').expect;
-var uuidV1 = require('uuid/v1');
 var shortid = require('shortid');
 var timeFormat = require('../tools/time.js');
 var orderModel = require('../proxy/order.js');
+var mysql = require('../models/index');
 require('co-mocha');
 
+
 describe('订单model的测试', () => {
-  it('订单setReserve方法测试', function* () {
+  it(
+    '订单 setOrderState、setReserve、HistoryOrderList、findReserveByUseID、insertCookingList、getCookingInfo、deleteOneDishByCookingID、orderDish、getDishIDByOrderID、cancelOrder方法测试'
+  , function* () {
+  // setReserve成功的情况
+    var query = `
+    SELECT ID FRom Customer
+    WHERE ID NOT IN 
+    (SELECT UserID FROM CustomerOrder)
+    `;
+    var user = yield mysql.query(query);
+    var order = shortid.generate();
     var r = yield orderModel.setReserve({
-      OrderID: shortid.generate(),
-      UserId: '1',
+      OrderID: order,
+      UserId: user[0].ID,
       OrderTime: timeFormat.format(new Date()),
-      Phone: 12345678901,
+      Phone: 99999999999,
       Type: 1,
       Status: 'RESERVE',
       PeopleNum: 5,
     });
     expect(r.affectedRows).to.equal(1);
-  });
 
 
-  it('订单findReserveByUseID方法测试', function* () {
-    var r = yield orderModel.findReserveByUseID('1');
+  // findReserveByUseID成功的情况
+    r = yield orderModel.findReserveByUseID(user[0].ID);
     expect(r).to.have.length.least(1);
 
-
-    r = yield orderModel.findReserveByUseID('000000');
+  // findReserveByUseID失败的情况
+    r = yield orderModel.findReserveByUseID('-111');
     expect(r).to.have.lengthOf(0);
+
+
+    query = `
+    SELECT * FRom ChefCanDish
+    `;
+    var chefAndDish = yield mysql.query(query);
+    var cooking = shortid.generate();
+  // insertCookingList成功的情况
+    r = yield orderModel.insertCookingList({
+      CookingID: cooking,
+      OrderID: order,
+      ChefID: chefAndDish[0].ChefID,
+      DishID: chefAndDish[0].DishID,
+      Status: 'WAIT',
+    });
+    expect(r.affectedRows).to.equal(1);
+
+
+  // getCookingInfo成功的情况
+    r = yield orderModel.getCookingInfo(order, cooking);
+
+    expect(r).to.have.lengthOf(1);
+
+  // getCookingInfo失败的情况
+    r = yield orderModel.getCookingInfo('-11111', '-11111');
+    expect(r).to.have.lengthOf(0);
+
+
+  // getDishIDByOrderID成功情况
+    r = yield orderModel.getDishIDByOrderID(order);
+    expect(r).to.have.lengthOf(1);
+
+  // getDishIDByOrderID失败情况
+    r = yield orderModel.getDishIDByOrderID('-111');
+    expect(r).to.have.lengthOf(0);
+
+    // orderDish成功
+    r = yield orderModel.orderDish(order);
+    expect(r).to.have.length.least(1);
+
+    // orderDish失败
+    r = yield orderModel.orderDish('-111');
+    expect(r).to.have.lengthOf(0);
+
+  // deleteOneDishByCookingID成功的情况
+    r = yield orderModel.deleteOneDishByCookingID(cooking);
+    expect(r.affectedRows).to.equal(1);
+
+  // deleteOneDishByCookingID失败的情况
+    r = yield orderModel.deleteOneDishByCookingID('-11111');
+    expect(r.affectedRows).to.equal(0);
+
+
+  // setOrderState成功的情况
+    r = yield orderModel.setOrderState(order);
+    expect(r.affectedRows).to.equal(1);
+
+  // setOrderState失败的情况
+    r = yield orderModel.setOrderState('-111');
+    expect(r.affectedRows).to.equal(0);
+
+  // cancelOrder成功的情况
+    r = yield orderModel.cancelOrder(order);
+    expect(r.affectedRows).to.equal(1);
+
+  // cancelOrder失败的情况
+    r = yield orderModel.cancelOrder('-1111');
+    expect(r.affectedRows).to.equal(0);
+
+  // HistoryOrderList成功的情况
+    r = yield orderModel.HistoryOrderList(user[0].ID);
+    expect(r).to.have.lengthOf(1);
+
+
+  // HistoryOrderList失败的情况
+    r = yield orderModel.HistoryOrderList('-1111');
+    expect(r).to.have.lengthOf(0);
+
+    query = `
+    DELETE FRom CustomerOrder
+    WHERE ID = '${order}'
+    `;
+    yield mysql.query(query);
   });
 
 
@@ -36,132 +129,116 @@ describe('订单model的测试', () => {
 //   });
 
 
-  it('订单findChefIDByDishID方法测试', function* () {
-    var r = yield orderModel.findChefIDByDishID('12');
+  it('订单findChefIDByDishID、getInfoByDishID 方法测试', function* () {
+    var query = `
+    SELECT ID FRom Dish
+    WHERE \`Status\` = 'Avaliable'
+    `;
+    var dish = yield mysql.query(query);
+    // findChefIDByDishID成功
+    var r = yield orderModel.findChefIDByDishID(dish[0].ID);
     expect(r).to.have.length.least(1);
 
-    r = yield orderModel.findChefIDByDishID('50');
+    // findChefIDByDishID失败
+    r = yield orderModel.findChefIDByDishID('-111');
+    expect(r).to.have.lengthOf(0);
+
+
+    // getInfoByDishID成功
+    r = yield orderModel.getInfoByDishID(dish[0].ID);
+    expect(r).to.have.lengthOf(1);
+
+    // getInfoByDishID失败
+    r = yield orderModel.getInfoByDishID('-111');
     expect(r).to.have.lengthOf(0);
   });
 
 
   it('订单getChefCookingSum方法测试', function* () {
-    var r = yield orderModel.getChefCookingSum('1');
-    expect(r).to.not.equal(0);
+    var query = `
+    SELECT ID 
+    FRom Employee
+    WHERE ClassID = '1' or ClassID = '2' 
+    `;
+    var chef = yield mysql.query(query);
 
-    r = yield orderModel.getChefCookingSum('20');
+    // getChefCookingSum成功
+    var r = yield orderModel.getChefCookingSum(chef[0].ID);
+    expect(r).to.be.at.least(0);
+
+    // getChefCookingSum失败
+    r = yield orderModel.getChefCookingSum('-111');
     expect(r).to.equal(0);
   });
 
 
   it('订单getInfoByEmployeeID方法测试', function* () {
-    var r = yield orderModel.getInfoByEmployeeID('1');
+    var query = `
+    SELECT ID 
+    FRom Employee
+    WHERE ClassID = '1' or ClassID = '2' 
+    `;
+    var employee = yield mysql.query(query);
+       // getInfoByEmployeeID成功
+    var r = yield orderModel.getInfoByEmployeeID(employee[0].ID);
     expect(r).to.have.lengthOf(1);
 
-    r = yield orderModel.getInfoByEmployeeID('00000');
+       // getInfoByEmployeeID失败
+    r = yield orderModel.getInfoByEmployeeID('-111');
     expect(r).to.have.lengthOf(0);
   });
 
 
-  it('订单getInfoByDishID方法测试', function* () {
-    var r = yield orderModel.getInfoByDishID('1');
-    expect(r).to.have.lengthOf(1);
+  // it('订单getTableId方法测试', function* () {
 
-    r = yield orderModel.getInfoByDishID('00000');
-    expect(r).to.have.lengthOf(0);
-  });
+  //   var r = yield orderModel.getTableId('1');
+  //   expect(r).to.have.lengthOf(1);
 
-
-  it('订单insertCookingList方法测试', function* () {
-    var r = yield orderModel.insertCookingList({
-      CookingID: uuidV1(),
-      OrderID: '1234',
-      ChefID: '1',
-      DishID: '3',
-      Status: 'WAIT',
-    });
-    expect(r.affectedRows).to.equal(1);
-  });
+  //   r = yield orderModel.orderDish('0000');
+  //   expect(r).to.have.lengthOf(0);
+  // });
 
 
-  it('订单getCookingInfo方法测试', function* () {
-    var r = yield orderModel.getCookingInfo('1', '1');
-    expect(r).to.have.length.least(1);
+  // it('订单setTableState方法测试', function* () {
+  //   var r = yield orderModel.setTableState('1');
+  //   expect(r).to.be.a('object');
+  // });
 
-    r = yield orderModel.getCookingInfo('000000', '0000000');
-    expect(r).to.have.lengthOf(0);
-  });
-
-
-  it('订单deleteOneDishByCookingID方法测试', function* () {
-    var r = yield orderModel.deleteOneDishByCookingID('0000');
-    expect(r.affectedRows).to.equal(0);
-  });
-
-
-  it('订单getDishIDByOrderID方法测试', function* () {
-    var r = yield orderModel.getDishIDByOrderID('1');
-    expect(r).to.have.length.least(1);
-
-    r = yield orderModel.getDishIDByOrderID('0000');
-    expect(r).to.have.lengthOf(0);
-  });
-
-
-  it('订单cancelOrder方法测试', function* () {
-    var r = yield orderModel.cancelOrder('000000');
-    expect(r.affectedRows).to.equal(0);
-  });
-
-
-  it('订单orderDish方法测试', function* () {
-    var r = yield orderModel.orderDish('r1aYz4xxZ');
-    expect(r).to.have.length.least(1);
-
-    r = yield orderModel.orderDish('0000');
-    expect(r).to.have.lengthOf(0);
-  });
-
-
-  it('订单getTableId方法测试', function* () {
-    var r = yield orderModel.getTableId('1');
-    expect(r).to.have.lengthOf(1);
-
-    r = yield orderModel.orderDish('0000');
-    expect(r).to.have.lengthOf(0);
-  });
-
-
-  it('订单setTableState方法测试', function* () {
-    var r = yield orderModel.setTableState('1');
-    expect(r).to.be.a('object');
-  });
-
-
-  it('订单setOrderState方法测试', function* () {
-    var r = yield orderModel.setOrderState('1');
-    expect(r).to.be.a('object');
-  });
 
   it('订单getBusboyID方法测试', function* () {
+    // getBusboyID成功的情况
     var r = yield orderModel.getBusboyID();
     expect(r).to.have.length.least(1);
   });
 
+
   it('订单distributeBusboy方法测试', function* () {
-    var r = yield orderModel.distributeBusboy('afsref', '1');
+    var query = `
+    SELECT ID FRom View_busboy
+    `;
+    var busboy = yield mysql.query(query);
+
+
+    query = `
+    SELECT ID FRom \`Table\`
+    `;
+    var table = yield mysql.query(query);
+
+    // distributeBusboy成功的状态
+    var r = yield orderModel.distributeBusboy(busboy[0].ID, table[0].ID);
     expect(r.affectedRows).to.equal(1);
+
+    query = `
+    DELETE FRom EmployeeInTable
+    WHERE EmployeeID = '${busboy[0].ID}'
+    AND TableID = '${table[0].ID}'
+    `;
+    yield mysql.query(query);
   });
 
 
   it('订单OrderList方法测试', function* () {
     var r = yield orderModel.OrderList();
-    expect(r).to.be.a('array');
-  });
-
-
-  it('订单HistoryOrderList方法测试', function* () {
-    var r = yield orderModel.HistoryOrderList('4432');
     expect(r).to.be.a('array');
   });
 });
