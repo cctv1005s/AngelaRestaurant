@@ -5,7 +5,7 @@ exports.token2session = function* (next) {
   
   var { Token } = this.request.body;
   if (!Token)
-    yield next;
+    return yield next;
 
   //  在顾客中查找
   var r = yield userModel.findByToken(Token);

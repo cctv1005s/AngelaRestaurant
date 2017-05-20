@@ -10,7 +10,7 @@ exports.get = function* () {
   var error = false;
   if (error)
     return this.body = { success: false, data: result };
-  this.body = { success: true, data: result };
+  this.body = { success: true, data: result[0] };
 };
 
 /**
@@ -20,7 +20,7 @@ exports.getOwnInfo = function* () {
   var id = this.session.user.ID;
   var result = yield userModel.findByID(id);
   if (result.length === 0) { return this.body = { success: false, data: result }; }
-  this.body = { success: true, data: result };
+  this.body = { success: true, data: result[0] };
 };
 
 /**

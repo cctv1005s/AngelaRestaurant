@@ -9,6 +9,11 @@ exports.employeeLogin = function () {
   this.render('employee', { sitename: '员工登陆' });
 };
 
-exports.signout = exports.signup = exports.signin = function* (next) {
-  this.render('index', { title: '你好呀' });
-};
+exports.signout = function(){
+  this.session.user = null;
+  this.redirect('/');
+}
+
+exports.signup = function(){
+  this.render('signup',{ sitename: '注册'});
+}
