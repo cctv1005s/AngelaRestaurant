@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "Validator": "^1.0.4",
     "babel-core": "^6.24.1",
     "chai": "^3.5.0",
     "co": "^4.6.0",

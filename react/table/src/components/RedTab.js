@@ -25,7 +25,22 @@ var style = {
 };
 
 export default class RedTab extends Tab {
+  clearTable(ID){
+    return function(e){
+      $.post('/api/v1/table/cleanup',{TableID:ID})
+       .then(res =>{
+          if(res.success){
+            alert("更新成功");
+            this.props.onEnd();
+          }else{
+            alert(data);
+          }
+       });
+    }
+  }
+
   renderBox() {
+    var {ID} = this.props;
     return (
       <div>
         <div>
@@ -34,9 +49,7 @@ export default class RedTab extends Tab {
           <p style={style.word}>XX号员工清理中</p>
         </div>
         <div>
-          <button style={style.button} onClick={(e)=>{
-            
-          }}>
+          <button style={style.button} onClick={this.clearTable(ID)}>
             清理结束
           </button>
         </div>

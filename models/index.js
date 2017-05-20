@@ -16,6 +16,11 @@ var options = {
 
 
 var pool = mysql.createPool(options);
+pool._query_ = pool.query;
+pool.query = function(sql,fn){
+    console.log(`-----------${sql.trim()}------------`);
+    return pool._query_(sql,fn);
+}
 var p = wrapper(pool);
 
 exports = module.exports = p;
