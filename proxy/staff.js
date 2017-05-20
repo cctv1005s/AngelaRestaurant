@@ -1,5 +1,9 @@
 var mysql = require('../models/index')
-
+exports.adddishforchef=function*(chefid,dishid){
+    var sql =`insert into ChefCanDish (ChefID,DishID)
+    values ('${chefid}','${dishid}')`
+    return yield mysql.query(sql);
+}
 exports.getall=function*(){
     var sql =`select *
     from EmployeeClass`;

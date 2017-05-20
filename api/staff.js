@@ -94,4 +94,15 @@ exports.deleteEmployee=function*(){
     }catch (e){
         this.body={success:false,data:e};
     }
+
+}
+exports.addDishForChef=function*(){
+    try {
+        var chefid =this.request.body['ChefID'];
+        var dishid=this.request.body['DishID'];
+        var infor=yield staff_model.adddishforchef(chefid,dishid);
+        this.body={success:true,data:info};
+    } catch (e) {
+        this.body={success:false,data:e};
+    }
 }
