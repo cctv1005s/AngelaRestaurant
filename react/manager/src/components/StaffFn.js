@@ -8,6 +8,10 @@ fn._SetState = (state) =>{
   });
 }
 
+fn.UpdateState = (state,action) =>{
+  return state;
+}
+
 fn.TypeSelect = (state, action) => {
   var ID = action.data;
   state.activeType = ID;
@@ -22,11 +26,13 @@ fn.TypeSelect = (state, action) => {
 
 fn.TypeRename = function (state, action) {
   var ID = action.data;
-  var name = prompt("请输入新的",action.__name);
+  var name = prompt("请输入新的类别名",action.__name);
+  
   state.typeList.map(function(ele){
     if(ele.ID == ID)
       ele.Name = name;
   });
+
   $.post('/api/v1/menu/type/update',{ID:ID,ClassName:name})
    .then(res =>{
       if(!res.success)
@@ -77,7 +83,7 @@ fn.ItemSelect = (state,action)=>{
 }
 
 fn.getTypeList = function(){
-    return $.get('/api/v1/menu/type')
+    return $.get('/api/v1/staff/type')
      .then((res) =>{
          if(!res.success)
             return alert("获取数据失败，请重试");
@@ -94,7 +100,7 @@ fn.getItemList = function(type){
             .then(res =>{
                 if(!res.success)
                     alert("获取数据失败,请重试");
-                
+                     
                 var data = res.data;
                 for(var i in data){
                     data[i].Img = (data[i].Imgs[0]||{}).ImgUrl;

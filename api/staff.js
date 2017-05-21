@@ -42,7 +42,6 @@ exports.addemployee=function*(next){
     try{
         var {Account,Password,Status,Name,Salary,Phone,BankCard,
         WorkTime,HeadIcon,ClassID}=this.request.body;
-        console.log(this.request.body);
         var info=yield staff_model.addemployee({
             ID:shortid.generate(),
             Account:Account||'NULL',
@@ -67,7 +66,6 @@ exports.updateEmployee=function*(next){
      try{
         var body=this.request.body;
         var setstr='';
-        console.log(this.request.body);
         var id=body['ID'];
         var arr=[];
         if(body['Password']){
@@ -78,7 +76,6 @@ exports.updateEmployee=function*(next){
             arr.push(i+"='"+body[i]+"'");
         }
         setstr=arr.join(',');
-        console.log(setstr);
         var info=yield staff_model.updateEmployee(setstr,id);
         this.body={success:true,data:info};
     }
