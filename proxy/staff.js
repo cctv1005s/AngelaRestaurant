@@ -44,7 +44,6 @@ exports.getstaffdetail=function* (id){
     return yield mysql.query(sql); 
 }
 exports.addemployee=function* (newem){
-    console.log(newem);
     var sql=`insert into Employee (ID,Account,Password,Status,Name,Salary,Phone,BankCard,WorkTime,HeadIcon,ClassID,AccessToken)
     values ('${newem.ID}',
     '${newem.Account}',
@@ -53,7 +52,6 @@ exports.addemployee=function* (newem){
     '${newem.Name}',
     '${newem.Salary}','${newem.Phone}','${newem.BankCard}','${newem.WorkTime}','${newem.HeadIcon}','${newem.ClassID}','${newem.AccessToken}')
     `;
-console.log(sql);
     return yield mysql.query(sql);
 }
 exports.updateEmployee=function*(set,id){
@@ -64,6 +62,5 @@ exports.updateEmployee=function*(set,id){
 exports.deleteEmployee=function*(id){
     
     var sql=`delete from Employee where ID='${id}'`;
-    console.log(sql);
     return yield mysql.query(sql);
 }

@@ -52,11 +52,13 @@ export default class Table extends Component {
     var Tabs = {
       RED: <RedTab
         ID={ele.ID}
+        ele={ele}
         visible={this.state.tabVisible}
         onEnd={(e) => { this.setState({ tabVisible: false }); }}
       />,
       GREEN: <GreenTab
         ID={ele.ID}
+        ele={ele}
         visible={this.state.tabVisible}
         onEnd={(e) => { this.setState({ tabVisible: false }); }}
       />,
@@ -72,7 +74,10 @@ export default class Table extends Component {
         <div 
           style={style.table} 
           onClick={() => { 
-            
+            if(ele.Status == 'YELLOW'){
+              window.location.href = `/order/menu/${ele.OrderID}`
+              return ;
+            }
             this.setState({ tabVisible: true }); 
           }}
         >

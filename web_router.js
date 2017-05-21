@@ -34,11 +34,12 @@ router.get('/manager', authRequired(7), manager.index);// 经理端界面
 router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
 router.get('/table', roleRequired('employee'), table.index);//  餐桌显示界面
-
 router.get('/statistics',function*(){
     this.render('statistics/index');
 });
 router.get('/dishstatistic',function*(){
     this.render('statistics/dish');
 });
+router.get('/profile', authRequired(), user.profile);// 个人简历界面
+
 exports = module.exports = router;

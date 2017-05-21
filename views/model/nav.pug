@@ -32,3 +32,8 @@ header.header
     .header-left!=header.left
     .header-center!=header.title
     .header-right!=header.right
+
+script.
+ $('.am-icon-arrow-left').click(e =>{
+    window.history.go(-1);
+ });

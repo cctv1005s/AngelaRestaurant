@@ -39,8 +39,6 @@ describe('菜单api测试', () => {
                 ClassDescription: shortid.generate(),
                 Token: 'H14WnStlb'
             });
-            console.log(u.body);
-            console.log(typeID);
         expect(u.body.success).to.be.equal(true);
 
         const d = yield request.post('/api/v1/menu/type/delete')

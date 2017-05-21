@@ -18,7 +18,7 @@ export default class Footer extends Component {
     var list = [];
     var pathname = location.pathname;
     var reg = pathname.match(/\/menu\/(.*)/); 
-    var id = reg[0];
+    var id = reg[1];
     order.map(function(ele){
     list.push({
         DishID:ele.Dish.ID,

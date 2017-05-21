@@ -4,6 +4,8 @@ block content
     - var header = {left:"<i class='am-icon-bars'></i>",title:"经理端"}
     include ../model/nav
     #app
+    -var slider = [{title:'菜单信息管理',href:'/manager'},{title:'员工信息管理',href:'/manager/#/staff'},{title:'餐厅报表',href:'/manager/#/statistics'},{title:'个人资料',href:'/profile',},{title:'登出',href:'/signout'}]
+    include ../model/slider
 
 block script
     script(src="/js/manager.js")

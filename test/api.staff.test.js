@@ -41,7 +41,6 @@ describe('satffApi接口测试', () => {
         .post('/api/v1/staff/update')
         .send({ID :'1',Password:'password'})
         .end();
-    console.log(r['body']);
     expect(r['body']['success']).to.be.true;
   });
 
