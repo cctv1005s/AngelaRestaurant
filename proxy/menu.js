@@ -114,6 +114,11 @@ exports.addDish = function* (newDish) {
  */
 exports.deleteDish = function* (id) {
     var sql = `
+    DELETE FROM DishImg
+    WHERE DishID = '${id}'
+    `;
+    yield mysql.query(sql);
+    sql = `
     DELETE FROM \`Dish\` 
     WHERE ID = '${id}'
     `;
@@ -124,11 +129,24 @@ exports.deleteDish = function* (id) {
  * 
  * @param {object} dishData 菜
  */
-exports.updateDish = function* (dishData) {
+exports.updateDish = function* (dishData,ID) {
     var sql = `
-    UPDATE \`Dish\` SET Description ='${dishData.Description}',ClassID='${dishData.ClassID}',
-    Price ='${dishData.Price}',Name = '${dishData.Name}',Status ='${dishData.Status}' 
-    WHERE ID = '${dishData.ID}'
+    update \`Dish\` set ${dishData}  
+    WHERE ID = '${ID}'
+    `;
+    return yield mysql.query(sql);
+}
+
+/**
+ * 修改菜单的一个菜的图片
+ * 
+ * @param {string} dishID 菜 
+ * @param {string} Img 图片
+ */
+exports.updateDishImg = function* (dishID,Img) {
+    var sql = `
+    update \`DishImg\` set ImgUrl = '${Img}'
+    WHERE DishID = '${dishID}'
     `;
     return yield mysql.query(sql);
 }
@@ -141,6 +159,13 @@ exports.stopDish = function* (ID) {
     var sql = `
     update \`Dish\` set Status = 'Disavailable'
     where ID = '${ID}'
+    `;
+    return yield mysql.query(sql);
+}
+
+exports.addImg = function*(DishID,ImgUrl){
+    var sql = `
+        INSERT INTO \`DishImg\` (\`DishID\`, \`ImgUrl\`) VALUES ('${DishID}', '${ImgUrl}')
     `;
     return yield mysql.query(sql);
 }

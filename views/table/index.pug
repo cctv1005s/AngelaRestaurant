@@ -2,7 +2,9 @@ extends ../layout.pug
 
 block content
   - var header = {left:bars,title:"安其拉餐厅-餐桌状态"};
-    include ../model/nav
+  include ../model/nav
+  -var slider = [{title:'餐桌管理',href:'/table'},{title:'餐厅管理',href:'/manager'},{title:'个人资料',href:'/profile',},{title:'登出',href:'/signout'}]
+  include ../model/slider
   #app
 
 block script

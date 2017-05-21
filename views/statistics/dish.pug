@@ -1,0 +1,56 @@
+html
+  head
+    meta(charset='UTF-8')
+    title Highcharts &#x6559;&#x7A0B; | &#x83DC;&#x9E1F;&#x6559;&#x7A0B;(runoob.com)
+    script(src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js')
+    script(src='http://code.highcharts.com/highcharts.js')
+  body
+    #container(style='width: 550px; height: 400px; margin: 0 auto')
+    script(language='JavaScript').
+      $(document).ready(function () {
+          $.get('/api/v1/statistic')
+           .then( res =>{
+             if(!res.success)
+                return alert(res.data);
+             render(res.data);
+           })
+          
+          var render = function(data){
+            var chart = {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            };
+            var title = {
+                text: '历史菜品分布'
+            };
+            var tooltip = {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            };
+            var plotOptions = {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            };
+            var series = [{
+                type: 'pie',
+                name: 'Browser share',
+                data: data
+            }];
+            var json = {};
+            json.chart = chart;
+            json.title = title;
+            json.tooltip = tooltip;
+            json.series = series;
+            json.plotOptions = plotOptions;
+            $('#container').highcharts(json);
+          }
+      });

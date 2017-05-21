@@ -1,4 +1,5 @@
 const userModel = require('../proxy/user');
+const authModel = require('../proxy/auth');
 const employeeModel = require('../proxy/employee');
 const md5 = require('md5');
 const shortid = require('shortid');
@@ -60,9 +61,13 @@ exports.signup = function* () {
   }
   //  执行数据库插入
   try {
-    //向用户表里面插入新的数据
+    // 向用户表里面插入新的数据
     yield userModel.add(newUser);
-    //添加它的权限
+    // 添加它的权限
+    var auth = config.role.Customer;
+    for (let i in auth) {
+      yield authModel.addAuth(newUser.ID, auth[i]);
+    }
   } catch (e) {
     return this.body = { success: false, data: e };
   }

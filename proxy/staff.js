@@ -1,5 +1,9 @@
 var mysql = require('../models/index')
-
+exports.adddishforchef=function*(chefid,dishid){
+    var sql =`insert into ChefCanDish (ChefID,DishID)
+    values ('${chefid}','${dishid}')`
+    return yield mysql.query(sql);
+}
 exports.getall=function*(){
     var sql =`select *
     from EmployeeClass`;
@@ -15,6 +19,23 @@ exports.addtype=function* (newClass){
     
     return yield mysql.query(sql);
 }
+exports.updatetype=function*(setstr,id){
+     var sql=`update EmployeeClass set ${setstr} where ID='${id}'`;
+    return yield mysql.query(sql);
+}
+exports.deletetype=function*(id){
+     var sql=`delete from EmployeeClass where ID='${id}'`;
+    
+    return yield mysql.query(sql);
+}
+exports.findemployeebyclass=function*(classID){
+    var sql=`select * 
+    from View_Employee
+    where ClassID='${classID}'
+    `;
+   
+    return yield mysql.query(sql);
+}
 exports.getstaffdetail=function* (id){
     
     var sql=`select *
@@ -23,7 +44,6 @@ exports.getstaffdetail=function* (id){
     return yield mysql.query(sql); 
 }
 exports.addemployee=function* (newem){
-    console.log(newem);
     var sql=`insert into Employee (ID,Account,Password,Status,Name,Salary,Phone,BankCard,WorkTime,HeadIcon,ClassID,AccessToken)
     values ('${newem.ID}',
     '${newem.Account}',
@@ -32,7 +52,6 @@ exports.addemployee=function* (newem){
     '${newem.Name}',
     '${newem.Salary}','${newem.Phone}','${newem.BankCard}','${newem.WorkTime}','${newem.HeadIcon}','${newem.ClassID}','${newem.AccessToken}')
     `;
-console.log(sql);
     return yield mysql.query(sql);
 }
 exports.updateEmployee=function*(set,id){
@@ -43,6 +62,5 @@ exports.updateEmployee=function*(set,id){
 exports.deleteEmployee=function*(id){
     
     var sql=`delete from Employee where ID='${id}'`;
-    console.log(sql);
     return yield mysql.query(sql);
 }

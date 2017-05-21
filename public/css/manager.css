@@ -1,6 +1,9 @@
 .hidden{display: none;}
 .left{float: left;}
 .right{float: right;}
+body{
+    overflow: hidden;
+}
 
 .manager-end > div{
     float: left;
@@ -16,9 +19,12 @@
 .manager-end-left > .title{
     font-size: 15px;
     padding: 10px;
+    cursor: pointer;
 }
 
-
+.title{
+    cursor: pointer;
+}
 
 .manager-end-type > .item{
     height: 40px;

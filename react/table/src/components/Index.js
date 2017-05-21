@@ -13,8 +13,6 @@ export default class Index extends Component{
     setInterval(()=>{
       $.get('/api/v1/table')
       .then(res =>{
-          if(!res.success)
-            return alert(res.data);
           this.setState({tables:res.data});
       });
     },1000);
