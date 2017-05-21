@@ -28,6 +28,36 @@ exports.addtype=function* (next){
         this.body = { success: false, data: e };
     }
 }
+exports.updateType=function*(){
+     try{
+        var body=this.request.body;
+        var setstr='';
+        console.log(this.request.body);
+        var id=body['ID'];
+        var arr=[];
+        for (var i in body){
+            
+            arr.push(i+"='"+body[i]+"'");
+        }
+        setstr=arr.join(',');
+        console.log(setstr);
+        var info=yield staff_model.updatetype(setstr,id);
+        this.body={success:true,data:info};
+    }
+    catch (e){
+        this.body={success:false,data:e};
+    }
+}
+exports.deletetype=function*(){
+     try{
+        var id=this.request.body['ID'];
+        var info=yield staff_model.deletetype(id);
+        this.body={success:true,data:info};
+    }catch (e){
+        this.body={success:false,data:e};
+    }
+
+}
 exports.getemDetail=function* (){
     var id =this.params.id;
     

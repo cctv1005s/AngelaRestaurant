@@ -71,6 +71,8 @@ router.post('/table/cleanup',authRequired(6), table.cleanup);
  */
 router.get('/staff/type',authRequired(7),staff.type);
 router.post('/staff/type/add',authRequired(7),staff.addtype);
+router.post('/staff/type/update',authRequired(7),staff.updateType);
+router.post('/staff/type/sub',authRequired(7),staff.deletetype);
 router.get('/staff/:id',authRequired(7),staff.getemDetail);
 router.post('/staff/add',authRequired(7),staff.addemployee);
 router.post('/staff/update',authRequired(7),staff.updateEmployee);

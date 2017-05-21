@@ -19,12 +19,21 @@ exports.addtype=function* (newClass){
     
     return yield mysql.query(sql);
 }
+exports.updatetype=function*(setstr,id){
+     var sql=`update EmployeeClass set ${setstr} where ID='${id}'`;
+    return yield mysql.query(sql);
+}
+exports.deletetype=function*(id){
+     var sql=`delete from EmployeeClass where ID='${id}'`;
+    
+    return yield mysql.query(sql);
+}
 exports.findemployeebyclass=function*(classID){
     var sql=`select * 
     from View_Employee
     where ClassID='${classID}'
     `;
-    console.log(sql);
+   
     return yield mysql.query(sql);
 }
 exports.getstaffdetail=function* (id){
