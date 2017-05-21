@@ -107,7 +107,9 @@ fn.ItemAdd = (state, action) => {
   var ClassID = state.activeType;
   var create = function(data){
     //data的顺序依次是Account,Name,Password,RePassword
-    $.post('/api/v1/staff/add', { , ClassID })
+    if(data[2] !== data[3])
+      alert("两次输入密码不一致");
+    $.post('/api/v1/staff/add', { Account:data[0],Name:data[1],Password:data[2],ClassID:ClassID})
     .then(res => {
         if(!res.success){
           alert('添加失败');
@@ -140,7 +142,7 @@ fn.ItemSelect = (state, action) => {
 
 fn.ItemDelete = (state,action)=>{
   var ID = action.data;
-  $.post('/api/v1/menu/dish/delete',{ID})
+  $.post('/api/v1/staff/sub',{ID})
    .then(res =>{
      if(!res.success){
       return alert("删除失败" + res.data);
@@ -163,18 +165,10 @@ fn.ItemUpdate = (state,action) =>{
   var ID = action.data;
   var form = action.form;
   form.ID = ID;
-  $.post('/api/v1/menu/dish/update',form)
+  $.post('/api/v1/staff/update',form)
    .then(res =>{
     if(!res.success)
       alert("修改失败");
-   });
-
-  $.post('/api/v1/menu/dish/updateimg',{ID,Img:action.ImgUrl})   
-   .then(res =>{
-    if(!res.success){
-      alert("修改失败")
-      console.log(res.data);
-    }
    });
 }
 

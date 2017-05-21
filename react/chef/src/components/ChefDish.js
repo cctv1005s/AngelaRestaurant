@@ -13,7 +13,7 @@ export default class ChefDish extends Component{
         return (
             <div className="chefdish">
                 <div className="chefdish-img">
-                    <img  src={Img}/>
+                    <img  src={Img[0].ImgUrl}/>
                 </div>
                 <div className="chefdish-info">
                     <div className="chefdish-title">{Name}</div>

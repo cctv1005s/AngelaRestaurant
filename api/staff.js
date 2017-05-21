@@ -100,7 +100,7 @@ exports.addemployee=function*(next){
             Phone:Phone||'NULL',
             BankCard:BankCard||'NULL',
             WorkTime:WorkTime||'NULL',
-            HeadIcon:HeadIcon||'NULL',
+            HeadIcon:HeadIcon||'http://i2.muimg.com/1949/27ce5aebec733b04.png',
             ClassID:ClassID||'NULL',
             AccessToken:shortid.generate()
         });
