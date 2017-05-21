@@ -32,7 +32,7 @@ exports.updateType=function*(){
      try{
         var body=this.request.body;
         var setstr='';
-        console.log(this.request.body);
+        
         var id=body['ID'];
         var arr=[];
         for (var i in body){
@@ -40,7 +40,7 @@ exports.updateType=function*(){
             arr.push(i+"='"+body[i]+"'");
         }
         setstr=arr.join(',');
-        console.log(setstr);
+        
         var info=yield staff_model.updatetype(setstr,id);
         this.body={success:true,data:info};
     }
@@ -84,7 +84,7 @@ exports.addemployee=function*(next){
     try{
         var {Account,Password,Status,Name,Salary,Phone,BankCard,
         WorkTime,HeadIcon,ClassID}=this.request.body;
-        console.log(this.request.body);
+        
         var generateID=shortid.generate();
         var info=yield staff_model.addemployee({
             ID:generateID,
@@ -101,12 +101,12 @@ exports.addemployee=function*(next){
             AccessToken:shortid.generate()
         });
         var role=configjson.role;
-        console.log(role);
+        
         var res=yield staff_model.getstaffdetail(generateID);
-        console.log(res);
+       
         if (role[res[0]['ClassName']]){
             var types=role[res[0]['ClassName']];
-            console.log(types);
+            
             for (var type in types) {
                 yield auth_model.addAuth(generateID,types[type]);
             }
@@ -122,7 +122,7 @@ exports.updateEmployee=function*(next){
      try{
         var body=this.request.body;
         var setstr='';
-        console.log(this.request.body);
+       
         var id=body['ID'];
         var arr=[];
         if(body['Password']){
@@ -133,7 +133,7 @@ exports.updateEmployee=function*(next){
             arr.push(i+"='"+body[i]+"'");
         }
         setstr=arr.join(',');
-        console.log(setstr);
+        
         var info=yield staff_model.updateEmployee(setstr,id);
         this.body={success:true,data:info};
     }
