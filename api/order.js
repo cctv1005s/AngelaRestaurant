@@ -109,7 +109,6 @@ exports.subDish = function* () {
 
 exports.cancelOrder = function* () {
   var orderID = this.params.id;
-  console.log(orderID);
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
 
 
@@ -130,6 +129,7 @@ exports.cancelOrder = function* () {
 exports.payforOrder = function* () {
   var orderID = this.params.id;
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
+  console.log(dishIDList);
   if (dishIDList.length === 0) { return this.body = { success: false, data: '此订单还未点餐' }; }
   var amount = 0.0;
   for (var i = 0; i < dishIDList.length; i++) {
