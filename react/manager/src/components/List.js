@@ -28,6 +28,10 @@ var style = {
   },
   info: {
     color: 'grey',
+    maxWidth: '150px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
   },
   active: {
     overflow: 'hidden',

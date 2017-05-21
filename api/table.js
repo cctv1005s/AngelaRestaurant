@@ -90,18 +90,19 @@ exports.table = function* (next) {
         for (var i = 0; i < status.length; i++) {
             if (status[i].Status == 'YELLOW') {
                 var data = yield table_model.hasOrder(status[i].ID);
-                var orderID = data[0].ID;
+                var orderID = (data[0]||{}).ID;
                 status[i].OrderID = orderID;
             }
             else if (status[i].Status == 'RED') {
                 var data = yield table_model.busBoy(status[i].ID);
-                var busBoyID = data[0].EmployeeID;
+                var busBoyID = (data[0]||{}).EmployeeID;
                 status[i].EmployeeID = busBoyID;
             }
         }
         this.body = { success: true, data: status };
     }
     catch (e) {
+        
         return this.body = { success: false, data: e };
     }
 }

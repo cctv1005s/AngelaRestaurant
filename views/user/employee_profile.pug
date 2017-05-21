@@ -1,0 +1,23 @@
+extends ../layout.pug
+
+block css
+  link(href="/css/index.css" rel="stylesheet" type="text/css")
+
+block content
+  -var header = {title:"个人资料",left:leftArrow}
+  include ../model/nav
+  .input-box
+    .input-item
+      span(style="background:url(/img/icon/sign-nickname.png)")
+      input#nickname(type="text" name="nickname" maxlength="13"  autofocus="autofocus" placeholder="姓名" value=data.Name disabled="disabled")
+    .input-item
+      span(style="background:url(/img/icon/sign-phone.png)")
+      input#phone(type="number" name="phone" maxlength="13"   placeholder="手机号" value=data.Phone disabled="disabled")
+    .input-item
+      span(style="background:url(/img/icon/sign-salary.png)")
+      input#phone(type="number" name="salary" maxlength="13"  placeholder="工资" value=data.Salary disabled="disabled")
+    .input-item
+      span(style="background:url(/img/icon/sign-gender.png)")
+      select#gender(value=data.Gender disabled="disabled")
+        option(value="Male") 男
+        option(value="Female") 女
