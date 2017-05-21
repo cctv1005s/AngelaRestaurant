@@ -20,7 +20,8 @@ exports.FindCanDish = function*(ChefID){
  */
 exports.FindDish = function*(ChefID){
     var query = `
-      select *
+      select B.Description,B.ClassID,B.Price,B.Name,
+      A.OrderID,A.ChefID,A.DishID,A.Status,A.StartTime,A.EndTime
       from CookingList as A,Dish as B 
       where A.DishID=B.ID and A.ChefID = ${ChefID}
     `;
