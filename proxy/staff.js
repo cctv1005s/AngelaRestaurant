@@ -1,5 +1,9 @@
 var mysql = require('../models/index')
-
+exports.adddishforchef=function*(chefid,dishid){
+    var sql =`insert into ChefCanDish (ChefID,DishID)
+    values ('${chefid}','${dishid}')`
+    return yield mysql.query(sql);
+}
 exports.getall=function*(){
     var sql =`select *
     from EmployeeClass`;
@@ -13,6 +17,23 @@ exports.addtype=function* (newClass){
     values ('${newClass.ID}','${newClass.ClassName}','${newClass.ClassDescription}')
     `;
     
+    return yield mysql.query(sql);
+}
+exports.updatetype=function*(setstr,id){
+     var sql=`update EmployeeClass set ${setstr} where ID='${id}'`;
+    return yield mysql.query(sql);
+}
+exports.deletetype=function*(id){
+     var sql=`delete from EmployeeClass where ID='${id}'`;
+    
+    return yield mysql.query(sql);
+}
+exports.findemployeebyclass=function*(classID){
+    var sql=`select * 
+    from View_Employee
+    where ClassID='${classID}'
+    `;
+   
     return yield mysql.query(sql);
 }
 exports.getstaffdetail=function* (id){

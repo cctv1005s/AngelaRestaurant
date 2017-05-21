@@ -2,7 +2,8 @@ var uuidV1=require('uuid/v1');
 var shortid=require('shortid');
 var md5=require('md5');
 var staff_model=require('../proxy/staff');
-
+var auth_model=require('../proxy/auth');
+var configjson=require('../config.json');
 exports.type=function*(next){
     try{
         var info=yield staff_model.getall();
@@ -27,6 +28,36 @@ exports.addtype=function* (next){
         this.body = { success: false, data: e };
     }
 }
+exports.updateType=function*(){
+     try{
+        var body=this.request.body;
+        var setstr='';
+        
+        var id=body['ID'];
+        var arr=[];
+        for (var i in body){
+            
+            arr.push(i+"='"+body[i]+"'");
+        }
+        setstr=arr.join(',');
+        
+        var info=yield staff_model.updatetype(setstr,id);
+        this.body={success:true,data:info};
+    }
+    catch (e){
+        this.body={success:false,data:e};
+    }
+}
+exports.deletetype=function*(){
+     try{
+        var id=this.request.body['ID'];
+        var info=yield staff_model.deletetype(id);
+        this.body={success:true,data:info};
+    }catch (e){
+        this.body={success:false,data:e};
+    }
+
+}
 exports.getemDetail=function* (){
     var id =this.params.id;
     
@@ -37,13 +68,25 @@ exports.getemDetail=function* (){
         this.body={success:false,data:e};
     }
 }
+exports.getemployeebyclass=function*(){
+    var classID=this.request.body.ClassID;
+    try {
+        var info=yield staff_model.findemployeebyclass(classID);
+        this.body={success:true,data:info};
+
+    } catch (e) {
+        this.body={success:false,data:e};
+
+    }
+}
 exports.addemployee=function*(next){
 
     try{
         var {Account,Password,Status,Name,Salary,Phone,BankCard,
-        WorkTime,HeadIcon,ClassID}=this.request.body;
+        WorkTime,HeadIcon,ClassID}=this.request.body;        
+        var generateID=shortid.generate();
         var info=yield staff_model.addemployee({
-            ID:shortid.generate(),
+            ID:generateID,
             Account:Account||'NULL',
             Password:md5(Password)||'NULL',
             Status:Status||'REST',
@@ -56,6 +99,18 @@ exports.addemployee=function*(next){
             ClassID:ClassID||'NULL',
             AccessToken:shortid.generate()
         });
+        var role=configjson.role;
+        
+        var res=yield staff_model.getstaffdetail(generateID);
+       
+        if (role[res[0]['ClassName']]){
+            var types=role[res[0]['ClassName']];
+            
+            for (var type in types) {
+                yield auth_model.addAuth(generateID,types[type]);
+            }
+        }
+        
         this.body={success:true,data:info};
     }catch (e){
         this.body={success:false,data:e};
@@ -89,6 +144,17 @@ exports.deleteEmployee=function*(){
         var info=yield staff_model.deleteEmployee(id);
         this.body={success:true,data:info};
     }catch (e){
+        this.body={success:false,data:e};
+    }
+
+}
+exports.addDishForChef=function*(){
+    try {
+        var chefid =this.request.body['ChefID'];
+        var dishid=this.request.body['DishID'];
+        var infor=yield staff_model.adddishforchef(chefid,dishid);
+        this.body={success:true,data:info};
+    } catch (e) {
         this.body={success:false,data:e};
     }
 }

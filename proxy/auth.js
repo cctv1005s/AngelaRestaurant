@@ -8,7 +8,6 @@ var mysql = require('../models');
 exports.getAuth = function* (id) {
   return yield mysql.query(`SELECT Auth FROM Auth where UserID = '${id}'`);
 };
-
 /**
  * 为某一个用户添加一个新的权限
  *
@@ -28,3 +27,4 @@ exports.addAuth = function* (UserID, Auth) {
 exports.subAuth = function* (UserID, Auth) {
   return yield mysql.query(`DELETE FROM Auth WHERE (UserID='${UserID}') AND (Auth='${Auth}')`);
 };
+
