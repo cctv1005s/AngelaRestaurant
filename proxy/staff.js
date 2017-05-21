@@ -19,6 +19,14 @@ exports.addtype=function* (newClass){
     
     return yield mysql.query(sql);
 }
+exports.findemployeebyclass=function*(classID){
+    var sql=`select * 
+    from View_Employee
+    where ClassID='${classID}'
+    `;
+    console.log(sql);
+    return yield mysql.query(sql);
+}
 exports.getstaffdetail=function* (id){
     
     var sql=`select *

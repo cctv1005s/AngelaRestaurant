@@ -6,7 +6,7 @@ const sign = require('./api/sign');
 const table = require('./api/table');
 const staff=require('./api/staff');
 var chef = require('./api/chef');
-
+var statistic=require('./api/statistic');
 const authControl = require('./middleware/authControl.js');// 权限控制
 const token = require('./middleware/token.js');// token转换函数
 
@@ -75,5 +75,9 @@ router.get('/staff/:id',authRequired(7),staff.getemDetail);
 router.post('/staff/add',authRequired(7),staff.addemployee);
 router.post('/staff/update',authRequired(7),staff.updateEmployee);
 router.post('/staff/sub',authRequired(7),staff.deleteEmployee);
-
+router.post('/staff/findstaffbyclass',authRequired(7),staff.getemployeebyclass);
+/**
+ * statistic部分
+ */
+router.get('/statistic',authRequired(7),statistic.getallhistorydish);
 module.exports = router;

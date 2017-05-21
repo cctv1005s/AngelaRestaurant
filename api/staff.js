@@ -38,6 +38,17 @@ exports.getemDetail=function* (){
         this.body={success:false,data:e};
     }
 }
+exports.getemployeebyclass=function*(){
+    var classID=this.request.body.ClassID;
+    try {
+        var info=yield staff_model.findemployeebyclass(classID);
+        this.body={success:true,data:info};
+
+    } catch (e) {
+        this.body={success:false,data:e};
+
+    }
+}
 exports.addemployee=function*(next){
 
     try{
