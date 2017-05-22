@@ -87,4 +87,5 @@ router.post('/staff/findstaffbyclass',authRequired(7),staff.getemployeebyclass);
  */
 router.get('/statistic',authRequired(7),statistic.getallhistorydish);
 router.get('/statisticapicolumn',authRequired(7),statistic.getdishwithcolum);
+router.get('/statistic/employee',authRequired(7),statistic.getallemployee);
 module.exports = router;
