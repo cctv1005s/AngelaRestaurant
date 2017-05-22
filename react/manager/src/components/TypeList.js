@@ -13,6 +13,7 @@ export default class TypeList extends Component {
 
   render() {
     var {typeList} = store.getState();
+    console.log(typeList);
     return (
         <div className="manager-end-left" style={{ height: $(window).height() - 50 }}>
             <div 
@@ -28,6 +29,7 @@ export default class TypeList extends Component {
                       key = {i}
                       Name = {ele.Name}
                       ID = {ele.ID}
+                      Discription={ele.ClassDescription}
                     />
                 ))
              }

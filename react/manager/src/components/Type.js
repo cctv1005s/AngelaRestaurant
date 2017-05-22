@@ -4,9 +4,10 @@ import React, { Component } from 'react';
  */
 export default class TypeList extends Component {
   render() {
-    var { ID, Name } = this.props;
+    var { ID, Name,Discription} = this.props;
     var { activeType } = store.getState();
     var active = ID == activeType;
+    var showDiscription = Discription.length >= 5 ? (Discription||"").substr(0,5)+"..." : Discription;
     return (
         <div
             className={`item ${active ? 'active' : ''}`}
@@ -19,7 +20,7 @@ export default class TypeList extends Component {
                });
            }}
           >
-            <span className="item-name" >{Name}</span>
+            <span className="item-name" >{Name}({showDiscription})</span>
             {
                     (() => {
                       //如果没有被选中，那么就不显示设置的齿轮
@@ -47,6 +48,7 @@ export default class TypeList extends Component {
                          type: 'TypeRename',
                          data: ID,
                          _name: Name,
+                         _discription: Discription,
                        });
                    }}
                   >修改名称</div>

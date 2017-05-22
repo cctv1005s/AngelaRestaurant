@@ -25,7 +25,8 @@ export default class Dish extends Component{
     }
 
     render(){
-        var {ID,Img,Name,Description,Sales,Price} = this.props.Dish;
+        var {ID,Img,Name,Description,Count,Price} = this.props.Dish;
+        console.log(this.props.Dish);
         var Ordered = this.props.Ordered;
         var count = Ordered.find(ID).Count;
         return (
@@ -37,7 +38,7 @@ export default class Dish extends Component{
                     <div className="item-title">{Name}</div>
                     <div className="item-description">
                         <p>{Description}</p>
-                        <p>月售：{Sales}</p>
+                        <p>月售：{Count}</p>
                     </div>
                     <div className="item-price">￥{Price}</div>
                 </div>

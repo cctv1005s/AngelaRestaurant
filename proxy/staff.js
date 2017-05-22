@@ -56,7 +56,7 @@ exports.addemployee=function* (newem){
 }
 exports.updateEmployee=function*(set,id){
     
-    var sql=`update Employee set ${set} where ID=${id}`;
+    var sql=`update Employee set ${set} where ID='${id}'`;
     return yield mysql.query(sql);
 }
 exports.deleteEmployee=function*(id){

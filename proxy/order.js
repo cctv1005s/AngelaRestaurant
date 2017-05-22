@@ -24,7 +24,8 @@ exports.setReserve = function* (preOrder) {
 exports.findReserveByUseID = function* (userID) {
   var query = `
     SELECT * FRom \`CustomerOrder\`
-    WHERE UserID = '${userID}'
+    WHERE UserID = '${userID}' 
+    AND Status != 'FINISH'
     `;
 
   return yield mysql.query(query);
@@ -267,7 +268,7 @@ exports.distributeBusboy = function* (BusboyID, TableID) {
  */
 exports.OrderList = function* () {
   var q = `
-      SELECT * FROM CustomerOrder WHERE Status = 'RESERVE' ORDER BY OrderTime
+      SELECT * FROM View_OrderInfo WHERE Status = 'RESERVE' ORDER BY OrderTime
     `;
   return yield mysql.query(q);
 };

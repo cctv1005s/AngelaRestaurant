@@ -84,7 +84,6 @@ exports.bind = function* (next) {
  * 查看桌子的状态
  */
 exports.table = function* (next) {
-    var userID = '5';
     try {
         var status = yield table_model.table();
         for (var i = 0; i < status.length; i++) {
