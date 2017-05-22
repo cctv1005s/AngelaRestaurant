@@ -4,33 +4,34 @@ block css
   link(href="/css/index.css" rel="stylesheet" type="text/css")
 
 block content
-  .input-box
-    .input-item
-      span(style="background:url(/img/icon/sign-account.png)")
-      input#account(type="text" name="account" maxlength="13"  autofocus="autofocus" placeholder="用户名")
-    .input-item
-      span(style="background:url(/img/icon/sign-nickname.png)")
-      input#nickname(type="text" name="nickname" maxlength="13"  autofocus="autofocus" placeholder="昵称")
-    .input-item
-      span(style="background:url(/img/icon/sign-phone.png)")
-      input#phone(type="number" name="phone" maxlength="13"  autofocus="autofocus" placeholder="手机号")
-    .input-item
-      span(style="background:url(/img/icon/sign-gender.png)")
-      select#gender
-        option(value="Male") 男
-        option(value="Female") 女
-    .input-item
-      span(style="background:url(/img/icon/sign-password.png)" )
-      input#password(type="password" name="password" maxlength="10" placeholder="密码")
-    .input-item
-      span(style="background:url(/img/icon/sign-password.png)" )
-      input#repassword(type="password" name="repassword" maxlength="10" placeholder="重复密码")
+  #app-index
+    .input-box
+      .input-item
+        span(style="background:url(/img/icon/sign-account.png)")
+        input#account(type="text" name="account" maxlength="13"  autofocus="autofocus" placeholder="用户名")
+      .input-item
+        span(style="background:url(/img/icon/sign-nickname.png)")
+        input#nickname(type="text" name="nickname" maxlength="13"  autofocus="autofocus" placeholder="昵称")
+      .input-item
+        span(style="background:url(/img/icon/sign-phone.png)")
+        input#phone(type="number" name="phone" maxlength="13"  autofocus="autofocus" placeholder="手机号")
+      .input-item
+        span(style="background:url(/img/icon/sign-gender.png)")
+        select#gender
+          option(value="Male") 男
+          option(value="Female") 女
+      .input-item
+        span(style="background:url(/img/icon/sign-password.png)" )
+        input#password(type="password" name="password" maxlength="10" placeholder="密码")
+      .input-item
+        span(style="background:url(/img/icon/sign-password.png)" )
+        input#repassword(type="password" name="repassword" maxlength="10" placeholder="重复密码")
 
-  .check
-    button#check-btn 注册
-    .check-info
-      span.right 
-        a(href="/") 登陆
+    .check
+      button#check-btn 注册
+      .check-info
+        span.right 
+          a(href="/") 登陆
 
 block script
   script(src="https://unpkg.com/Validator")
