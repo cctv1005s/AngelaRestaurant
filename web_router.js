@@ -36,9 +36,7 @@ router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
 router.get('/table', roleRequired('employee'), table.index);//  餐桌显示界面
 
-router.get('/employeepie',function*(){
-    this.render('statistics/employeepie');
-});
+router.get('/statistics/employee',statistics.employee);
 
 router.get('/statistics', statistics.index);//  统计界面
 

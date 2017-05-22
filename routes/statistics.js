@@ -9,3 +9,7 @@ exports.dish = function*(){
 exports.column = function*(){
     this.render('statistics/columdish');
 }
+
+exports.employee = function*(){
+    this.render('statistics/employeepie');
+}
