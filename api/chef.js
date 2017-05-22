@@ -4,7 +4,7 @@ var chef_model = require('../proxy/chef');
  * 确认开始做某一道菜
  **/
 exports.Confirm = function*(next){
-    var ChefID = this.params.ChefID;
+    var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
    //首先查看厨师是否存在
@@ -26,7 +26,7 @@ exports.Confirm = function*(next){
  * 确认完成某一道菜
  **/
 exports.Finish = function*(next){
-    var ChefID = this.params.ChefID;
+    var ChefID = this.session.user.ID;
     var DishID = this.params.DishID;
 
    //首先查看厨师是否存在

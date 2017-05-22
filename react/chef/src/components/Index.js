@@ -10,25 +10,14 @@ export default class Index extends Component {
     }
 
   componentDidMount(){
-      $.get('/api/v1/user')
-       .then(res => {
-        if(!res.success)
-            return alert(res.data);
-        var {ID} = res.data;
-        console.log(res.data);
-        return ID;
-       })
-       .then(ID =>{
-        $.get(`/api/v1/chef/${encodeURI(ID)}/order`)
-         .then(res =>{
-            if(!res.success)
-                alert('获取数据失败' + res.data);
-            this.setState({
-                Dish:res.data
-            });
-            console.log(res.data);
-         })
-       });
+    $.get(`/api/v1/chef/1/order`)
+        .then(res =>{
+          if(!res.success)
+            alert('获取数据失败' + res.data);
+          this.setState({
+            Dish:res.data
+          });
+        });
   }
 
   render() {
@@ -46,7 +35,10 @@ export default class Index extends Component {
                               {return null;}
                           return (
                               <ChefDish
-                                  Dish ={ele}
+                                  Dish={ele}
+                                  onEnd={()=>{
+                                      this.componentDidMount();
+                                  }}
                                 />
                             );
                         })
@@ -67,6 +59,9 @@ export default class Index extends Component {
                           return (
                               <ChefDish
                                   Dish= {ele}
+                                  onEnd={()=>{
+                                      this.componentDidMount();
+                                  }}
                                 />
                             );
                         })
