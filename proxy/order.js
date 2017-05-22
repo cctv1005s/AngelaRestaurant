@@ -268,7 +268,7 @@ exports.distributeBusboy = function* (BusboyID, TableID) {
  */
 exports.OrderList = function* () {
   var q = `
-      SELECT * FROM CustomerOrder WHERE Status = 'RESERVE' ORDER BY OrderTime
+      SELECT * FROM View_OrderInfo WHERE Status = 'RESERVE' ORDER BY OrderTime
     `;
   return yield mysql.query(q);
 };
