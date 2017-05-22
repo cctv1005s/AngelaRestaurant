@@ -1,5 +1,6 @@
 var statistic_model=require('../proxy/statistic');
 var menu_model=require('../proxy/menu');
+var timepro=require('../tools/time');
 exports.getallhistorydish=function*(){
     try {
         var info=yield statistic_model.getallcookinglist();
@@ -42,17 +43,26 @@ exports.getdishwithcolum=function*(){
         for (var index in info) {
             if (info.hasOwnProperty(index)) {
                 var element = info[index];
-                console.log(element.OrderTime);
+                
+                var id=element.Name;
                 var day=element.OrderTime;
 
-                console.log(day);
+          
                 var date=new Date(day);
-                console.log(date);
-                var today=new Data();
-                console.log(date.getDate());
+                var index=timepro.gettoday(date);
+                if(!counter[id]){
+                    counter[id]=[0,0,0];
+                }
+                counter[id][index]++;
             }
         }
-    } catch (e) {
+        res=[]
+        for (var key in counter){
+            res.push({name:key,data:counter[key]})
+        }
         
+        this.body={success:true,data:res};
+    } catch (e) {
+        this.body={success:false,data:e};
     }
 }

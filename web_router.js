@@ -40,12 +40,12 @@ router.get('/statistics',function*(){
 router.get('/dishstatistic',function*(){
     this.render('statistics/dish');
 });
-<<<<<<< HEAD
+
 router.get('/columdish',function*(){
     this.render('statistics/columdish');
 });
-=======
+
 router.get('/profile', authRequired(), user.profile);// 个人简历界面
 
->>>>>>> 1a9d9ff36e2ae6e7a2e13732ec313fb382d96274
+
 exports = module.exports = router;
