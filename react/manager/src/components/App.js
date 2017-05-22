@@ -5,6 +5,8 @@ import ReactDom from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 import Index from './Index.js';
 import StaffIndex from './StaffIndex.js';
+import AnaIndex from './AnaIndex.js';
+
 var Redux = require('redux');
 import reducer from './reducer.js';
 const store = Redux.createStore(reducer);
@@ -16,6 +18,7 @@ var render = function(){
         <Router history={hashHistory}>
             <Route path='/' component={Index}></Route>
             <Route path='/staff' component={StaffIndex}></Route>
+            <Route path='/statistics' component={AnaIndex}></Route>
         </Router>
     ), document.getElementById('app'));
 }
