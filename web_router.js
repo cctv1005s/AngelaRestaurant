@@ -41,4 +41,7 @@ router.get('/statistics',function*(){
 router.get('/dishstatistic',function*(){
     this.render('statistics/dish');
 });
+router.get('/columdish',function*(){
+    this.render('statistics/columdish');
+});
 exports = module.exports = router;

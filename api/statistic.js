@@ -14,9 +14,8 @@ exports.getallhistorydish=function*(){
                 else{
                     counter[element['DishID']]++;
                 }
-                //counter[element['DishID']];
+              
             }
-            //console.log(counter);
        
         }
 
@@ -35,4 +34,25 @@ exports.getallhistorydish=function*(){
     } catch (e) {
         this.body={success:false,data:e};
     }   
+}
+exports.getdishwithcolum=function*(){
+    try {
+        var info=yield statistic_model.getallcookinglist();
+        var counter={};
+        for (var index in info) {
+            if (info.hasOwnProperty(index)) {
+                var element = info[index];
+                console.log(element.OrderTime);
+                var day=element.OrderTime;
+
+                console.log(day);
+                var date=new Date(day);
+                console.log(date);
+                var today=new Data();
+                console.log(date.getDate());
+            }
+        }
+    } catch (e) {
+        
+    }
 }
