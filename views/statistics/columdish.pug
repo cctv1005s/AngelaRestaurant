@@ -1,0 +1,68 @@
+html
+  head
+    meta(charset='UTF-8')
+    title 三日菜品统计
+    script(src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js')
+    script(src='http://code.highcharts.com/highcharts.js')
+  body
+    #container(style='width: 550px; height: 400px; margin: 0 auto')
+    script(language='JavaScript').
+      $(document).ready(function() {
+          $.get('/api/v1/statisticapicolumn')
+          .then(res =>{
+            if(!res.success)
+                return alert(res.data);
+            render(res.data);
+          })
+
+          var render=function(data){
+              var chart = {
+                type: 'column'
+              };
+              var title = {
+                text: '三日菜品统计'
+              };
+              var subtitle = {
+                text: '订单数据库'
+              };
+              var xAxis = {
+                categories: ['前天','昨天','今天'],
+                crosshair: true
+              };
+              var yAxis = {
+                min: 0,
+                title: {
+                  text: '订餐量 (份)'
+                }
+              };
+              var tooltip = {
+              headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+              pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y:.1f} 份</b></td></tr>',
+              footerFormat: '</table>',
+              shared: true,
+              useHTML: true
+              };
+              var plotOptions = {
+              column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+              }
+              };
+              var credits = {
+              enabled: false
+              };
+              var series= data;
+              var json = {};
+              json.chart = chart;
+              json.title = title;
+              json.subtitle = subtitle;
+              json.tooltip = tooltip;
+              json.xAxis = xAxis;
+              json.yAxis = yAxis;
+              json.series = series;
+              json.plotOptions = plotOptions;
+              json.credits = credits;
+              $('#container').highcharts(json);
+          }
+      });
