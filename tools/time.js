@@ -15,3 +15,24 @@ exports.format = function (date) {
 exports.unformat = function (time) {
 
 };
+
+exports.gettoday=function(date){
+    var today=new Date();
+    //today.setTime(0,0,0,0);
+    var yesterday=new Date();
+    yesterday.setDate(today.getDate()-1);
+    var befoyesterday=new Date();
+    befoyesterday.setDate(yesterday.getDate()-1);
+    var startday=new Date();
+    startday.setDate(befoyesterday.getDate()-1);
+    if (yesterday<date<today) {
+      return 2;
+    }
+    if(befoyesterday<date<yesterday){
+      return 1;
+    }
+    if (startday<date<befoyesterday) {
+      return 0;
+    }
+    
+};

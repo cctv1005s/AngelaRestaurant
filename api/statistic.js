@@ -1,5 +1,6 @@
 var statistic_model=require('../proxy/statistic');
 var menu_model=require('../proxy/menu');
+var timepro=require('../tools/time');
 exports.getallhistorydish=function*(){
     try {
         var info=yield statistic_model.getallcookinglist();
@@ -14,9 +15,8 @@ exports.getallhistorydish=function*(){
                 else{
                     counter[element['DishID']]++;
                 }
-                //counter[element['DishID']];
+              
             }
-            //console.log(counter);
        
         }
 
@@ -35,4 +35,34 @@ exports.getallhistorydish=function*(){
     } catch (e) {
         this.body={success:false,data:e};
     }   
+}
+exports.getdishwithcolum=function*(){
+    try {
+        var info=yield statistic_model.getallcookinglist();
+        var counter={};
+        for (var index in info) {
+            if (info.hasOwnProperty(index)) {
+                var element = info[index];
+                
+                var id=element.Name;
+                var day=element.OrderTime;
+
+          
+                var date=new Date(day);
+                var index=timepro.gettoday(date);
+                if(!counter[id]){
+                    counter[id]=[0,0,0];
+                }
+                counter[id][index]++;
+            }
+        }
+        res=[]
+        for (var key in counter){
+            res.push({name:key,data:counter[key]})
+        }
+        
+        this.body={success:true,data:res};
+    } catch (e) {
+        this.body={success:false,data:e};
+    }
 }

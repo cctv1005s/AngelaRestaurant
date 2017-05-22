@@ -86,4 +86,5 @@ router.post('/staff/findstaffbyclass',authRequired(7),staff.getemployeebyclass);
  * statistic部分
  */
 router.get('/statistic',authRequired(7),statistic.getallhistorydish);
+router.get('/statisticapicolumn',authRequired(7),statistic.getdishwithcolum);
 module.exports = router;
