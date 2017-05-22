@@ -41,12 +41,13 @@ export default class RedTab extends Tab {
 
   renderBox() {
     var {ID} = this.props;
+    var ele = this.props.ele;
     return (
       <div>
         <div>
           <img src="/img/icon/broom.png"  style={style.img}/>
           <h3 style={style.title}>清理中</h3>
-          <p style={style.word}>XX号员工清理中</p>
+          <p style={style.word}>{ele.EmployeeID}号员工清理中</p>
         </div>
         <div>
           <button style={style.button} onClick={this.clearTable(ID)}>

@@ -37,7 +37,6 @@ export default class Menu extends Component{
 
     getDishs(classnames){
         var self = this;
-        console.log(this);
         classnames.map(function(ele,i){
             $.get(`/api/v1/menu/type/${ele.ID}`)
             .then(function(body){
@@ -86,6 +85,8 @@ export default class Menu extends Component{
                         {
                             this.state.Dish.map(function(ele,i){
                                 if(ele.ClassID != ActiveClassID)
+                                    return ;
+                                if(ele.Status === 'Unavaliable')
                                     return ;
                                 return (
                                     <Dish 

@@ -34,14 +34,18 @@ router.get('/manager', authRequired(7), manager.index);// 经理端界面
 router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
 router.get('/table', roleRequired('employee'), table.index);//  餐桌显示界面
-
 router.get('/statistics',function*(){
     this.render('statistics/index');
 });
 router.get('/dishstatistic',function*(){
     this.render('statistics/dish');
 });
+<<<<<<< HEAD
 router.get('/columdish',function*(){
     this.render('statistics/columdish');
 });
+=======
+router.get('/profile', authRequired(), user.profile);// 个人简历界面
+
+>>>>>>> 1a9d9ff36e2ae6e7a2e13732ec313fb382d96274
 exports = module.exports = router;

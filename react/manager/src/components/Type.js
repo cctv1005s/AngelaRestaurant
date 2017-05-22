@@ -11,7 +11,7 @@ export default class TypeList extends Component {
         <div
             className={`item ${active ? 'active' : ''}`}
             onClick={() => {
-               // 选择新的条目
+             // 选择新的条目
              $(this.refs.setting).addClass('hidden');
              store.dispatch({
                  type: 'TypeSelect',
@@ -22,6 +22,7 @@ export default class TypeList extends Component {
             <span className="item-name" >{Name}</span>
             {
                     (() => {
+                      //如果没有被选中，那么就不显示设置的齿轮
                       if (!active)
                         return null;
                       return (
