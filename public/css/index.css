@@ -39,7 +39,7 @@ body{
     transform: translateY(-50%);
 }
 
-.input-item > input{
+.input-item > input,.input-item > select{
     background: none;
     border: none;
     outline: none;
@@ -51,6 +51,11 @@ body{
     padding: 0 30px;
     height: 40px;
 }
+
+#gender{
+    width: auto;
+}
+
 .input-item > input:focus{
     border-bottom: 1px solid rgb(191,190,198);
 }

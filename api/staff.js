@@ -17,7 +17,7 @@ exports.addtype=function* (next){
         var { ClassName, ClassDescription } = this.request.body;
         
         var info = yield staff_model.addtype({
-            ID: uuidV1(),
+            ID: shortid.generate(),
             ClassName: ClassName,
             ClassDescription: ClassDescription
         });
@@ -63,16 +63,19 @@ exports.addemployee=function*(next){
     }
 }
 exports.updateEmployee=function*(next){
-     console.log('in');
+    
      try{
         var body=this.request.body;
         var setstr='';
         console.log(this.request.body);
         var id=body['ID'];
         var arr=[];
+        if(body['Password']){
+            body['Password']=md5(body['Password']);
+        }
         for (var i in body){
             
-            arr.push(i+'='+body[i]);
+            arr.push(i+"='"+body[i]+"'");
         }
         setstr=arr.join(',');
         console.log(setstr);

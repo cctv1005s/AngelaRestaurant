@@ -17,7 +17,7 @@ describe('用户model的测试', () => {
 
 
   it('findByToken方法测试', function* () {
-    var r = yield modelUser.findByToken('BJ8R2j0yb');
+    var r = yield modelUser.findByToken('aaaaaa');
     expect(r).to.have.length.least(1);
 
     r = yield modelUser.findByToken('00000');

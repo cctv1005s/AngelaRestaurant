@@ -370,8 +370,20 @@
 
 .ordered-cancel > button{
     border: none;
-    background: red;
     color: white;
     height: 40px;
     width: 60px;
+}
+
+.serial{
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+    white-space: nowrap;
+}
+
+.footer-list{
+    max-height: 500px;
+    overflow: auto;
 }

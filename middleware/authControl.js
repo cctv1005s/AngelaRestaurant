@@ -26,7 +26,7 @@ exports.authRequired = function (auth) {
       console.error(e);
     }
     
-    return this.body = { success: false, data: '权限不足' };
+    return this.body = { success: false, data: '权限不足或其他错误' };
   };
 };
 

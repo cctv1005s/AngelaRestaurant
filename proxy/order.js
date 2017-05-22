@@ -175,7 +175,8 @@ exports.getDishIDByOrderID = function* (orderID) {
  */
 exports.cancelOrder = function* (orderID) {
   var query = `
-    DELETE FROM \`CustomerOrder\` WHERE ID = '${orderID}'
+    UPDATE \`CustomerOrder\` SET \`Status\`='CANCEL' 
+    WHERE (\`ID\` = '${orderID}' )
     `;
   return yield mysql.query(query);
 };
@@ -260,4 +261,27 @@ exports.distributeBusboy = function* (BusboyID, TableID) {
     ('${BusboyID}','${TableID}')
     `;
   return yield mysql.query(query);
+};
+
+
+/**
+ * 获取预订单列表
+ */
+exports.OrderList = function* () {
+  var q = `
+      SELECT * FROM CustomerOrder WHERE Status = 'RESERVE' ORDER BY OrderTime
+    `;
+  return yield mysql.query(q);
+};
+
+
+
+/**
+ * 获取用户全部订单
+ */
+exports.HistoryOrderList = function* (userid) {
+  var q = `
+      SELECT * FROM CustomerOrder WHERE UserID = '${userid}'
+    `;
+  return yield mysql.query(q);
 };

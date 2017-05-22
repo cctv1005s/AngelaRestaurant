@@ -69,7 +69,13 @@ export default class Table extends Component {
     var style = getStyle(ele.Status || 'GREEN');
     return (
       <div style={style.warpper}>
-        <div style={style.table} onClick={() => { this.setState({ tabVisible: true }); }}>
+        <div 
+          style={style.table} 
+          onClick={() => { 
+            
+            this.setState({ tabVisible: true }); 
+          }}
+        >
           {Status[ele.Status]}
         </div>
         <div style={style.text}> {ele.ID}号桌 </div>
