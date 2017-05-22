@@ -41,7 +41,24 @@ block script
         .then(function(res){
           if(!res.success)
             return alert('登陆失败，账号或密码错误');
-          window.location.href = "/table";
+          switch(res.data.ClassName.toLowerCase()){
+            case 'chef':
+              window.location.href = `/chef`;
+            break;
+            case 'manager':
+              window.location.href = `/manager`;
+            break;
+            case 'waiter':
+              window.location.href = `/table`;
+            break;
+            case 'busboy':
+              window.location.href = `/table`;
+            break;
+            default:
+              alert("here");
+              window.location.href = `/table`;
+            break;
+          }
         })
         .catch(function(e){
           alert('系统错误，请刷新界面或者联系管理员');

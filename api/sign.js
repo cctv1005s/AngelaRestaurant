@@ -86,7 +86,7 @@ exports.employeeSignin = function* () {
   if (password === md5(Password)) {
     this.session.user = r[0];
     this.session.role = 'employee';
-    return this.body = { success: true };
+    return this.body = { success: true, data: r[0] };
   }
   return this.body = { success: false, data: '密码不正确' };
 };
