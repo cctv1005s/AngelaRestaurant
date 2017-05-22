@@ -46,6 +46,8 @@ router.get('/columdish',function*(){
 });
 
 router.get('/profile', authRequired(), user.profile);// 个人简历界面
-
+router.get('/employeepie',function*(){
+    this.render('statistics/employeepie');
+});
 
 exports = module.exports = router;
