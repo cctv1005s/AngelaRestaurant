@@ -4,15 +4,19 @@
 import React , {Component} from 'react';
 
 export default class ChefDish extends Component{
+    comfirm(){
+
+    }
+
     render(){
         var {Img , Price ,Name ,Status,Description } = this.props.Dish;
         return (
             <div className="chefdish">
                 <div className="chefdish-img">
-                    <img  src={Img}/>
+                    <img  src={Img[0].ImgUrl}/>
                 </div>
                 <div className="chefdish-info">
-                    <div className="chefdish-title">红烧排骨</div>
+                    <div className="chefdish-title">{Name}</div>
                     <div className="chefdish-description">
                         {Description}
                     </div>
@@ -26,8 +30,8 @@ export default class ChefDish extends Component{
                     </div>
                 </div>
                 <div className="chefdish-op">
-                    <button onClick={}>确认</button>
-                    <button onClick={}>取消</button>
+                    <button >确认</button>
+                    <button >取消</button>
                 </div>
             </div>
         );

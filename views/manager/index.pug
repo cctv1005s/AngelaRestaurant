@@ -6,8 +6,25 @@ block content
     #app
     -var slider = [{title:'菜单信息管理',href:'/manager'},{title:'员工信息管理',href:'/manager/#/staff'},{title:'餐厅报表',href:'/manager/#/statistics'},{title:'个人资料',href:'/profile',},{title:'登出',href:'/signout'}]
     include ../model/slider
+    #my-prompt.am-modal.am-modal-prompt(tabindex='-1')
+     .am-modal-dialog
+        .am-modal-hd 创建员工
+        .am-modal-bd 
+         div 输入员工信息
+         label 账号
+         input#add-staff-account.am-modal-prompt-input.addStaff(type='text'  maxlength="11" placeholder="账号")
+         label 姓名
+         input#add-staff-name.am-modal-prompt-input.addStaff(type='text' maxlength="11" placeholder="姓名")         
+         label 密码
+         input#add-staff-password.am-modal-prompt-input.addStaff(type='password' maxlength="11" placeholder="密码")
+         label 重复密码
+         input#add-staff-repassword.am-modal-prompt-input.addStaff(type='password' maxlength="11" placeholder="重复密码")         
+        .am-modal-footer
+         span.am-modal-btn(data-am-modal-cancel='') 取消
+         span.am-modal-btn(data-am-modal-confirm='') 提交
 
 block script
+    script(src="/js/amazeui.min.js")
     script(src="/js/manager.js")
 
 block css

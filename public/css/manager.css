@@ -94,3 +94,7 @@ body{
 .manager-end-list > .item:hover{
     background: rgba(128,128,128,0.3);
 }
+
+.addStaff{
+    text-align: center;
+}

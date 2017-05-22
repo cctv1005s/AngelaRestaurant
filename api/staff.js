@@ -4,6 +4,7 @@ var md5=require('md5');
 var staff_model=require('../proxy/staff');
 var auth_model=require('../proxy/auth');
 var configjson=require('../config.json');
+
 exports.type=function*(next){
     try{
         var info=yield staff_model.getall();
@@ -12,6 +13,7 @@ exports.type=function*(next){
         this.body={success:false,data:e};
     }
 }
+
 exports.addtype=function* (next){
     
     try {
@@ -28,6 +30,7 @@ exports.addtype=function* (next){
         this.body = { success: false, data: e };
     }
 }
+
 exports.updateType=function*(){
      try{
         var body=this.request.body;
@@ -48,6 +51,7 @@ exports.updateType=function*(){
         this.body={success:false,data:e};
     }
 }
+
 exports.deletetype=function*(){
      try{
         var id=this.request.body['ID'];
@@ -56,18 +60,18 @@ exports.deletetype=function*(){
     }catch (e){
         this.body={success:false,data:e};
     }
-
 }
+
 exports.getemDetail=function* (){
     var id =this.params.id;
-    
     try{
         var emdetail=yield staff_model.getstaffdetail(id);
-        this.body={success:true,data: emdetail};
+        this.body={success:true,data: emdetail[0]};
     }catch (e){
         this.body={success:false,data:e};
     }
 }
+
 exports.getemployeebyclass=function*(){
     var classID=this.request.body.ClassID;
     try {
@@ -79,6 +83,7 @@ exports.getemployeebyclass=function*(){
 
     }
 }
+
 exports.addemployee=function*(next){
 
     try{
@@ -95,7 +100,7 @@ exports.addemployee=function*(next){
             Phone:Phone||'NULL',
             BankCard:BankCard||'NULL',
             WorkTime:WorkTime||'NULL',
-            HeadIcon:HeadIcon||'NULL',
+            HeadIcon:HeadIcon||'http://i2.muimg.com/1949/27ce5aebec733b04.png',
             ClassID:ClassID||'NULL',
             AccessToken:shortid.generate()
         });
@@ -116,6 +121,7 @@ exports.addemployee=function*(next){
         this.body={success:false,data:e};
     }
 }
+
 exports.updateEmployee=function*(next){
     
      try{
@@ -138,6 +144,7 @@ exports.updateEmployee=function*(next){
         this.body={success:false,data:e};
     }
 }
+
 exports.deleteEmployee=function*(){
     try{
         var id=this.request.body['ID'];
@@ -148,6 +155,7 @@ exports.deleteEmployee=function*(){
     }
 
 }
+
 exports.addDishForChef=function*(){
     try {
         var chefid =this.request.body['ChefID'];

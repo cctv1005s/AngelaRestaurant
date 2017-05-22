@@ -52,7 +52,7 @@ export default class List extends Component {
 
         <div className="title" onClick={this.itemAdd}>
             <i className="am-icon-plus-circle" /> 
-              添加菜品
+              添加
             </div>
 
         <div className="manager-end-list" style={{ height: `${$(window).height() - 70}px`, overflow: 'auto' }}>
