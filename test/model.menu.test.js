@@ -57,13 +57,12 @@ describe('菜单数据库测试', () => {
 
     it('菜单updateDish方法测试', function* () {
         var r = yield menuModel.updateDish({
-            ID: shortid.generate(),
-            Description: 'test1',
+            Description: shortid.generate(),
             ClassID: '1',
             Price: 100,
             Name: 'test1',
             Status: 'Available'
-        });
+        },'HyZmPGC1bW');
         expect(r).to.be.an('object');
     });
 
