@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 /**
  * 用于显示某一个类别的具体信息和操作
  */
-export default class TypeList extends Component {
+export default class Type extends Component {
   render() {
     var { ID, Name,Discription} = this.props;
     var { activeType } = store.getState();
     var active = ID == activeType;
-    var showDiscription = Discription.length >= 5 ? (Discription||"").substr(0,5)+"..." : Discription;
+    var showDiscription = (Discription||"").length >= 5 ? (Discription||"").substr(0,5)+"..." : Discription;
     return (
         <div
             className={`item ${active ? 'active' : ''}`}
@@ -20,7 +20,7 @@ export default class TypeList extends Component {
                });
            }}
           >
-            <span className="item-name" >{Name}({showDiscription})</span>
+            <span className="item-name" >{Name}<span style={{fontSize:'10px',color:'grey'}}>{showDiscription}</span></span>
             {
                     (() => {
                       //如果没有被选中，那么就不显示设置的齿轮

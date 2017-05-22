@@ -5,3 +5,7 @@ exports.index = function*(){
 exports.dish = function*(){
     this.render('statistics/dish');
 }
+
+exports.column = function*(){
+    this.render('statistics/columdish');
+}

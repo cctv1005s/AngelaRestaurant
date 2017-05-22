@@ -1,5 +1,6 @@
 import MenuFn from './MenuFn.js';
 import StaffFn from './StaffFn.js';
+import AnaFn from './AnaFn.js';
 
 var defaultState = {
   typeList:[],
@@ -17,6 +18,8 @@ export default function (state = defaultState, action = initAction) {
   var href = window.location.href;
   if(href.indexOf('staff')>=0){
       fn = StaffFn;
+  }else if(href.indexOf('statistics') >=0){
+      fn = AnaFn;
   }else{
       fn = MenuFn;
   }

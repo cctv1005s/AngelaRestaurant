@@ -36,13 +36,11 @@ router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
 router.get('/table', roleRequired('employee'), table.index);//  餐桌显示界面
 
-router.get('/columdish',function*(){
-    this.render('statistics/columdish');
-});
-
 router.get('/statistics', statistics.index);//  统计界面
 
 router.get('/statistics/dish',statistics.dish);//   菜的统计界面
+
+router.get('/statistics/column',statistics.column);// 菜的统计
 
 router.get('/profile', authRequired(), user.profile);// 个人资料界面
 
