@@ -8,32 +8,46 @@ block content
   -var header = {title:"预订单队列"}
   include ./model/nav
   #app-queue
-    .queue
+    .queue(v-for="ele in queue")
       .input-item
         span(style="background:url(/img/icon/sign-nickname.png)" )
-        input#password(value="姓名" disabled="disabled")
+        input#password(v-model="ele.NickName" disabled="disabled")
       .input-item
         span(style="background:url(/img/icon/sign-nickname.png)" )
-        input#password(value="预定时间" disabled="disabled")
+        input#password(v-model="ele.OrderTime" disabled="disabled" )
       .input-item
         span(style="background:url(/img/icon/sign-phone.png)" )
-        input#password(value="联系方式" disabled="disabled")
+        input#password(v-model="ele.Phone" disabled="disabled")
       .input-item
         span(style="background:url(/img/icon/sign-account.png)" )
-        input#password(value="人数" disabled="disabled")
+        input#password(v-model="ele.PeopleNum" disabled="disabled")
 
 block script
   script(src="https://unpkg.com/vue@2.3.3/dist/vue.js")
   script.
+   var timeFormat = function(d){
+     return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
+   }
+
    var app = new Vue({
-    el: '#app',
+    el: '#app-queue',
     data: {
-      message: []
+      queue: []
     },
     created:function(){
       var vm = this;
-      setInterval(()=>{
-        vm.message ++;
-      },1000);
+      fetch('/api/v1/order/list')
+      .then(res=>{
+        return res.json();
+      })
+      .then(j=>{  
+        if(!j.success)
+          return alert("获取数据失败")
+        var d = j.data;
+        d.map((ele,i)=>{
+          ele.OrderTime = timeFormat(new Date(ele.OrderTime));
+        });
+        vm.queue = j.data;
+      })
     }
    });
