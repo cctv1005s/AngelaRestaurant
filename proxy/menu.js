@@ -49,7 +49,9 @@ exports.oneDish = function* (id) {
     var sql = `select * from  DishImg where DishID = '${id}'`;
     var imgs = yield mysql.query(sql);
     dishs[0].Imgs = imgs;
-    
+    var sql = `SELECT COUNT(DishID)  FROM  CookingList WHERE DishID = '${id}' AND Status <> 'CANCEL'`;
+    var count = yield mysql.query(sql);
+    dishs[0].Count = count;
     return dishs;
 }
 /**

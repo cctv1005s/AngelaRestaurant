@@ -24,7 +24,8 @@ exports.setReserve = function* (preOrder) {
 exports.findReserveByUseID = function* (userID) {
   var query = `
     SELECT * FRom \`CustomerOrder\`
-    WHERE UserID = '${userID}'
+    WHERE UserID = '${userID}' 
+    AND Status != 'FINISH'
     `;
 
   return yield mysql.query(query);

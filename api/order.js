@@ -18,10 +18,10 @@ exports.reserve = function* () {
   var OrderDate = new Date(OrderTime);
   var NowDate = new Date();
   var days = Math.floor(((OrderDate.getTime() - NowDate.getTime()) / (24 * 3600 * 1000)));
-  if (days < 1 || days > 7) { return this.body = { success: false, data: '请预订七天以内的时间' }; }
-  var userInfo = yield userModel.findByID(UserId);
+  if (days < 0 || days > 7) { return this.body = { success: false, data: '请预订七天以内的时间' }; }
+  // var userInfo = yield userModel.findByID(UserId);
 
-  if (userInfo.length === 0) { return this.body = { success: false, data: '没有该用户' }; }
+  // if (userInfo.length === 0) { return this.body = { success: false, data: '没有该用户' }; }
 
 
   var userOrder = yield orderModel.findReserveByUseID(UserId);
@@ -50,7 +50,6 @@ exports.addDish = function* () {
   var { DishIDList } = this.request.body;
   var chefIDlist = [];
   var chefIDlistCount = [];
-
   // 将菜分发到具体的厨师
   for (var i = 0; i < DishIDList.length; i++) {
     chefIDlist = yield orderModel.findChefIDByDishID(DishIDList[i].DishID);
@@ -60,7 +59,7 @@ exports.addDish = function* () {
 
     for (let j = 0; j < DishIDList[i].Count; j++) {
       var indexChef = chefIDlistCount.indexOf(Math.min(...chefIDlistCount));
-    
+
       yield orderModel.insertCookingList({
         CookingID: uuidV1(),
         OrderID: orderID,
@@ -110,7 +109,6 @@ exports.subDish = function* () {
 
 exports.cancelOrder = function* () {
   var orderID = this.params.id;
-  console.log(orderID);
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
 
 
@@ -131,6 +129,7 @@ exports.cancelOrder = function* () {
 exports.payforOrder = function* () {
   var orderID = this.params.id;
   var dishIDList = yield orderModel.getDishIDByOrderID(orderID);
+  console.log(dishIDList);
   if (dishIDList.length === 0) { return this.body = { success: false, data: '此订单还未点餐' }; }
   var amount = 0.0;
   for (var i = 0; i < dishIDList.length; i++) {

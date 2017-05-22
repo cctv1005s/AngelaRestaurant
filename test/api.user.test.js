@@ -17,7 +17,7 @@ describe('Api_ User接口测试', () => {
       Phone: '12345678901',
       NickName: 'testNickName',
       RePassword: p,
-      Gender:'Female'
+      Gender: 'Female',
     };
     var r = yield request
             .post('/api/v1/signup')
@@ -25,14 +25,14 @@ describe('Api_ User接口测试', () => {
             .end();
     r = r.body;
     expect(r.success).to.equal(true);
-    //重复注册，报错
+    // 重复注册，报错
     var r = yield request
             .post('/api/v1/signup')
             .send(newUser);
     r = r.body;
     expect(r.success).to.equal(false);
 
-    //登陆
+    // 登陆
     var r = yield request
                   .post('/api/v1/signin')
                   .send(newUser)
@@ -47,8 +47,7 @@ describe('Api_ User接口测试', () => {
     d = r.body;
     expect(d.success).to.equal(false);
 
-    //测试完毕，删除这个用户
+    // 测试完毕，删除这个用户
     yield mysql.query(`DELETE FROM \`Customer\` WHERE (\`Account\`='${newUser.Account}')`);
   });
-
 });
