@@ -20,7 +20,7 @@ describe('餐桌model的测试', () => {
         var r = yield table_model.newOrder({
             ID: shortid.generate(),
             TableID: '3',
-            UserID: '1',
+            UserID: 'rk4LPGJWZ',
             OrderTime: new Date(),
             Phone: 12345678987,
             Type: 1,

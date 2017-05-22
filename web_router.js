@@ -6,6 +6,7 @@ var order = require('./routes/order');
 var chef = require('./routes/chef');
 var manager = require('./routes/manager');
 var table = require('./routes/table');
+var statistics = require('./routes/statistics');
 
 var authControl = require('./middleware/authControl');//  权限控制
 var authRequired = authControl.authRequired;
@@ -34,20 +35,23 @@ router.get('/manager', authRequired(7), manager.index);// 经理端界面
 router.get('/employee/login', site.employeeLogin);//  员工登陆界面
 
 router.get('/table', roleRequired('employee'), table.index);//  餐桌显示界面
-router.get('/statistics',function*(){
-    this.render('statistics/index');
-});
-router.get('/dishstatistic',function*(){
-    this.render('statistics/dish');
-});
 
 router.get('/columdish',function*(){
     this.render('statistics/columdish');
 });
 
-router.get('/profile', authRequired(), user.profile);// 个人简历界面
+
 router.get('/employeepie',function*(){
     this.render('statistics/employeepie');
 });
+
+router.get('/statistics', statistics.index);//  统计界面
+
+router.get('/statistics/dish',statistics.dish);//   菜的统计界面
+
+router.get('/profile', authRequired(), user.profile);// 个人资料界面
+
+router.get('/queue', site.queue);//叫号的队列
+
 
 exports = module.exports = router;
