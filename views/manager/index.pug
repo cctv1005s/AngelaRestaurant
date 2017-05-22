@@ -25,6 +25,11 @@ block content
 
 block script
     script(src="/js/amazeui.min.js")
+    script.
+     $('#slider').click(e=>{
+         store.dispatch({type:'@@redux/INIT'});
+     });
+
     script(src="/js/manager.js")
 
 block css

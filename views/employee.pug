@@ -4,24 +4,23 @@ block css
   link(href="/css/index.css" rel="stylesheet" type="text/css")
 
 block content
-  .logo
-    img(src="/img/logo.png")
-  
-  .input-box
-    .input-item
-      span(style="background:url(/img/icon/sign-account.png)")
-      input#account(type="text" name="account" maxlength="13"  autofocus="autofocus")
-    .input-item
-      span(style="background:url(/img/icon/sign-password.png)" )
-      input#password(type="password" name="password" maxlength="10")
+  #app-index
+    .logo
+      img(src="/img/logo-blue.png")
+    
+    .input-box
+      .input-item
+        span(style="background:url(/img/icon/sign-account.png)")
+        input#account(type="text" name="account" maxlength="13"  autofocus="autofocus")
+      .input-item
+        span(style="background:url(/img/icon/sign-password.png)" )
+        input#password(type="password" name="password" maxlength="10")
 
-  .check
-    button#check-btn 员工登陆
-    .check-info
-      span.left 
-        a(href="#") 忘记密码？
-  .employee
-    a(href="/") 顾客登陆
+    .check
+      button#check-btn 员工登陆
+      .check-info
+    .employee
+      a(href="/") 顾客登陆
 
 block script
   script.
@@ -42,7 +41,24 @@ block script
         .then(function(res){
           if(!res.success)
             return alert('登陆失败，账号或密码错误');
-          window.location.href = "/table";
+          switch(res.data.ClassName.toLowerCase()){
+            case 'chef':
+              window.location.href = `/chef`;
+            break;
+            case 'manager':
+              window.location.href = `/manager`;
+            break;
+            case 'waiter':
+              window.location.href = `/table`;
+            break;
+            case 'busboy':
+              window.location.href = `/table`;
+            break;
+            default:
+              alert("here");
+              window.location.href = `/table`;
+            break;
+          }
         })
         .catch(function(e){
           alert('系统错误，请刷新界面或者联系管理员');

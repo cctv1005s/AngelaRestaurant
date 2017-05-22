@@ -10,24 +10,15 @@ var timeFormat = require('../tools/time.js');
 exports.reserve = function* () {
   var { PeopleNum, Phone, OrderTime } = this.request.body;
   var UserId = this.session.user.ID;
-
   if (PeopleNum < 1 || PeopleNum > 20) { return this.body = { success: false, data: '预订人数范围为1-20人' }; }
-
   if (Phone.length !== 11) { return this.body = { success: false, data: '电话号码错误' }; }
-
   var OrderDate = new Date(OrderTime);
   var NowDate = new Date();
   var days = Math.floor(((OrderDate.getTime() - NowDate.getTime()) / (24 * 3600 * 1000)));
   if (days < 0 || days > 7) { return this.body = { success: false, data: '请预订七天以内的时间' }; }
-  // var userInfo = yield userModel.findByID(UserId);
-
-  // if (userInfo.length === 0) { return this.body = { success: false, data: '没有该用户' }; }
-
-
   var userOrder = yield orderModel.findReserveByUseID(UserId);
-
   if (userOrder.length !== 0) { return this.body = { success: false, data: '该用户已有订单了' }; }
-
+  OrderTime = parseInt(OrderTime);
   var reserveOrder = yield orderModel.setReserve({
     OrderID: shortid.generate(),
     UserId,

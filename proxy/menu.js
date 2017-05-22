@@ -23,13 +23,16 @@ exports.oneType = function* (id) {
         var sql = `select * from  DishImg where DishID = '${id}'`;
         var imgs = yield mysql.query(sql);
         dishs[i].Imgs = imgs;
+        var sql = `SELECT COUNT(DishID) AS Count FROM  CookingList WHERE DishID = '${id}' AND Status <> 'CANCEL'`;
+        var count = yield mysql.query(sql);
+        dishs[i].Count = count[0].Count;
     }
     return dishs;
 }
 /**
  * 获取所有菜
  */
-exports.allDish = function*(id){
+exports.allDish = function* (id) {
     var sql = `
         select * from Dish 
     `;
@@ -49,7 +52,9 @@ exports.oneDish = function* (id) {
     var sql = `select * from  DishImg where DishID = '${id}'`;
     var imgs = yield mysql.query(sql);
     dishs[0].Imgs = imgs;
-    
+    var sql = `SELECT COUNT(DishID) AS Count FROM  CookingList WHERE DishID = '${id}' AND Status <> 'CANCEL'`;
+    var count = yield mysql.query(sql);
+    dishs[0].Count = count[0].Count;
     return dishs;
 }
 /**
@@ -129,7 +134,7 @@ exports.deleteDish = function* (id) {
  * 
  * @param {object} dishData 菜
  */
-exports.updateDish = function* (dishData,ID) {
+exports.updateDish = function* (dishData, ID) {
     var sql = `
     update \`Dish\` set ${dishData}  
     WHERE ID = '${ID}'
@@ -143,7 +148,7 @@ exports.updateDish = function* (dishData,ID) {
  * @param {string} dishID 菜 
  * @param {string} Img 图片
  */
-exports.updateDishImg = function* (dishID,Img) {
+exports.updateDishImg = function* (dishID, Img) {
     var sql = `
     update \`DishImg\` set ImgUrl = '${Img}'
     WHERE DishID = '${dishID}'

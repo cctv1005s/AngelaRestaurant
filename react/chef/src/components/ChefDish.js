@@ -5,7 +5,34 @@ import React , {Component} from 'react';
 
 export default class ChefDish extends Component{
     comfirm(){
+        var {ID,Status} = this.props.Dish;
+        if(Status == 'WAIT'){
+            $.post(`/api/v1/chef/1/confirm/${ID}`)
+            .then(res=>{
+                if(!res.success)
+                    alert('操作失败,请重试');
+            });
+        }else if(Status == 'COOKING'){
+            $.post(`/api/v1/chef/1/finish/${ID}`)
+             .then(res =>{
+                if(!res.success)
+                    alert('操作失败,请重试');                 
+             })
+        }
+        this.props.onEnd();
+    }
 
+    cancel(){
+        var {ID,Status} = this.props.Dish;
+        $.post(`/api/v1/chef/1/cancel/${ID}`)
+         .then(res=>{
+            if(res.success)
+                alert('取消成功');
+            else{
+                alert('取消失败'+res.data );
+            }
+         });
+         this.props.onEnd();
     }
 
     render(){
@@ -30,8 +57,8 @@ export default class ChefDish extends Component{
                     </div>
                 </div>
                 <div className="chefdish-op">
-                    <button >确认</button>
-                    <button >取消</button>
+                    <button onClick={this.comfirm.bind(this)}>确认</button>
+                    <button onClick={this.cancel.bind(this)}>取消</button>
                 </div>
             </div>
         );
