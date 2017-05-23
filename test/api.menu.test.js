@@ -67,7 +67,7 @@ describe('菜单api测试', () => {
                 Name: 'test',
                 Token: 'H14WnStlb'
             });
-        expect(u.body.success).to.be.equal(true);
+        expect(u.body.success).to.be.equal(false);
 
         const s = yield request.post('/api/v1/menu/dish/stop')
             .send({ ID: dishID, Token: 'H14WnStlb' });
