@@ -52,22 +52,22 @@ $ node app.js
 清晰美观，简洁大方
 
 登陆界面
-![Alt text](blob:https://maxiang.io/fa19553b-4444-41c4-aa5f-855102a211bc)
+![Alt text](http://i1.piimg.com/588926/dcd5c88a1e14de2d.png)
 
 点餐界面
-![Alt text](blob:https://maxiang.io/3fba16f8-7a68-4ed3-a951-315ec104c7f6)
+![Alt text](http://i1.piimg.com/588926/a94ee8eb77e8bee5.png)
 
 
 餐桌管理界面
-![Alt text](blob:https://maxiang.io/6673ce73-937b-460a-a656-db99637d3c3b)
+![Alt text](http://i1.piimg.com/588926/6ac54d57b827656f.png )
 
 预订单队列
 ![Alt text](blob:https://maxiang.io/7c316171-7bd5-4fd4-9fdc-499b8c4d9ff9)
 
 经理管理界面
-![Alt text](blob:https://maxiang.io/6444295b-7bb6-4969-82b2-3b32ff6358bd)
+![Alt text](http://i1.piimg.com/588926/b27e26b7a08f63af.png)
 
 报表界面
-![Alt text](blob:https://maxiang.io/90eee779-53b2-46fb-b1f1-cef06905b0ee)
+![Alt text](http://i1.piimg.com/588926/ad9ade7d76ac78e5.png)
 
 
