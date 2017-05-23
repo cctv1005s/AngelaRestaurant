@@ -62,7 +62,7 @@ $ node app.js
 ![Alt text](http://i1.piimg.com/588926/6ac54d57b827656f.png )
 
 预订单队列
-![Alt text](blob:https://maxiang.io/7c316171-7bd5-4fd4-9fdc-499b8c4d9ff9)
+![Alt text](http://i1.piimg.com/588926/aa5d6ef0dde24b82.png)
 
 经理管理界面
 ![Alt text](http://i1.piimg.com/588926/b27e26b7a08f63af.png)
