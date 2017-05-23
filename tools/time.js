@@ -25,13 +25,16 @@ exports.gettoday=function(date){
     befoyesterday.setDate(yesterday.getDate()-1);
     var startday=new Date();
     startday.setDate(befoyesterday.getDate()-1);
-    if (yesterday<date<today) {
+    console.log(yesterday);
+    console.log(befoyesterday);
+    console.log(date);
+    if (yesterday<date&&date<today) {
       return 2;
     }
-    if(befoyesterday<date<yesterday){
+    if(befoyesterday<date&&date<yesterday){
       return 1;
     }
-    if (startday<date<befoyesterday) {
+    if (startday<date&&date<befoyesterday) {
       return 0;
     }
     
