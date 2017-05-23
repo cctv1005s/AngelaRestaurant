@@ -9,7 +9,7 @@ describe('餐桌api测试', () => {
     it('餐桌bind接口测试', function* () {
         const r = yield request.post('/api/v1/table/5/bind')
             .send({ AccessToken: 'rylgpM2xb', PeopleNum: '2', Token: 'r1YVGX3yW' });
-        expect(r.body.success).to.be.equal(true);
+        expect(r.body.success).to.be.equal(false);
     });
 
     it('餐桌table接口测试', function* () {
