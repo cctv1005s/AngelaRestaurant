@@ -51,3 +51,13 @@ exports.findByToken = function* (token) {
   `;
   return yield mysql.query(query);
 };
+
+
+exports.setPassword = function*(ID,Password){
+  var q = `
+    UPDATE \`Customer\` 
+    SET  \`Password\`='${Password}' 
+    WHERE (\`ID\`='${ID}')
+  `;
+  return yield mysql.query(q);
+}

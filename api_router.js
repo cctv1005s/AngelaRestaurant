@@ -19,6 +19,7 @@ router.post('/signin', sign.signin);// 登陆
 router.get('/signout', sign.signout);// 登出
 router.post('/signup', sign.signup);// 注册
 router.post('/employeeSignin', sign.employeeSignin);// 员工登录
+router.post('/passwordReset', authRequired(),sign.passwordReset); //顾客重设密码
 
 /*
  * order部分

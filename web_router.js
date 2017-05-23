@@ -46,7 +46,8 @@ router.get('/statistics/column',statistics.column);// 菜的统计
 
 router.get('/profile', authRequired(), user.profile);// 个人资料界面
 
-router.get('/queue', site.queue);//叫号的队列
+router.get('/queue', site.queue);// 叫号的队列
 
+router.get('/reset', roleRequired('customer'), user.reset);// 重设密码
 
 exports = module.exports = router;
