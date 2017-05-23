@@ -39,6 +39,7 @@ exports.reserve = function* () {
 exports.addDish = function* () {
   var orderID = this.params.id;
   var { DishIDList } = this.request.body;
+  console.log(DishIDList);
   var chefIDlist = [];
   var chefIDlistCount = [];
   // 将菜分发到具体的厨师

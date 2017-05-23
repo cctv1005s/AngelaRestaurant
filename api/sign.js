@@ -101,9 +101,9 @@ exports.passwordReset = function* () {
     if (_Password == md5(Password) && NewPassword == ReNewPassword) {
       yield userModel.setPassword(ID, md5(NewPassword));
       return this.body = { success: true, data: '重新设置密码成功' };
-    }else{
-      return this.body = { success: false, data: '输入密码不正确或两次密码不一致' };
     }
+      return this.body = { success: false, data: '输入密码不正确或两次密码不一致' };
+    
   } catch(e) {
     return this.body = { success: false, data: e.message };
   }
