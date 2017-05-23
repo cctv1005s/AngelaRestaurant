@@ -1,0 +1,50 @@
+extends ../layout.pug
+
+block css
+  link(href="/css/index.css" rel="stylesheet" type="text/css")
+
+block content
+  #app-index    
+    .input-box
+      .input-item
+        span(style="background:url(/img/icon/sign-password.png)")
+        input#password(type="password" name="account" maxlength="13"  autofocus="autofocus" placeholder="旧密码")
+      .input-item
+        span(style="background:url(/img/icon/sign-password.png)" )
+        input#newPassword(type="password" name="password" maxlength="10" placeholder="新密码")
+      .input-item
+        span(style="background:url(/img/icon/sign-password.png)" )
+        input#reNewPassword(type="password" name="password" maxlength="10" placeholder="重复新密码")
+
+    .check
+      button#check-btn 更新密码
+
+block script
+  script.
+    $(function(){
+      var $password = $("#password");
+      var $newPassword = $("#newPassword");
+      var $reNewPassword = $("#reNewPassword");
+      var $button = $('#check-btn');
+      //点击登录
+      $button.click(function(e){
+        $.ajax({
+          url:'/api/v1/passwordReset',
+          type:'post',
+          data:{
+            Password:$password.val(),
+            NewPassword:$newPassword.val(),
+            ReNewPassword:$reNewPassword.val()
+          }
+        })
+        .then(function(res){
+          if(!res.success)
+            return alert(res.data);
+          alert('更新成功');
+          window.history.go(-1);
+        })
+        .catch(function(e){
+          alert('系统错误，请刷新界面或者联系管理员');
+        });
+      });
+    });

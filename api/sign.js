@@ -90,3 +90,22 @@ exports.employeeSignin = function* () {
   }
   return this.body = { success: false, data: '密码不正确' };
 };
+
+
+exports.passwordReset = function* () {
+  var { ID } = this.session.user;
+  var user = yield userModel.findByID(ID);
+  var _Password = user[0].Password;
+  var { Password, NewPassword, ReNewPassword } = this.request.body;
+  try {
+    if (_Password == md5(Password) && NewPassword == ReNewPassword) {
+      yield userModel.setPassword(ID, md5(NewPassword));
+      return this.body = { success: true, data: '重新设置密码成功' };
+    }else{
+      return this.body = { success: false, data: '输入密码不正确或两次密码不一致' };
+    }
+  } catch(e) {
+    return this.body = { success: false, data: e.message };
+  }
+};
+

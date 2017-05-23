@@ -30,3 +30,8 @@ exports.profile = function* () {
       break;
   }
 };
+
+
+exports.reset = function*(){
+  this.render('user/reset',{sitename:'设置密码'});
+}
