@@ -101,7 +101,7 @@ exports.addemployee=function*(next){
             BankCard:BankCard||'NULL',
             WorkTime:WorkTime||'NULL',
             HeadIcon:HeadIcon||'http://i2.muimg.com/1949/27ce5aebec733b04.png',
-            ClassID:ClassID||'NULL',
+            ClassID:ClassID||'1',
             AccessToken:shortid.generate()
         });
         var role=configjson.role;

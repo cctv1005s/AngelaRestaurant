@@ -25,9 +25,7 @@ exports.gettoday=function(date){
     befoyesterday.setDate(yesterday.getDate()-1);
     var startday=new Date();
     startday.setDate(befoyesterday.getDate()-1);
-    console.log(yesterday);
-    console.log(befoyesterday);
-    console.log(date);
+  
     if (yesterday<date&&date<today) {
       return 2;
     }
