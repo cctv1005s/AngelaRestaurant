@@ -30,7 +30,7 @@ describe('staff的数据库测试', () =>  {
         BankCard:'123',
         WorkTime:'10:10',
         HeadIcon:'NULL',
-        ClassID:'1',
+        ClassID:'2',
         AccessToken:shortid.generate()
     });
     expect(r).to.be.an('object');

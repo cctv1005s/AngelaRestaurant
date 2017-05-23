@@ -33,7 +33,7 @@ describe('satffApi接口测试', () => {
     yield request
         .post('/api/v1/staff/add')
         .send({Account:'testwang',Password:'password',Name:'王测试',Salary:'10',Phone:'12112121212',BankCard:'123',
-        WorkTime:'10:10',ClassID:'1'});
+        WorkTime:'10:10',ClassID:'2'});
            expect(r['body']['success']).to.be.true;
   });
   it('update a employee',function* (){
