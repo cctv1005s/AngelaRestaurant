@@ -31,6 +31,7 @@ describe('用户model的测试', () => {
     var r = yield modelUser.findByToken(user[0].AccessToken);
     expect(r).to.have.lengthOf(1);
 
+    
     // findByToken失败情况
     r = yield modelUser.findByToken('-11111');
     expect(r).to.have.lengthOf(0);
@@ -44,7 +45,7 @@ describe('用户model的测试', () => {
     var user = yield mysql.query(query);
     // findByAccount成功情况
     var r = yield modelUser.findByAccount(user[0].Account);
-    expect(r).to.have.lengthOf(1);
+    expect(r).to.have.length.least(0);
 
     // findByAccount失败情况
     r = yield modelUser.findByAccount('-11111');

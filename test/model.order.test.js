@@ -17,6 +17,7 @@ describe('订单model的测试', () => {
     (SELECT UserID FROM CustomerOrder)
     `;
     var user = yield mysql.query(query);
+    console.log(user);
     var order = shortid.generate();
     var r = yield orderModel.setReserve({
       OrderID: order,

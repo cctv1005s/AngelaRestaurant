@@ -6,7 +6,7 @@ const sign = require('./api/sign');
 const table = require('./api/table');
 const staff = require('./api/staff');
 var chef = require('./api/chef');
-var statistic=require('./api/statistic');
+var statistic = require('./api/statistic');
 const authControl = require('./middleware/authControl.js');// 权限控制
 const token = require('./middleware/token.js');// token转换函数
 
@@ -19,7 +19,7 @@ router.post('/signin', sign.signin);// 登陆
 router.get('/signout', sign.signout);// 登出
 router.post('/signup', sign.signup);// 注册
 router.post('/employeeSignin', sign.employeeSignin);// 员工登录
-router.post('/passwordReset', authRequired(),sign.passwordReset); //顾客重设密码
+router.post('/passwordReset', authRequired(), sign.passwordReset); // 顾客重设密码
 
 /*
  * order部分
@@ -57,11 +57,11 @@ router.post('/menu/type/delete', authRequired(7), menu.deleteType);
 router.post('/menu/type/update', authRequired(7), menu.updateType);
 router.get('/menu/type/:id', menu.oneType);
 router.get('/menu/type', menu.type);
-router.post('/menu/dish/add',authRequired(7), menu.addDish);
-router.post('/menu/dish/delete', authRequired(7),menu.deleteDish);
-router.post('/menu/dish/update', authRequired(7),menu.updateDish);
-router.post('/menu/dish/updateimg', authRequired(7),menu.updateDishImg);
-router.post('/menu/dish/stop', authRequired(7),menu.stopDish);
+router.post('/menu/dish/add', authRequired(7), menu.addDish);
+router.post('/menu/dish/delete', authRequired(7), menu.deleteDish);
+router.post('/menu/dish/update', authRequired(7), menu.updateDish);
+router.post('/menu/dish/updateimg', authRequired(7), menu.updateDishImg);
+router.post('/menu/dish/stop', authRequired(7), menu.stopDish);
 router.get('/menu/dish/:id', menu.oneDish);
 
 /**
@@ -74,19 +74,19 @@ router.post('/table/cleanup', authRequired(6), table.cleanup);
 /**
  * staff部分
  */
-router.get('/staff/type',authRequired(7),staff.type);
-router.post('/staff/type/add',authRequired(7),staff.addtype);
-router.post('/staff/type/update',authRequired(7),staff.updateType);
-router.post('/staff/type/sub',authRequired(7),staff.deletetype);
-router.get('/staff/:id',authRequired(7),staff.getemDetail);
-router.post('/staff/add',authRequired(7),staff.addemployee);
-router.post('/staff/update',authRequired(7),staff.updateEmployee);
-router.post('/staff/sub',authRequired(7),staff.deleteEmployee);
-router.post('/staff/findstaffbyclass',authRequired(7),staff.getemployeebyclass);
+router.get('/staff/type', authRequired(7), staff.type);
+router.post('/staff/type/add', authRequired(7), staff.addtype);
+router.post('/staff/type/update', authRequired(7), staff.updateType);
+router.post('/staff/type/sub', authRequired(7), staff.deletetype);
+router.get('/staff/:id', authRequired(7), staff.getemDetail);
+router.post('/staff/add', authRequired(7), staff.addemployee);
+router.post('/staff/update', authRequired(7), staff.updateEmployee);
+router.post('/staff/sub', authRequired(7), staff.deleteEmployee);
+router.post('/staff/findstaffbyclass', authRequired(7), staff.getemployeebyclass);
 /**
  * statistic部分
  */
-router.get('/statistic',authRequired(7),statistic.getallhistorydish);
-router.get('/statisticapicolumn',authRequired(7),statistic.getdishwithcolum);
-router.get('/statistic/employee',authRequired(7),statistic.getallemployee);
+router.get('/statistic', authRequired(7), statistic.getallhistorydish);
+router.get('/statisticapicolumn', authRequired(7), statistic.getdishwithcolum);
+router.get('/statistic/employee', authRequired(7), statistic.getallemployee);
 module.exports = router;
