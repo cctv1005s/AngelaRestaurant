@@ -1,0 +1,27 @@
+CACHE MANIFEST
+/js/amazeui.min.js
+/js/calendar.js
+/js/chef.js
+/js/jq-calendar.min.js
+/js/jquery-accordion-menu.js
+/js/manager.js
+/js/menu.js
+/js/table.js
+/js/jquery.min.js
+
+/css/amazeui.min.css
+/img/dish.png
+/img/logo-blue.png
+/img/logo.png
+/img/icon/broom.png
+/img/icon/shopcart.png
+/img/icon/sign-account.png
+/img/icon/sign-gender.png
+/img/icon/sign-nickname.png
+/img/icon/sign-password.png
+/img/icon/sign-phone.png
+/img/icon/sign-salary.png
+/img/icon/sign-time.png
+
+NETWORK:
+*
