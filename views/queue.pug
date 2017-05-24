@@ -26,7 +26,7 @@ block script
   script(src="https://unpkg.com/vue@2.3.3/dist/vue.js")
   script.
    var timeFormat = function(d){
-     return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
+     return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}`;
    }
 
    var app = new Vue({
