@@ -13,13 +13,15 @@ export default class OrderedMenu extends Component {
     var reg = pathname.match(/\/menu\/(.*)/); 
     var id = reg[1];
     this.OrderID = id;
-    $.get(`/api/v1/order/${id}/dish`)
-     .then((res)=>{
-        if(res.success)
-            self.setState({orderedDish:res.data});
-        else
-            alert("请求失败，请刷新重试");
-    });
+    setInterval(()=>{
+        $.get(`/api/v1/order/${id}/dish`)
+        .then((res)=>{
+            if(res.success)
+                self.setState({orderedDish:res.data});
+            else
+                alert("请求失败，请刷新重试");
+        });
+    },1000);
   }
 
   cancelDish(ID){
@@ -63,7 +65,6 @@ export default class OrderedMenu extends Component {
                         this.allCount += ele.Price;
                     return (
                     <div className="ordered-item">
-                        <div className="img"><img src="http://img1.cache.netease.com/catchpic/A/A3/A3620DF6788FB30026E185BDD6D6182B.jpg" /></div>
                         <div className="info">
                             <h3 maxLength="10">{ele.Name}</h3>
                             <p maxLength="10">{ele.Description}</p>
@@ -80,6 +81,8 @@ export default class OrderedMenu extends Component {
                                             return (<button className="am-btn-default" disabled="disabled">制作中</button>);
                                         case 'CANCEL':
                                             return (<button className="am-btn-default" disabled="disabled">已取消</button>);
+                                        case 'FINISH':
+                                            return (<button className="am-btn-default" disabled="disabled">完成</button>);
                                         default:
                                             return (<button className="am-btn-default" disabled="disabled">未知状态</button>);
                                     }

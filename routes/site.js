@@ -1,7 +1,29 @@
 exports.index = function () {
   if (this.session.user) {
+    var user = this.session.user;
+    if('ClassName' in user){
+      var {ClassName} = user;
+      switch(ClassName.toLowerCase()){
+        case 'chef':
+          return this.redirect(`/chef`);
+        break;
+        case 'manager':
+          return this.redirect(`/manager`);
+        break;
+        case 'waiter':
+          return this.redirect(`/table`);
+        break;
+        case 'busboy':
+          return  this.redirect(`/table`);
+        break;
+        default:
+          return  this.redirect(`/table`);
+        break;
+      }
+    }
     return this.redirect('/user');
   }
+
   this.render('index', { sitename: '登陆' });
 };
 

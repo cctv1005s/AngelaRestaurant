@@ -10,14 +10,16 @@ export default class Index extends Component {
     }
 
   componentDidMount(){
-    $.get(`/api/v1/chef/1/order`)
-        .then(res =>{
-          if(!res.success)
-            alert('获取数据失败' + res.data);
-          this.setState({
-            Dish:res.data
-          });
-        });
+    setInterval(()=>{
+        $.get(`/api/v1/chef/1/order`)
+            .then(res =>{
+            if(!res.success)
+                alert('获取数据失败' + res.data);
+            this.setState({
+                Dish:res.data
+            });
+            });
+    },1000);
   }
 
   render() {
